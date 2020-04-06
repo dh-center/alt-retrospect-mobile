@@ -1,6 +1,5 @@
 import React from 'react';
-import {Input, Icon} from '@ui-kitten/components';
-
-const SearchIcon = style => <Icon {...style} name="search" />;
+import {Input} from '@ui-kitten/components';
+import {SearchIcon} from './icons/SearchIcon';
 
 export const SearchBar = () => <Input placeholder="Search" icon={SearchIcon} />;

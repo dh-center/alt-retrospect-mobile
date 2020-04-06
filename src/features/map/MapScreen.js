@@ -7,7 +7,7 @@ import {Map} from '../../components/Map';
 export const MapScreen = ({navigation}) => {
     return (
         <SafeAreaView style={{flex: 1}}>
-            <Layout style={{padding: 10}}>
+            <Layout style={{padding: 10, backgroundColor: 'transparent'}}>
                 <SearchBar />
             </Layout>
             <Map />
