@@ -19,6 +19,8 @@ export const BottomTabBar = ({navigation, state}) => {
                 <BottomNavigationTab title="Routes" icon={RoutesIcon} />
                 <BottomNavigationTab title="Map" icon={MapIcon} />
                 <BottomNavigationTab title="Profile" icon={ProfileIcon} />
+                <BottomNavigationTab title="Sign In" icon={ProfileIcon} />
+                <BottomNavigationTab title="Sign Up" icon={ProfileIcon} />
             </BottomNavigation>
         </SafeAreaView>
     );
