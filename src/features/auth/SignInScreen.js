@@ -27,7 +27,11 @@ export const SignInScreen = ({navigation}) => {
                 <Button style={styles.button} appearance="filled" status="info">
                     Log In
                 </Button>
-                <Button style={styles.button} appearance="ghost" status="info">
+                <Button
+                    style={styles.button}
+                    appearance="ghost"
+                    status="info"
+                    onPress={() => navigation.navigate('SignUp')}>
                     Register
                 </Button>
             </Layout>

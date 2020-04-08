@@ -4,7 +4,7 @@ import {ApplicationProvider, IconRegistry} from '@ui-kitten/components';
 import {light as lightTheme, mapping} from '@eva-design/eva';
 import {default as appTheme} from './src/styles/theme.json';
 import {EvaIconsPack} from '@ui-kitten/eva-icons';
-import {AppNavigator} from './src/navigation/navigation';
+import {AppNavigator} from './src/navigation/appNavigator';
 
 const theme = {...lightTheme, ...appTheme};
 

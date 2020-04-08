@@ -27,6 +27,13 @@ export const SignUpScreen = ({navigation}) => {
                 <Button style={styles.button} appearance="filled" status="info">
                     Register
                 </Button>
+                <Button
+                    style={styles.button}
+                    appearance="ghost"
+                    status="info"
+                    onPress={() => navigation.navigate('SignIn')}>
+                    Back to Login
+                </Button>
             </Layout>
         </SafeAreaView>
     );
