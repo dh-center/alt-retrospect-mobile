@@ -2,7 +2,6 @@ import React from 'react';
 import {Icon, Input} from '@ui-kitten/components';
 
 export const PasswordInput = props => {
-    const [value, setValue] = React.useState('');
     const [secureTextEntry, setSecureTextEntry] = React.useState(
         props.secureStateEntry,
     );
@@ -17,13 +16,12 @@ export const PasswordInput = props => {
 
     return (
         <Input
+            {...props}
             label="Password"
-            value={value}
             placeholder="********"
             icon={renderIcon}
             secureTextEntry={secureTextEntry}
             onIconPress={onIconPress}
-            onChangeText={setValue}
         />
     );
 };
