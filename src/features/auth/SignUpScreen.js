@@ -5,15 +5,16 @@ import {EmailInput} from '../../components/EmailInput';
 import {PasswordInput} from '../../components/PasswordInput';
 import {
     Layout,
-    StyleService,
     Text,
     Button,
     useStyleSheet,
 } from '@ui-kitten/components';
 import {userSignIn, userSignUp} from '../../api/auth';
+import {authScreenStyles, sharedStyles} from '../../styles/styleProvider';
 
 export const SignUpScreen = ({navigation}) => {
-    const styles = useStyleSheet(signUpScreenStyles);
+    const styles = useStyleSheet(authScreenStyles);
+    const shared = useStyleSheet(sharedStyles);
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
 
@@ -32,13 +33,13 @@ export const SignUpScreen = ({navigation}) => {
     }
 
     return (
-        <SafeAreaView style={styles.flexArea}>
+        <SafeAreaView style={shared.flexArea}>
             <Layout style={styles.headerLayout}>
                 <Text style={styles.pageTitle} category="h2">
                     Sign Up
                 </Text>
             </Layout>
-            <Layout style={styles.paddedLayout}>
+            <Layout style={shared.paddedLayout}>
                 <EmailInput
                     value={email}
                     onChangeText={text => setEmail(text)}
@@ -66,24 +67,3 @@ export const SignUpScreen = ({navigation}) => {
         </SafeAreaView>
     );
 };
-
-const signUpScreenStyles = StyleService.create({
-    flexArea: {
-        flex: 1,
-        flexDirection: 'column',
-    },
-    headerLayout: {
-        padding: 15,
-        backgroundColor: '#fff',
-        height: 150,
-        justifyContent: 'flex-end',
-        flexDirection: 'column',
-    },
-    paddedLayout: {
-        padding: 15,
-        height: '100%',
-    },
-    button: {
-        marginTop: 15,
-    },
-});
