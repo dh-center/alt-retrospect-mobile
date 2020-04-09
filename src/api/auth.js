@@ -1,8 +1,6 @@
 import {SIGN_UP_ENDPOINT, SIGN_IN_ENDPOINT} from './constants';
 
 export function userSignUp(username, password) {
-    console.log(SIGN_UP_ENDPOINT);
-    console.log(username, password);
     return fetch(SIGN_UP_ENDPOINT, {
         method: 'POST',
         headers: {
@@ -19,7 +17,7 @@ export function userSignUp(username, password) {
             return json;
         })
         .catch(error => {
-            console.log('Error ', error);
+            console.log(error);
         });
 }
 

@@ -7,6 +7,7 @@ import {Layout, Text, Button, useStyleSheet} from '@ui-kitten/components';
 import {userSignIn, userSignUp} from '../../api/auth';
 import {authScreenStyles, sharedStyles} from '../../styles/styleProvider';
 import {str} from '../../i18n';
+import AsyncStorage from '@react-native-community/async-storage';
 
 export const SignUpScreen = ({navigation}) => {
     const styles = useStyleSheet(authScreenStyles);
@@ -19,11 +20,20 @@ export const SignUpScreen = ({navigation}) => {
         if (result.username) {
             let signInResult = await userSignIn(username, password);
             if (signInResult.auth_token) {
+                await storeToken(signInResult.auth_token);
                 navigation.navigate('Profile');
             } else {
                 alert(str('errorMessage'));
             }
         } else {
+            alert(str('errorMessage'));
+        }
+    }
+
+    async function storeToken(token) {
+        try {
+            await AsyncStorage.setItem('authToken', token);
+        } catch (e) {
             alert(str('errorMessage'));
         }
     }
