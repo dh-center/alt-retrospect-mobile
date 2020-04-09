@@ -3,14 +3,10 @@ import {SafeAreaView} from 'react-native';
 
 import {EmailInput} from '../../components/EmailInput';
 import {PasswordInput} from '../../components/PasswordInput';
-import {
-    Layout,
-    Text,
-    Button,
-    useStyleSheet,
-} from '@ui-kitten/components';
+import {Layout, Text, Button, useStyleSheet} from '@ui-kitten/components';
 import {userSignIn} from '../../api/auth';
 import {authScreenStyles, sharedStyles} from '../../styles/styleProvider';
+import {str} from '../../i18n';
 
 export const SignInScreen = ({navigation}) => {
     const styles = useStyleSheet(authScreenStyles);
@@ -23,7 +19,7 @@ export const SignInScreen = ({navigation}) => {
         if (result.auth_token) {
             navigation.navigate('Profile');
         } else {
-            alert('Something went wrong. Please try again');
+            alert(str('errorMessage'));
         }
     }
 
@@ -31,7 +27,7 @@ export const SignInScreen = ({navigation}) => {
         <SafeAreaView style={shared.flexArea}>
             <Layout style={styles.headerLayout}>
                 <Text style={styles.pageTitle} category="h2">
-                    Sign In
+                    {str('auth.signin')}
                 </Text>
             </Layout>
             <Layout style={shared.paddedLayout}>
@@ -49,14 +45,14 @@ export const SignInScreen = ({navigation}) => {
                     appearance="filled"
                     status="info"
                     onPress={() => performSignIn(email, password)}>
-                    Log In
+                    {str('auth.login')}
                 </Button>
                 <Button
                     style={styles.button}
                     appearance="ghost"
                     status="info"
                     onPress={() => navigation.navigate('SignUp')}>
-                    Register
+                    {str('auth.register')}
                 </Button>
             </Layout>
         </SafeAreaView>

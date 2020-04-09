@@ -1,6 +1,7 @@
 import React from 'react';
 import {SafeAreaView} from 'react-native';
 import {Layout, Text} from '@ui-kitten/components';
+import {str} from '../../i18n';
 
 export const ProfileScreen = ({navigation}) => {
     return (
@@ -11,7 +12,7 @@ export const ProfileScreen = ({navigation}) => {
                     justifyContent: 'center',
                     alignItems: 'center',
                 }}>
-                <Text>Profile</Text>
+                <Text>{str('titles.profile')}</Text>
             </Layout>
         </SafeAreaView>
     );

@@ -1,0 +1,23 @@
+{
+  "auth": {
+    "signin": "Sign In",
+    "signup": "Sign Up",
+    "email": "Email or login",
+    "password": "Password",
+    "login": "Log in",
+    "register": "Register"
+  },
+  "titles": {
+    "profile": "Profile",
+    "map": "Map",
+    "routes": "Routes"
+  },
+  "map": {
+    "search": "Search"
+  },
+  "routes": {
+    "popularTags": "Popular tags",
+    "allRoutes": "All routes"
+  },
+  "errorMessage": "Something went wrong. Please try again."
+}

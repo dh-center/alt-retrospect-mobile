@@ -3,14 +3,10 @@ import {SafeAreaView} from 'react-native';
 
 import {EmailInput} from '../../components/EmailInput';
 import {PasswordInput} from '../../components/PasswordInput';
-import {
-    Layout,
-    Text,
-    Button,
-    useStyleSheet,
-} from '@ui-kitten/components';
+import {Layout, Text, Button, useStyleSheet} from '@ui-kitten/components';
 import {userSignIn, userSignUp} from '../../api/auth';
 import {authScreenStyles, sharedStyles} from '../../styles/styleProvider';
+import {str} from '../../i18n';
 
 export const SignUpScreen = ({navigation}) => {
     const styles = useStyleSheet(authScreenStyles);
@@ -25,10 +21,10 @@ export const SignUpScreen = ({navigation}) => {
             if (signInResult.auth_token) {
                 navigation.navigate('Profile');
             } else {
-                alert('Something went wrong. Please try again');
+                alert(str('errorMessage'));
             }
         } else {
-            alert('Something went wrong. Please try again');
+            alert(str('errorMessage'));
         }
     }
 
@@ -36,7 +32,7 @@ export const SignUpScreen = ({navigation}) => {
         <SafeAreaView style={shared.flexArea}>
             <Layout style={styles.headerLayout}>
                 <Text style={styles.pageTitle} category="h2">
-                    Sign Up
+                    {str('auth.signup')}
                 </Text>
             </Layout>
             <Layout style={shared.paddedLayout}>
@@ -54,14 +50,14 @@ export const SignUpScreen = ({navigation}) => {
                     appearance="filled"
                     status="info"
                     onPress={() => performSignUp(email, password)}>
-                    Register
+                    {str('auth.register')}
                 </Button>
                 <Button
                     style={styles.button}
                     appearance="ghost"
                     status="info"
                     onPress={() => navigation.navigate('SignIn')}>
-                    Back to Login
+                    {str('auth.login')}
                 </Button>
             </Layout>
         </SafeAreaView>
