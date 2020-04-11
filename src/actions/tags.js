@@ -22,7 +22,7 @@ export function fetchPopularTags() {
         dispatch(requestPopularTags());
 
         return getTags().then(json => {
-            dispatch(receivePopularTags(json.routes));
+            dispatch(receivePopularTags(json.tags));
         });
     };
 }

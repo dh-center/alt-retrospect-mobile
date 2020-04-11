@@ -1,5 +1,5 @@
 import React from 'react';
-import {StatusBar} from 'react-native';
+import {StatusBar, ScrollView} from 'react-native';
 import {Layout, Spinner, Text, useStyleSheet} from '@ui-kitten/components';
 import {TagsList} from '../../components/lists/TagsList';
 import {RoutesList} from '../../components/lists/RoutesList';
@@ -22,7 +22,7 @@ const RoutesScreen = props => {
         store.dispatch(fetchPopularTags());
     }
 
-    if (props.fetchingRoutes || props.fetchingTags) {
+    if (props.isFetching) {
         return (
             <Layout style={shared.centerContent}>
                 <Spinner />
@@ -38,14 +38,16 @@ const RoutesScreen = props => {
                     </Text>
                 </Layout>
                 <Layout style={styles.roundedLayout} level="1">
-                    <Text category="h4" style={styles.sectionTitle}>
-                        {str('routes.popularTags')}
-                    </Text>
-                    <TagsList />
-                    <Text category="h4" style={styles.sectionTitle}>
-                        {str('routes.allRoutes')}
-                    </Text>
-                    <RoutesList />
+                    <ScrollView>
+                        <Text category="h4" style={styles.sectionTitle}>
+                            {str('routes.popularTags')}
+                        </Text>
+                        <TagsList data={props.tags} />
+                        <Text category="h4" style={styles.sectionTitle}>
+                            {str('routes.allRoutes')}
+                        </Text>
+                        <RoutesList data={props.routes} />
+                    </ScrollView>
                 </Layout>
             </Layout>
         );
@@ -54,8 +56,7 @@ const RoutesScreen = props => {
 
 function mapStateToProps(state) {
     return {
-        fetchingRoutes: state.routes.isFetching,
-        fetchingTags: state.popularTags.isFetching,
+        isFetching: state.routes.isFetching || state.popularTags.isFetching,
         routesInvalid: state.routes.didInvalidate,
         tagsInvalid: state.popularTags.didInvalidate,
         routes: state.routes.items,
