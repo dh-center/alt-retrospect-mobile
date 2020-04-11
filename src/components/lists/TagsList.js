@@ -1,5 +1,5 @@
 import React from 'react';
-import {Icon, List, ListItem, useStyleSheet} from '@ui-kitten/components';
+import {Icon, ListItem, useStyleSheet} from '@ui-kitten/components';
 import {tagStyles} from '../../styles/styleProvider';
 
 export const TagsList = ({data}) => {
@@ -7,13 +7,14 @@ export const TagsList = ({data}) => {
 
     const renderTagIcon = style => <Icon {...style} name="person" />;
 
-    const renderItem = ({item}) => (
+    const renderItem = item => (
         <ListItem
+            key={item.id}
             title={`${item.name}`}
             icon={renderTagIcon}
             style={styles.tagBody}
         />
     );
 
-    return <List data={data} renderItem={renderItem} />;
+    return data.map(renderItem);
 };
