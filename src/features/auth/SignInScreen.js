@@ -8,6 +8,8 @@ import {userSignIn} from '../../api/auth';
 import {authScreenStyles, sharedStyles} from '../../styles/styleProvider';
 import {str} from '../../i18n';
 import AsyncStorage from '@react-native-community/async-storage';
+import {fetchAuthToken} from '../../actions/auth';
+import {store} from '../../store';
 
 export const SignInScreen = ({navigation}) => {
     const styles = useStyleSheet(authScreenStyles);
@@ -16,9 +18,12 @@ export const SignInScreen = ({navigation}) => {
     const [password, setPassword] = useState('');
 
     async function performSignIn(username, password) {
-        let result = await userSignIn(username, password);
-        if (result.auth_token) {
-            await storeToken(result.auth_token);
+        await store.dispatch(fetchAuthToken(username, password));
+        console.log(store.getState())
+        let authToken = store.getState().auth.authToken;
+
+        if (authToken) {
+            await storeToken(authToken);
             navigation.navigate('Profile');
         } else {
             alert(str('errorMessage'));
