@@ -21,7 +21,7 @@ export const ProfileNavigator = () => {
 
     return (
         <Stack.Navigator
-            initialRouteName={isAuthenticated() ? 'Profile' : 'SignUp'}
+            initialRouteName={isAuthenticated() ? 'Profile' : 'SignIn'}
             headerMode="none">
             <Stack.Screen name="Profile" component={ProfileScreen} />
             <Stack.Screen name="SignIn" component={SignInScreen} />
