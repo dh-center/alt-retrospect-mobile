@@ -26,6 +26,7 @@ export const authScreenStyles = StyleService.create({
 export const routesScreenStyles = StyleService.create({
     headerLayout: {
         padding: 15,
+        marginTop: 40,
         backgroundColor: 'color-info-400',
         height: 100,
         justifyContent: 'flex-end',
@@ -34,6 +35,15 @@ export const routesScreenStyles = StyleService.create({
     pageTitle: {
         color: '#fff',
     },
+    flexArea: {
+        flex: 1,
+        backgroundColor: 'color-info-400',
+    },
+    roundedLayout: {
+        borderRadius: 40,
+        padding: 15,
+        height: '100%',
+    },
     sectionTitle: {
         paddingTop: 15,
         backgroundColor: '#fff',
@@ -41,19 +51,23 @@ export const routesScreenStyles = StyleService.create({
     searchIcon: {
         color: '#fff',
     },
+    statusBar: {
+        backgroundColor: 'color-info-400',
+    },
 });
 
 export const mapScreenStyles = StyleService.create({
     headerLayout: {
         padding: 10,
-        backgroundColor: 'transparent'
-    }
+        backgroundColor: 'transparent',
+    },
 });
 
 export const tagStyles = StyleService.create({
     tagBody: {
-        backgroundColor: 'color-basic',
         borderRadius: 15,
         marginTop: 10,
+        borderBottomColor: 'color-warning-400',
+        borderBottomWidth: 2,
     },
 });
