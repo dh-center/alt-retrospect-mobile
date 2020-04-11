@@ -8,6 +8,12 @@ export const sharedStyles = StyleService.create({
         padding: 15,
         height: '100%',
     },
+    centerContent: {
+        flex: 1,
+        alignContent: 'center',
+        alignItems: 'center',
+        justifyContent: 'center',
+    },
 });
 
 export const authScreenStyles = StyleService.create({

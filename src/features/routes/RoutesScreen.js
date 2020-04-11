@@ -3,21 +3,31 @@ import {StatusBar} from 'react-native';
 import {Layout, Spinner, Text, useStyleSheet} from '@ui-kitten/components';
 import {TagsList} from '../../components/lists/TagsList';
 import {RoutesList} from '../../components/lists/RoutesList';
-import {routesScreenStyles} from '../../styles/styleProvider';
+import {routesScreenStyles, sharedStyles} from '../../styles/styleProvider';
 import {str} from '../../i18n';
 import {store} from '../../store';
 import {fetchAllRoutes} from '../../actions/routes';
 import {connect} from 'react-redux';
+import {fetchPopularTags} from '../../actions/tags';
 
 const RoutesScreen = props => {
     const styles = useStyleSheet(routesScreenStyles);
+    const shared = useStyleSheet(sharedStyles);
 
-    if (props.didInvalidate) {
-        store.dispatch(fetchAllRoutes()).then(console.log(store.getState()));
+    if (props.routesInvalid) {
+        store.dispatch(fetchAllRoutes());
     }
 
-    if (props.isFetching) {
-        return <Spinner />;
+    if (props.tagsInvalid) {
+        store.dispatch(fetchPopularTags());
+    }
+
+    if (props.fetchingRoutes || props.fetchingTags) {
+        return (
+            <Layout style={shared.centerContent}>
+                <Spinner />
+            </Layout>
+        );
     } else {
         return (
             <Layout style={styles.flexArea} level="3">
@@ -42,11 +52,14 @@ const RoutesScreen = props => {
     }
 };
 
-function mapStateToProps(state, ownProps?) {
+function mapStateToProps(state) {
     return {
-        isFetching: state.routes.isFetching,
-        didInvalidate: state.routes.didInvalidate,
+        fetchingRoutes: state.routes.isFetching,
+        fetchingTags: state.popularTags.isFetching,
+        routesInvalid: state.routes.didInvalidate,
+        tagsInvalid: state.popularTags.didInvalidate,
         routes: state.routes.items,
+        tags: state.popularTags.items,
     };
 }
 
