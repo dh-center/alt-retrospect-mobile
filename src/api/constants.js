@@ -1,6 +1,6 @@
 const API_URL = 'http://learnsql.ru:8000';
 
-const TAGS_COUNT = 5;
+const TAGS_COUNT = 3;
 
 export const SIGN_UP_ENDPOINT = API_URL + '/auth/users/';
 export const SIGN_IN_ENDPOINT = API_URL + '/auth/token/login/';
