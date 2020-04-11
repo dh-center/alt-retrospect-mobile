@@ -26,9 +26,8 @@ export const authScreenStyles = StyleService.create({
 export const routesScreenStyles = StyleService.create({
     headerLayout: {
         padding: 15,
-        marginTop: 40,
-        backgroundColor: 'color-info-400',
-        height: 100,
+        marginTop: '15%',
+        height: '15%',
         justifyContent: 'flex-end',
         flexDirection: 'column',
     },
@@ -37,7 +36,6 @@ export const routesScreenStyles = StyleService.create({
     },
     flexArea: {
         flex: 1,
-        backgroundColor: 'color-info-400',
     },
     roundedLayout: {
         borderRadius: 40,

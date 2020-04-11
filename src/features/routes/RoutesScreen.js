@@ -10,14 +10,14 @@ export const RoutesScreen = ({navigation}) => {
     const styles = useStyleSheet(routesScreenStyles);
 
     return (
-        <Layout style={styles.flexArea}>
+        <Layout style={styles.flexArea} level="3">
             <StatusBar backgroundColor={styles.statusBar.backgroundColor} />
-            <Layout style={styles.headerLayout}>
+            <Layout style={styles.headerLayout} level="3">
                 <Text style={styles.pageTitle} category="h2">
                     {str('titles.routes')}
                 </Text>
             </Layout>
-            <Layout style={styles.roundedLayout}>
+            <Layout style={styles.roundedLayout} level="1">
                 <Text category="h4" style={styles.sectionTitle}>
                     {str('routes.popularTags')}
                 </Text>

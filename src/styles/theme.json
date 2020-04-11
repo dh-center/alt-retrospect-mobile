@@ -74,5 +74,8 @@
   "color-danger-transparent-400": "rgba(234, 65, 38, 0.32)",
   "color-danger-transparent-500": "rgba(234, 65, 38, 0.4)",
   "color-danger-transparent-600": "rgba(234, 65, 38, 0.48)",
-  "color-basic": "#ededed"
+  "color-basic": "#ededed",
+  "background-basic-color-1": "#ffffff",
+  "background-basic-color-2": "#ffffff",
+  "background-basic-color-3": "$color-info-400"
 }
