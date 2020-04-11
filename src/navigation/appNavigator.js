@@ -3,7 +3,7 @@ import {NavigationContainer} from '@react-navigation/native';
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
 import {MapScreen} from '../features/map/MapScreen';
 import {BottomTabBar} from './bottomTabBar';
-import {RoutesScreen} from '../features/routes/RoutesScreen';
+import RoutesScreen from '../features/routes/RoutesScreen';
 import {ProfileNavigator} from './profileNavigator';
 
 const BottomTab = createBottomTabNavigator();
