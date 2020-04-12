@@ -1,6 +1,6 @@
 import React from 'react';
 import {Image} from 'react-native';
-import {ListItem, Button, Icon} from '@ui-kitten/components';
+import {ListItem, Button} from '@ui-kitten/components';
 import {ArrowRightIcon} from '../icons/ArrowRightIcon';
 
 export const RoutesList = props => {
@@ -8,7 +8,7 @@ export const RoutesList = props => {
         <Image
             source={{
                 uri:
-                    'https://ic.pics.livejournal.com/noir_diamant/43916271/16427/16427_640.jpg',
+                    'https://pics.livejournal.com/noir_diamant/pic/0002achx/s640x480',
             }}
         />
     );
@@ -18,7 +18,6 @@ export const RoutesList = props => {
             status="basic"
             style={style}
             icon={ArrowRightIcon}
-            onPress={() => props.navigation.navigate('Route')}
         />
     );
 
@@ -28,7 +27,9 @@ export const RoutesList = props => {
             title={item.name}
             icon={style => renderRouteImage(style)}
             accessory={renderChevron}
-            onPress={() => props.navigation.navigate('Route')}
+            onPress={() =>
+                props.navigation.navigate('Route', {routeId: item.id})
+            }
         />
     );
     return props.data.map(renderItem);

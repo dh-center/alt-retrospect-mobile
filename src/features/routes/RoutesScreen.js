@@ -5,7 +5,6 @@ import {TagsList} from '../../components/lists/TagsList';
 import {RoutesList} from '../../components/lists/RoutesList';
 import {routesScreenStyles, sharedStyles} from '../../styles/styleProvider';
 import {str} from '../../i18n';
-import {store} from '../../store';
 import {fetchAllRoutes} from '../../actions/routes';
 import {connect} from 'react-redux';
 import {fetchPopularTags} from '../../actions/tags';
@@ -15,11 +14,11 @@ const RoutesScreen = props => {
     const shared = useStyleSheet(sharedStyles);
 
     if (props.routesInvalid) {
-        store.dispatch(fetchAllRoutes());
+        props.fetchRoutes();
     }
 
     if (props.tagsInvalid) {
-        store.dispatch(fetchPopularTags());
+        props.fetchTags();
     }
 
     if (props.isFetching) {
@@ -60,7 +59,14 @@ const RoutesScreen = props => {
     }
 };
 
-function mapStateToProps(state) {
+const mapDispatchToProps = dispatch => {
+    return {
+        fetchRoutes: () => dispatch(fetchAllRoutes()),
+        fetchTags: () => dispatch(fetchPopularTags()),
+    };
+};
+
+const mapStateToProps = state => {
     return {
         isFetching: state.routes.isFetching || state.popularTags.isFetching,
         routesInvalid: state.routes.didInvalidate,
@@ -68,6 +74,9 @@ function mapStateToProps(state) {
         routes: state.routes.items,
         tags: state.popularTags.items,
     };
-}
+};
 
-export default connect(mapStateToProps)(RoutesScreen);
+export default connect(
+    mapStateToProps,
+    mapDispatchToProps,
+)(RoutesScreen);

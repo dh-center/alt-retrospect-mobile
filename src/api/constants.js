@@ -8,3 +8,5 @@ export const SIGN_IN_ENDPOINT = API_URL + '/auth/token/login/';
 export const GET_ALL_ROUTES_ENDPOINT = API_URL + '/api/routes/get';
 export const GET_ALL_TAGS_ENDPOINT =
     API_URL + '/api/tags/get?count=' + TAGS_COUNT;
+
+export const GET_ROUTE_ENDPOINT = API_URL + '/api/routes/getById?id=';
