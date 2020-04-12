@@ -1,12 +1,19 @@
 import React from 'react';
 import {ImageBackground, View} from 'react-native';
-import {Button, Layout, Spinner, Text, useStyleSheet} from '@ui-kitten/components';
+import {
+    Button,
+    Layout,
+    Spinner,
+    Text,
+    useStyleSheet,
+} from '@ui-kitten/components';
 import {fetchRoute} from '../../actions/routes';
 import {connect} from 'react-redux';
 import {routeScreenStyles, sharedStyles} from '../../styles/styleProvider';
 import {str} from '../../i18n';
 import {ArrowLeftIcon} from '../../components/icons/ArrowLeftIcon';
 import {StarIcon} from '../../components/icons/StarIcon';
+import {LocationsList} from '../../components/lists/LocationsList';
 
 const RouteScreen = props => {
     const styles = useStyleSheet(routeScreenStyles);
@@ -62,6 +69,10 @@ const RouteScreen = props => {
                             {props.currentRoute.duration} {str('routes.min')}
                         </Text>
                     </View>
+                    <LocationsList
+                        data={[{name: 'Test', id: 1}, {name: 'Test', id: 2}]}
+                        navigation={props.navigation}
+                    />
                 </Layout>
             </Layout>
         );
