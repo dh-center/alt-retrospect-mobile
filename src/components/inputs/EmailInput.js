@@ -1,6 +1,6 @@
 import React from 'react';
 import {Input} from '@ui-kitten/components';
-import {str} from '../i18n';
+import {str} from '../../i18n';
 
 export const EmailInput = props => {
     return (

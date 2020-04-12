@@ -1,6 +1,6 @@
 import React from 'react';
 import {Icon, Input} from '@ui-kitten/components';
-import {str} from '../i18n';
+import {str} from '../../i18n';
 
 export const PasswordInput = props => {
     const [secureTextEntry, setSecureTextEntry] = React.useState(
