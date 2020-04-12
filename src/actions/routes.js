@@ -33,6 +33,7 @@ export const REQUEST_ROUTE = 'REQUEST_ROUTE';
 function requestRoute(id) {
     return {
         type: REQUEST_ROUTE,
+        id,
     };
 }
 
@@ -52,5 +53,22 @@ export function fetchRoute(id) {
         return getRoute(id).then(json => {
             dispatch(receiveRoute(json.route));
         });
+    };
+}
+
+export const SET_ROUTE = 'SET_ROUTE';
+
+export function setRoute(route) {
+    return {
+        type: SET_ROUTE,
+        route,
+    };
+}
+
+export const RESET_ROUTE = 'RESET_ROUTE';
+
+export function resetRoute() {
+    return {
+        type: RESET_ROUTE,
     };
 }

@@ -63,7 +63,7 @@ export const routesScreenStyles = StyleService.create({
 
 export const routeScreenStyles = StyleService.create({
     headerLayout: {
-        paddingTop: Platform.OS === 'ios' ? 20 : 0,
+        paddingTop: Platform.OS === 'ios' ? 40 : 0,
         paddingBottom: 40,
         height: 300,
         justifyContent: 'space-between',
@@ -94,9 +94,9 @@ export const routeScreenStyles = StyleService.create({
         width: 10,
     },
     row: {
-        flex: 1,
         flexDirection: 'row',
         justifyContent: 'space-between',
+        height: 50,
     },
     durationText: {
         paddingTop: 25,
@@ -114,7 +114,5 @@ export const tagStyles = StyleService.create({
     tagBody: {
         borderRadius: 15,
         marginTop: 10,
-        borderBottomColor: 'color-warning-400',
-        borderBottomWidth: 2,
     },
 });

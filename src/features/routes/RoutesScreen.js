@@ -2,7 +2,7 @@ import React from 'react';
 import {StatusBar, ScrollView} from 'react-native';
 import {Layout, Spinner, Text, useStyleSheet} from '@ui-kitten/components';
 import {TagsList} from '../../components/lists/TagsList';
-import {RoutesList} from '../../components/lists/RoutesList';
+import RoutesList from '../../components/lists/RoutesList';
 import {routesScreenStyles, sharedStyles} from '../../styles/styleProvider';
 import {str} from '../../i18n';
 import {fetchAllRoutes} from '../../actions/routes';
@@ -13,7 +13,7 @@ const RoutesScreen = props => {
     const styles = useStyleSheet(routesScreenStyles);
     const shared = useStyleSheet(sharedStyles);
 
-    if (props.routesInvalid) {
+    if (props.routesInvalid && !props.isFetching) {
         props.fetchRoutes();
     }
 

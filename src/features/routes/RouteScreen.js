@@ -7,7 +7,7 @@ import {
     Text,
     useStyleSheet,
 } from '@ui-kitten/components';
-import {fetchRoute} from '../../actions/routes';
+import {fetchRoute, resetRoute} from '../../actions/routes';
 import {connect} from 'react-redux';
 import {routeScreenStyles, sharedStyles} from '../../styles/styleProvider';
 import {str} from '../../i18n';
@@ -19,7 +19,9 @@ const RouteScreen = props => {
     const styles = useStyleSheet(routeScreenStyles);
     const shared = useStyleSheet(sharedStyles);
 
-    props.fetchRoute(props.route.params.routeId);
+    if (props.didInvalidate) {
+        props.fetchRoute(props.currentRoute.id);
+    }
 
     if (props.isFetching) {
         return (
@@ -44,7 +46,10 @@ const RouteScreen = props => {
                                 icon={ArrowLeftIcon}
                                 style={styles.backButton}
                                 size="giant"
-                                onPress={() => props.navigation.goBack()}
+                                onPress={() => {
+                                    props.resetRoute();
+                                    props.navigation.goBack();
+                                }}
                             />
                             <Button
                                 appearance="ghost"
@@ -70,7 +75,7 @@ const RouteScreen = props => {
                         </Text>
                     </View>
                     <LocationsList
-                        data={[{name: 'Test', id: 1}, {name: 'Test', id: 2}]}
+                        data={props.currentRoute.location_instances}
                         navigation={props.navigation}
                     />
                 </Layout>
@@ -82,15 +87,15 @@ const RouteScreen = props => {
 const mapDispatchToProps = dispatch => {
     return {
         fetchRoute: routeId => dispatch(fetchRoute(routeId)),
+        resetRoute: routeId => dispatch(resetRoute(routeId)),
     };
 };
 
-const mapStateToProps = (state, ownProps) => {
+const mapStateToProps = state => {
     return {
-        isFetching: state.routes.isFetching,
-        currentRoute: state.routes.items.find(
-            item => item.id === ownProps.route.params.routeId,
-        ),
+        isFetching: state.currentRoute.isFetching,
+        didInvalidate: state.currentRoute.didInvalidate,
+        currentRoute: state.currentRoute.data,
     };
 };
 

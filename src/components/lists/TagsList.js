@@ -6,7 +6,7 @@ import {ArrowRightIcon} from '../icons/ArrowRightIcon';
 export const TagsList = props => {
     const styles = useStyleSheet(tagStyles);
 
-    const renderTagIcon = style => <Icon {...style} name="person" />;
+    const renderTagIcon = style => <Icon {...style} name="radio-button-on-outline" />;
     const renderChevron = style => (
         <Button
             appearance="ghost"
