@@ -3,7 +3,7 @@ import {Button, Icon, ListItem, useStyleSheet} from '@ui-kitten/components';
 import {tagStyles} from '../../styles/styleProvider';
 import {ArrowRightIcon} from '../icons/ArrowRightIcon';
 
-export const TagsList = ({data}) => {
+export const TagsList = props => {
     const styles = useStyleSheet(tagStyles);
 
     const renderTagIcon = style => <Icon {...style} name="person" />;
@@ -13,6 +13,7 @@ export const TagsList = ({data}) => {
             status="basic"
             style={style}
             icon={ArrowRightIcon}
+            onPress={() => props.navigation.navigate('Search')}
         />
     );
 
@@ -23,8 +24,9 @@ export const TagsList = ({data}) => {
             icon={renderTagIcon}
             accessory={renderChevron}
             style={styles.tagBody}
+            onPress={() => props.navigation.navigate('Search')}
         />
     );
 
-    return data.map(renderItem);
+    return props.data.map(renderItem);
 };

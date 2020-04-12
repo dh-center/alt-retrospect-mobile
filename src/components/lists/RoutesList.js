@@ -1,15 +1,24 @@
 import React from 'react';
-import {Icon, ListItem, Button} from '@ui-kitten/components';
+import {Image} from 'react-native';
+import {ListItem, Button, Icon} from '@ui-kitten/components';
 import {ArrowRightIcon} from '../icons/ArrowRightIcon';
 
-export const RoutesList = ({data}) => {
-    const renderRouteIcon = style => <Icon {...style} name="person" />;
+export const RoutesList = props => {
+    const renderRouteImage = style => (
+        <Image
+            source={{
+                uri:
+                    'https://ic.pics.livejournal.com/noir_diamant/43916271/16427/16427_640.jpg',
+            }}
+        />
+    );
     const renderChevron = style => (
         <Button
             appearance="ghost"
             status="basic"
             style={style}
             icon={ArrowRightIcon}
+            onPress={() => props.navigation.navigate('Route')}
         />
     );
 
@@ -17,10 +26,10 @@ export const RoutesList = ({data}) => {
         <ListItem
             key={item.id}
             title={item.name}
-            icon={renderRouteIcon}
+            icon={style => renderRouteImage(style)}
             accessory={renderChevron}
+            onPress={() => props.navigation.navigate('Route')}
         />
     );
-
-    return data.map(renderItem);
+    return props.data.map(renderItem);
 };

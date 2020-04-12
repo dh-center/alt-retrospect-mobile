@@ -42,11 +42,17 @@ const RoutesScreen = props => {
                         <Text category="h4" style={styles.sectionTitle}>
                             {str('routes.popularTags')}
                         </Text>
-                        <TagsList data={props.tags} />
+                        <TagsList
+                            data={props.tags}
+                            navigation={props.navigation}
+                        />
                         <Text category="h4" style={styles.sectionTitle}>
                             {str('routes.allRoutes')}
                         </Text>
-                        <RoutesList data={props.routes} />
+                        <RoutesList
+                            data={props.routes}
+                            navigation={props.navigation}
+                        />
                     </ScrollView>
                 </Layout>
             </Layout>
