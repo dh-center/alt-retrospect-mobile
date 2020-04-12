@@ -1,3 +1,4 @@
+import {Platform} from 'react-native';
 import {StyleService} from '@ui-kitten/components';
 
 export const sharedStyles = StyleService.create({
@@ -57,6 +58,48 @@ export const routesScreenStyles = StyleService.create({
     },
     statusBar: {
         backgroundColor: 'color-info-400',
+    },
+});
+
+export const routeScreenStyles = StyleService.create({
+    headerLayout: {
+        paddingTop: Platform.OS === 'ios' ? 20 : 0,
+        paddingBottom: 40,
+        height: 300,
+        justifyContent: 'space-between',
+        flexDirection: 'column',
+        backgroundColor: 'color-info-transparent-600',
+    },
+    pageTitle: {
+        color: '#fff',
+        margin: 15,
+    },
+    flexArea: {
+        flex: 1,
+    },
+    roundedLayout: {
+        borderRadius: 40,
+        padding: 15,
+        height: '100%',
+    },
+    sectionTitle: {
+        paddingTop: 15,
+        backgroundColor: '#fff',
+    },
+    background: {
+        height: 300,
+        marginBottom: -30,
+    },
+    backButton: {
+        width: 10,
+    },
+    row: {
+        flex: 1,
+        flexDirection: 'row',
+        justifyContent: 'space-between',
+    },
+    durationText: {
+        paddingTop: 25,
     },
 });
 

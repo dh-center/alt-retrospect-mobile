@@ -17,7 +17,9 @@
   },
   "routes": {
     "popularTags": "Popular tags",
-    "allRoutes": "All routes"
+    "allRoutes": "All routes",
+    "route": "Route",
+    "min": "min"
   },
   "errorMessage": "Something went wrong. Please try again."
 }

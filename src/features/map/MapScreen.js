@@ -1,7 +1,7 @@
 import React from 'react';
 import {SafeAreaView} from 'react-native';
 import {Layout, useStyleSheet} from '@ui-kitten/components';
-import {SearchBar} from '../../components/SearchBar';
+import {SearchBar} from '../../components/inputs/SearchBar';
 import {Map} from '../../components/Map';
 import {mapScreenStyles, sharedStyles} from '../../styles/styleProvider';
 

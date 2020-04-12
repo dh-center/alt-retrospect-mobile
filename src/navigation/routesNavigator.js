@@ -8,12 +8,8 @@ const Stack = createStackNavigator();
 
 export const RoutesNavigator = () => {
     return (
-        <Stack.Navigator initialRouteName="Routes">
-            <Stack.Screen
-                name="Routes"
-                component={RoutesScreen}
-                options={{headerShown: false, headerTitle: ' '}}
-            />
+        <Stack.Navigator headerMode="none" initialRouteName="Routes">
+            <Stack.Screen name="Routes" component={RoutesScreen} />
             <Stack.Screen name="Route" component={RouteScreen} />
             <Stack.Screen name="Search" component={RoutesSearch} />
         </Stack.Navigator>

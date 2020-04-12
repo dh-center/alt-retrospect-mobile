@@ -30,7 +30,10 @@ const RoutesScreen = props => {
     } else {
         return (
             <Layout style={styles.flexArea} level="3">
-                <StatusBar backgroundColor={styles.statusBar.backgroundColor} />
+                <StatusBar
+                    backgroundColor={styles.statusBar.backgroundColor}
+                    barStyle="light-content"
+                />
                 <Layout style={styles.headerLayout} level="3">
                     <Text style={styles.pageTitle} category="h2">
                         {str('titles.routes')}

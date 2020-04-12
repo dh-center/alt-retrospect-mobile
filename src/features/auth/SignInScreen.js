@@ -1,8 +1,8 @@
 import React, {useState} from 'react';
 import {SafeAreaView} from 'react-native';
 
-import {EmailInput} from '../../components/EmailInput';
-import {PasswordInput} from '../../components/PasswordInput';
+import {EmailInput} from '../../components/inputs/EmailInput';
+import {PasswordInput} from '../../components/inputs/PasswordInput';
 import {Layout, Text, Button, useStyleSheet} from '@ui-kitten/components';
 import {userSignIn} from '../../api/auth';
 import {authScreenStyles, sharedStyles} from '../../styles/styleProvider';
