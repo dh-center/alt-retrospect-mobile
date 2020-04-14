@@ -6,15 +6,14 @@ import {setRoute} from '../../actions/routes';
 import {connect} from 'react-redux';
 
 const RoutesList = props => {
-    const renderRouteImage = style => (
+    const renderRouteImage = (style, uri) => (
         delete style.tintColor,
         (
             <Image
                 source={{
-                    uri:
-                        'https://pics.livejournal.com/noir_diamant/pic/0002achx/s640x480',
+                    uri: uri,
                 }}
-                style={{width: 40, height: 40, borderRadius: 5}}
+                style={{width: 50, height: 50, borderRadius: 5}}
             />
         )
     );
@@ -31,7 +30,7 @@ const RoutesList = props => {
         <ListItem
             key={item.id}
             title={item.name}
-            icon={style => renderRouteImage(style)}
+            icon={style => renderRouteImage(style, item.image_url)}
             accessory={renderChevron}
             onPress={() => {
                 props.setRoute(item.id);

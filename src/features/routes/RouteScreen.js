@@ -35,8 +35,7 @@ const RouteScreen = props => {
                 <ImageBackground
                     style={styles.background}
                     source={{
-                        uri:
-                            'https://ic.pics.livejournal.com/noir_diamant/43916271/16427/16427_640.jpg',
+                        uri: props.currentRoute.image_url,
                     }}>
                     <View style={styles.headerLayout}>
                         <View style={styles.row}>

@@ -40,7 +40,7 @@ const RoutesScreen = props => {
                     </Text>
                 </Layout>
                 <Layout style={styles.roundedLayout} level="1">
-                    <ScrollView>
+                    <ScrollView contentContainerStyle={styles.scrollPadded}>
                         <Text category="h4" style={styles.sectionTitle}>
                             {str('routes.popularTags')}
                         </Text>

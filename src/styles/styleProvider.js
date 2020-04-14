@@ -47,7 +47,9 @@ export const routesScreenStyles = StyleService.create({
     roundedLayout: {
         borderRadius: 40,
         padding: 15,
+        marginBottom: -40,
         height: '100%',
+        flex: 1,
     },
     sectionTitle: {
         paddingTop: 15,
@@ -58,6 +60,9 @@ export const routesScreenStyles = StyleService.create({
     },
     statusBar: {
         backgroundColor: 'color-info-400',
+    },
+    scrollPadded: {
+        paddingBottom: 40,
     },
 });
 
