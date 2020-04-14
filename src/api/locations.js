@@ -1,9 +1,4 @@
-import {
-    GET_ALL_ROUTES_URI,
-    GET_LOCATION_URI,
-    GET_NEAR_LOCATIONS_URI,
-    GET_ROUTE_URI,
-} from './constants';
+import {GET_LOCATION_URI, GET_NEAR_LOCATIONS_URI} from './constants';
 import {fetchGET} from './common';
 
 export function getLocation(id) {

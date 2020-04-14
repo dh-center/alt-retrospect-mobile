@@ -6,7 +6,7 @@ import LocationIcon from './icons/LocationIcon';
 import {useStyleSheet} from '@ui-kitten/components';
 import {sharedStyles} from '../styles/styleProvider';
 
-export const Map = () => {
+export const Map = props => {
     const shared = useStyleSheet(sharedStyles);
     return (
         <View style={shared.flexArea}>
@@ -23,6 +23,17 @@ export const Map = () => {
                     coordinate={{latitude: 59.9337267, longitude: 30.3401533}}>
                     <LocationIcon />
                 </Marker>
+                {props.locations.map(location => (
+                    <Marker
+                        key={location.id}
+                        coordinate={{
+                            latitude: location.lat,
+                            longitude: location.lon,
+                        }}
+                        title={location.address}
+                        description={location.description}
+                    />
+                ))}
             </MapView>
         </View>
     );
