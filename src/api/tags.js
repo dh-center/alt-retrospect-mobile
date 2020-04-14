@@ -1,6 +1,8 @@
 import {fetchGET} from './common';
-import {GET_ALL_TAGS_ENDPOINT} from './constants';
+import {GET_ALL_TAGS_URI} from './constants';
+
+const TAGS_COUNT = 3;
 
 export function getTags() {
-    return fetchGET(GET_ALL_TAGS_ENDPOINT);
+    return fetchGET(GET_ALL_TAGS_URI, {count: TAGS_COUNT});
 }
