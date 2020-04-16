@@ -1,10 +1,11 @@
 import React from 'react';
-import {View} from 'react-native';
-import MapView, {PROVIDER_GOOGLE, Marker} from 'react-native-maps';
+import {View, Text} from 'react-native';
+import MapView, {PROVIDER_GOOGLE, Marker, Callout} from 'react-native-maps';
 
 import LocationIcon from './icons/LocationIcon';
 import {useStyleSheet} from '@ui-kitten/components';
 import {sharedStyles} from '../styles/styleProvider';
+import {LocationCallout} from './LocationCallout';
 
 export const Map = props => {
     const shared = useStyleSheet(sharedStyles);
@@ -30,9 +31,11 @@ export const Map = props => {
                             latitude: location.lat,
                             longitude: location.lon,
                         }}
-                        title={location.address}
-                        description={location.description}
-                    />
+                        description={location.description}>
+                        <Callout tooltip>
+                            <LocationCallout title={location.address} />
+                        </Callout>
+                    </Marker>
                 ))}
             </MapView>
         </View>
