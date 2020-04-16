@@ -1,7 +1,7 @@
 import React from 'react';
 import {Button, Layout} from '@ui-kitten/components';
 import {Image, Text} from 'react-native';
-import {ArrowRightIcon} from '../icons/ArrowRightIcon';
+import {ChevronRight} from '../icons/ChevronRight';
 
 export const ListItem = props => {
     const renderChevron = style => (
@@ -9,7 +9,7 @@ export const ListItem = props => {
             appearance="ghost"
             status="basic"
             style={style}
-            icon={ArrowRightIcon}
+            icon={ChevronRight}
             onPress={() => props.navigation.navigate('Route')}
         />
     );

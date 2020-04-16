@@ -1,7 +1,7 @@
 import React from 'react';
 import {Image} from 'react-native';
 import {ListItem, Button} from '@ui-kitten/components';
-import {ArrowRightIcon} from '../icons/ArrowRightIcon';
+import {ChevronRight} from '../icons/ChevronRight';
 import {setRoute} from '../../actions/routes';
 import {connect} from 'react-redux';
 
@@ -22,7 +22,7 @@ const RoutesList = props => {
             appearance="ghost"
             status="basic"
             style={style}
-            icon={ArrowRightIcon}
+            icon={ChevronRight}
         />
     );
 

@@ -1,7 +1,7 @@
 import React from 'react';
 import {Button, Icon, ListItem, useStyleSheet} from '@ui-kitten/components';
 import {tagStyles} from '../../styles/styleProvider';
-import {ArrowRightIcon} from '../icons/ArrowRightIcon';
+import {ChevronRight} from '../icons/ChevronRight';
 
 export const TagsList = props => {
     const styles = useStyleSheet(tagStyles);
@@ -12,7 +12,7 @@ export const TagsList = props => {
             appearance="ghost"
             status="basic"
             style={style}
-            icon={ArrowRightIcon}
+            icon={ChevronRight}
             onPress={() => props.navigation.navigate('Search')}
         />
     );
