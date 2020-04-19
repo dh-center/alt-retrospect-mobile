@@ -9,7 +9,9 @@ import {RoutesNavigator} from './routesNavigator';
 const BottomTab = createBottomTabNavigator();
 
 const TabNavigator = () => (
-    <BottomTab.Navigator tabBar={props => <BottomTabBar {...props} />}>
+    <BottomTab.Navigator
+        tabBar={props => <BottomTabBar {...props} />}
+        initialRouteName={'Map'}>
         <BottomTab.Screen name="Routes" component={RoutesNavigator} />
         <BottomTab.Screen name="Map" component={MapScreen} />
         <BottomTab.Screen name="Profile" component={ProfileNavigator} />

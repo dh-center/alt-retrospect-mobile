@@ -33,7 +33,9 @@ export const Map = props => {
                         }}
                         description={location.description}>
                         <Callout tooltip>
-                            <LocationCallout title={location.address} />
+                            <LocationCallout
+                                title={location.instances[0].name}
+                            />
                         </Callout>
                     </Marker>
                 ))}

@@ -132,7 +132,7 @@ export const calloutStyles = StyleService.create({
         justifyContent: 'space-between',
     },
     contentView: {width: '90%', justifyContent: 'center'},
-    locationTitle: {wordBreak: 'break-word', fontSize: 16},
+    locationTitle: {fontSize: 16},
     buttonView: {width: '10%'},
     tooltip: {
         width: 0,
