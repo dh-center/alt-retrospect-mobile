@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useState} from 'react';
 import {SafeAreaView} from 'react-native';
 import {Layout, Spinner, useStyleSheet} from '@ui-kitten/components';
 import {SearchBar} from '../../components/inputs/SearchBar';
@@ -11,9 +11,18 @@ const MapScreen = props => {
     const shared = useStyleSheet(sharedStyles);
     const styles = useStyleSheet(mapScreenStyles);
 
+    const [currentLocation, setCurrentLocation] = useState({
+        latitude: 59.9337267,
+        longitude: 30.3401533,
+    });
+
     if (props.locationsInvalid && !props.isFetching) {
         // TODO: replace with near location but keep in mind throttling
-        props.fetchNearLocations(59.9337267, 30.3401533, 1500);
+        props.fetchNearLocations(
+            currentLocation.latitude,
+            currentLocation.longitude,
+            1500,
+        );
     }
 
     if (props.isFetching) {
@@ -28,7 +37,10 @@ const MapScreen = props => {
                 <Layout style={styles.headerLayout}>
                     <SearchBar />
                 </Layout>
-                <Map locations={props.nearLocations} />
+                <Map
+                    locations={props.nearLocations}
+                    currentLocation={currentLocation}
+                />
             </SafeAreaView>
         );
     }
