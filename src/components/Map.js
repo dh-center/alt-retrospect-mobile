@@ -1,6 +1,8 @@
 import React from 'react';
 import {View} from 'react-native';
 import MapView, {PROVIDER_GOOGLE, Marker, Callout} from 'react-native-maps';
+import MapViewDirections from 'react-native-maps-directions';
+import Config from 'react-native-config';
 
 import LocationIcon from './icons/LocationIcon';
 import {useStyleSheet} from '@ui-kitten/components';
@@ -12,6 +14,9 @@ const LONGITUDE_DELTA = 0.012;
 
 export const Map = props => {
     const shared = useStyleSheet(sharedStyles);
+    const waypoints = props.locations.map(location => {
+        return {latitude: location.lat, longitude: location.lon};
+    });
     return (
         <View style={shared.flexArea}>
             <MapView
@@ -45,6 +50,18 @@ export const Map = props => {
                         </Callout>
                     </Marker>
                 ))}
+                {props.displayRoute ? (
+                    <MapViewDirections
+                        origin={props.currentLocation}
+                        apikey={Config.GM_DIRECTIONS_API_KEY}
+                        destination={waypoints[waypoints.length - 1]}
+                        waypoints={waypoints}
+                        mode="WALKING"
+                        strokeWidth={8}
+                        strokeColor="#4A75D5"
+                        resetOnChange={false}
+                    />
+                ) : null}
             </MapView>
         </View>
     );

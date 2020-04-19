@@ -4,6 +4,7 @@
 #import <React/RCTBundleURLProvider.h>
 #import <React/RCTRootView.h>
 #import <GoogleMaps/GoogleMaps.h>
+#import "ReactNativeConfig.h"
 
 #if DEBUG
 #import <FlipperKit/FlipperClient.h>
@@ -28,7 +29,8 @@ static void InitializeFlipper(UIApplication *application) {
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
-  [GMSServices provideAPIKey:@"AIzaSyBCFA2HGOfFVnjEyzCCmtIRsq2cCPVUgVA"];
+  NSString *iosGmApiKey = [ReactNativeConfig envFor:@"IOS_GM_API_KEY"];
+  [GMSServices provideAPIKey:iosGmApiKey];
 #if DEBUG
   InitializeFlipper(application);
 #endif
