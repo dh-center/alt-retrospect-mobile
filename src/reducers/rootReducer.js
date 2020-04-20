@@ -3,6 +3,7 @@ import {auth} from './auth';
 import {currentRoute, routes} from './routes';
 import {popularTags} from './tags';
 import {nearLocations} from './nearLocations';
+import {currentLocation} from './currentLocation';
 
 const rootReducer = combineReducers({
     auth,
@@ -10,6 +11,7 @@ const rootReducer = combineReducers({
     currentRoute,
     popularTags,
     nearLocations,
+    currentLocation,
 });
 
 export default rootReducer;
