@@ -1,7 +1,6 @@
-function getUserInfo() {
-    return {
-        email: '',
-        id: 4,
-        username: 'username',
-    };
+import {fetchGET} from './common';
+import {GET_SAVED_ROUTES_URI} from './constants';
+
+export function getSavedRoutes() {
+    return fetchGET(GET_SAVED_ROUTES_URI, {}, true);
 }

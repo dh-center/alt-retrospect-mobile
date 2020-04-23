@@ -21,5 +21,8 @@
     "route": "Маршрут",
     "min": "мин"
   },
+  "profile": {
+    "savedRoutes": "Saved routes"
+  },
   "errorMessage": "Что-то пошло не так. Пожалуйста, попробуйте еще раз."
 }

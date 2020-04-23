@@ -1,6 +1,6 @@
 import React from 'react';
 import {createStackNavigator} from '@react-navigation/stack';
-import {ProfileScreen} from '../features/profile/ProfileScreen';
+import ProfileScreen from '../features/profile/ProfileScreen';
 import {SignInScreen} from '../features/auth/SignInScreen';
 import {SignUpScreen} from '../features/auth/SignUpScreen';
 import AsyncStorage from '@react-native-community/async-storage';

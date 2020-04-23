@@ -21,5 +21,8 @@
     "route": "Route",
     "min": "min"
   },
+  "profile": {
+    "savedRoutes": "Saved routes"
+  },
   "errorMessage": "Something went wrong. Please try again."
 }
