@@ -1,9 +1,14 @@
 import axios from 'axios';
-import {AUTH_HEADERS, NO_AUTH_HEADERS} from './constants';
+import {COMMON_HEADERS} from './constants';
+import {store} from '../store';
 
 export function fetchPOST(url, body, needAuth: false) {
+    let headers = COMMON_HEADERS;
+    if (needAuth) {
+        headers = addToken(headers);
+    }
     return axios
-        .post(url, body, {headers: needAuth ? AUTH_HEADERS : NO_AUTH_HEADERS})
+        .post(url, body, {headers: headers})
         .then(response => {
             return response.data;
         })
@@ -13,9 +18,13 @@ export function fetchPOST(url, body, needAuth: false) {
 }
 
 export function fetchGET(url, params: {}, needAuth: false) {
+    let headers = COMMON_HEADERS;
+    if (needAuth) {
+        headers = addToken(headers);
+    }
     return axios
         .get(url, {
-            headers: needAuth ? AUTH_HEADERS : NO_AUTH_HEADERS,
+            headers: headers,
             params: params,
         })
         .then(response => {
@@ -24,4 +33,11 @@ export function fetchGET(url, params: {}, needAuth: false) {
         .catch(error => {
             console.log(error);
         });
+}
+
+function addToken(headers) {
+    const AUTH_TOKEN = store.getState().auth.authToken;
+    return Object.assign(headers, {
+        Authorization: 'Token ' + AUTH_TOKEN,
+    });
 }
