@@ -3,20 +3,13 @@ import {createStackNavigator} from '@react-navigation/stack';
 import ProfileScreen from '../features/profile/ProfileScreen';
 import {SignInScreen} from '../features/auth/SignInScreen';
 import {SignUpScreen} from '../features/auth/SignUpScreen';
-import AsyncStorage from '@react-native-community/async-storage';
-import {str} from '../i18n';
+import {store} from '../store';
 
 const Stack = createStackNavigator();
 
 export const ProfileNavigator = () => {
     function isAuthenticated() {
-        AsyncStorage.getItem('authToken')
-            .then(value => {
-                return value !== null;
-            })
-            .catch(e => {
-                alert(str('errorMessage'));
-            });
+        return !!store.getState().auth.authToken;
     }
 
     return (
