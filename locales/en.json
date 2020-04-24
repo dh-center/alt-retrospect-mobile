@@ -19,7 +19,8 @@
     "popularTags": "Popular tags",
     "allRoutes": "All routes",
     "route": "Route",
-    "min": "min"
+    "min": "min",
+    "explore": "Explore"
   },
   "profile": {
     "savedRoutes": "Saved routes"

@@ -7,7 +7,7 @@ import {LocationScreen} from '../features/routes/LocationScreen';
 
 const Stack = createStackNavigator();
 
-export const RoutesNavigator = () => {
+export const RoutesNavigator = props => {
     return (
         <Stack.Navigator headerMode="none" initialRouteName="Routes">
             <Stack.Screen name="Routes" component={RoutesScreen} />

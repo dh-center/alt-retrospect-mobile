@@ -1,5 +1,5 @@
 import React from 'react';
-import {ImageBackground, View} from 'react-native';
+import {ImageBackground, ScrollView, View} from 'react-native';
 import {
     Button,
     Layout,
@@ -64,19 +64,33 @@ const RouteScreen = props => {
                     </View>
                 </ImageBackground>
                 <Layout style={styles.roundedLayout} level="1">
-                    <Text>{props.currentRoute.description}</Text>
-                    <View style={styles.row}>
-                        <Text category="h4" style={styles.sectionTitle}>
-                            {str('routes.route')}
-                        </Text>
-                        <Text style={styles.durationText}>
-                            {props.currentRoute.duration} {str('routes.min')}
-                        </Text>
-                    </View>
-                    <LocationsList
-                        data={props.currentRoute.location_instances}
-                        navigation={props.navigation}
-                    />
+                    <ScrollView contentContainerStyle={styles.scrollPadded}>
+                        <Text>{props.currentRoute.description}</Text>
+                        <View style={styles.row}>
+                            <Text category="h4" style={styles.sectionTitle}>
+                                {str('routes.route')}
+                            </Text>
+                            <Text style={styles.durationText}>
+                                {props.currentRoute.duration}{' '}
+                                {str('routes.min')}
+                            </Text>
+                        </View>
+                        <LocationsList
+                            data={props.currentRoute.location_instances}
+                            navigation={props.navigation}
+                        />
+                        <Button
+                            appearance="filled"
+                            status="info"
+                            onPress={() =>
+                                props.navigation.navigate('Map', {
+                                    routeId: props.currentRoute.id,
+                                })
+                            }
+                            style={{marginTop: 25}}>
+                            {str('routes.explore')}
+                        </Button>
+                    </ScrollView>
                 </Layout>
             </Layout>
         );

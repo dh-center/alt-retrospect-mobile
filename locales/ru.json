@@ -19,7 +19,8 @@
     "popularTags": "Популярные теги",
     "allRoutes": "Все маршруты",
     "route": "Маршрут",
-    "min": "мин"
+    "min": "мин",
+    "explore": "Пройти"
   },
   "profile": {
     "savedRoutes": "Сохранены"
