@@ -28,3 +28,11 @@ export function fetchAuthToken(username, password) {
         );
     };
 }
+
+export const RESET_AUTH_TOKEN = 'RESET_AUTH_TOKEN';
+
+export function resetAuthToken() {
+    return {
+        type: RESET_AUTH_TOKEN,
+    };
+}

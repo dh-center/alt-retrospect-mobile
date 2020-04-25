@@ -26,7 +26,8 @@
     "savedRoutes": "Saved routes",
     "userInfo": "General",
     "yourUsername": "Your username",
-    "noSaved": "You haven't saved any routes yet. Explore the routes tab!"
+    "noSaved": "You haven't saved any routes yet. Explore the routes tab!",
+    "logOut": "Log Out"
   },
   "errorMessage": "Something went wrong. Please try again."
 }

@@ -35,8 +35,9 @@ export const routesScreenStyles = StyleService.create({
         padding: 15,
         marginTop: '15%',
         height: '15%',
-        justifyContent: 'flex-end',
-        flexDirection: 'column',
+        justifyContent: 'space-between',
+        flexDirection: 'row',
+        alignItems: 'flex-end',
     },
     pageTitle: {
         color: '#fff',
@@ -63,6 +64,9 @@ export const routesScreenStyles = StyleService.create({
     },
     scrollPadded: {
         paddingBottom: 40,
+    },
+    controlButton: {
+        paddingBottom: 0,
     },
 });
 

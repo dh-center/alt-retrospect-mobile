@@ -1,6 +1,7 @@
 import React from 'react';
 import {ScrollView, StatusBar} from 'react-native';
 import {
+    Button,
     Layout,
     ListItem,
     Spinner,
@@ -11,8 +12,14 @@ import {str} from '../../i18n';
 import {routesScreenStyles, sharedStyles} from '../../styles/styleProvider';
 import RoutesList from '../../components/lists/RoutesList';
 import {connect} from 'react-redux';
-import {fetchSavedRoutes, fetchUserInfo} from '../../actions/profile';
+import {
+    fetchSavedRoutes,
+    fetchUserInfo,
+    resetSavedRoutes,
+    resetUserInfo,
+} from '../../actions/profile';
 import {ProfileInfoList} from '../../components/lists/ProfileInfoList';
+import {resetAuthToken} from '../../actions/auth';
 
 const ProfileScreen = props => {
     const styles = useStyleSheet(routesScreenStyles);
@@ -43,6 +50,18 @@ const ProfileScreen = props => {
                     <Text style={styles.pageTitle} category="h2">
                         {str('titles.profile')}
                     </Text>
+                    <Button
+                        appearance="ghost"
+                        variant="white"
+                        status="control"
+                        size="large"
+                        style={styles.controlButton}
+                        children={str('profile.logOut')}
+                        onPress={() => {
+                            props.logOut();
+                            props.navigation.navigate('SignIn');
+                        }}
+                    />
                 </Layout>
                 <Layout style={styles.roundedLayout} level="1">
                     <ScrollView contentContainerStyle={styles.scrollPadded}>
@@ -79,6 +98,11 @@ const mapDispatchToProps = dispatch => {
     return {
         fetchRoutes: () => dispatch(fetchSavedRoutes()),
         fetchUserInfo: () => dispatch(fetchUserInfo()),
+        logOut: () => {
+            dispatch(resetAuthToken());
+            dispatch(resetSavedRoutes());
+            dispatch(resetUserInfo());
+        },
     };
 };
 

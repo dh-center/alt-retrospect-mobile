@@ -27,6 +27,14 @@ export function fetchSavedRoutes() {
     };
 }
 
+export const RESET_SAVED_ROUTES = 'RESET_SAVED_ROUTES';
+
+export function resetSavedRoutes() {
+    return {
+        type: RESET_SAVED_ROUTES,
+    };
+}
+
 export const REQUEST_USER_INFO = 'REQUEST_USER_INFO';
 
 function requestUserInfo() {
@@ -51,5 +59,13 @@ export function fetchUserInfo() {
         return getUserInfo().then(json => {
             dispatch(receiveUserInfo(json.username));
         });
+    };
+}
+
+export const RESET_USER_INFO = 'RESET_USER_INFO';
+
+export function resetUserInfo() {
+    return {
+        type: RESET_USER_INFO,
     };
 }
