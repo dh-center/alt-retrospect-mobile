@@ -60,10 +60,14 @@ const ProfileScreen = props => {
                         <Text category="h4" style={styles.sectionTitle}>
                             {str('profile.savedRoutes')}
                         </Text>
-                        <RoutesList
-                            data={props.routes}
-                            navigation={props.navigation}
-                        />
+                        {props.routes.length !== 0 ? (
+                            <RoutesList
+                                data={props.routes}
+                                navigation={props.navigation}
+                            />
+                        ) : (
+                            <ListItem title={str('profile.noSaved')} />
+                        )}
                     </ScrollView>
                 </Layout>
             </Layout>
