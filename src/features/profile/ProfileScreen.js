@@ -1,12 +1,18 @@
 import React from 'react';
 import {ScrollView, StatusBar} from 'react-native';
-import {Layout, Spinner, Text, useStyleSheet} from '@ui-kitten/components';
+import {
+    Layout,
+    ListItem,
+    Spinner,
+    Text,
+    useStyleSheet,
+} from '@ui-kitten/components';
 import {str} from '../../i18n';
 import {routesScreenStyles, sharedStyles} from '../../styles/styleProvider';
 import RoutesList from '../../components/lists/RoutesList';
-import {fetchAllRoutes} from '../../actions/routes';
 import {connect} from 'react-redux';
-import {fetchSavedRoutes} from '../../actions/profile';
+import {fetchSavedRoutes, fetchUserInfo} from '../../actions/profile';
+import {ProfileInfoList} from '../../components/lists/ProfileInfoList';
 
 const ProfileScreen = props => {
     const styles = useStyleSheet(routesScreenStyles);
@@ -16,8 +22,8 @@ const ProfileScreen = props => {
         props.fetchRoutes();
     }
 
-    if (props.tagsInvalid) {
-        props.fetchTags();
+    if (props.userInfoInvalid && !props.isFetching) {
+        props.fetchUserInfo();
     }
 
     if (props.isFetching) {
@@ -41,6 +47,17 @@ const ProfileScreen = props => {
                 <Layout style={styles.roundedLayout} level="1">
                     <ScrollView contentContainerStyle={styles.scrollPadded}>
                         <Text category="h4" style={styles.sectionTitle}>
+                            {str('profile.userInfo')}
+                        </Text>
+                        <ProfileInfoList
+                            data={[
+                                {
+                                    title: props.username,
+                                    description: str('profile.yourUsername'),
+                                },
+                            ]}
+                        />
+                        <Text category="h4" style={styles.sectionTitle}>
                             {str('profile.savedRoutes')}
                         </Text>
                         <RoutesList
@@ -57,14 +74,17 @@ const ProfileScreen = props => {
 const mapDispatchToProps = dispatch => {
     return {
         fetchRoutes: () => dispatch(fetchSavedRoutes()),
+        fetchUserInfo: () => dispatch(fetchUserInfo()),
     };
 };
 
 const mapStateToProps = state => {
     return {
-        isFetching: state.savedRoutes.isFetching,
+        isFetching: state.savedRoutes.isFetching || state.userInfo.isFetching,
         routesInvalid: state.savedRoutes.didInvalidate,
         routes: state.savedRoutes.items,
+        userInfoInvalid: state.userInfo.didInvalidate,
+        username: state.userInfo.username,
     };
 };
 

@@ -23,7 +23,9 @@
     "explore": "Пройти"
   },
   "profile": {
-    "savedRoutes": "Сохранены"
+    "savedRoutes": "Сохранены",
+    "userInfo": "Информация",
+    "yourUsername": "Ваш логин"
   },
   "errorMessage": "Что-то пошло не так. Пожалуйста, попробуйте еще раз."
 }

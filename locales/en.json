@@ -23,7 +23,9 @@
     "explore": "Explore"
   },
   "profile": {
-    "savedRoutes": "Saved routes"
+    "savedRoutes": "Saved routes",
+    "userInfo": "General",
+    "yourUsername": "Your username"
   },
   "errorMessage": "Something went wrong. Please try again."
 }
