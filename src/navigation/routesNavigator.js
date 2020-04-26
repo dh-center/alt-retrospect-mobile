@@ -1,7 +1,7 @@
 import React from 'react';
 import {createStackNavigator} from '@react-navigation/stack';
 import RoutesScreen from '../features/routes/RoutesScreen';
-import RouteScreen from '../features/routes/RouteScreen';
+import RouteScreen from '../features/routes/RouteDescriptionScreen';
 import {RoutesSearch} from '../features/routes/RoutesSearch';
 import {LocationScreen} from '../features/routes/LocationScreen';
 

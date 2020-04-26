@@ -1,10 +1,10 @@
 import React from 'react';
 import {NavigationContainer} from '@react-navigation/native';
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
-import MapScreen from '../features/map/MapScreen';
 import {BottomTabBar} from './bottomTabBar';
 import {ProfileNavigator} from './profileNavigator';
 import {RoutesNavigator} from './routesNavigator';
+import {MapNavigator} from './mapNavigator';
 
 const BottomTab = createBottomTabNavigator();
 
@@ -13,7 +13,7 @@ const TabNavigator = () => (
         tabBar={props => <BottomTabBar {...props} />}
         initialRouteName={'Map'}>
         <BottomTab.Screen name="Routes" component={RoutesNavigator} />
-        <BottomTab.Screen name="Map" component={MapScreen} />
+        <BottomTab.Screen name="Map" component={MapNavigator} />
         <BottomTab.Screen name="Profile" component={ProfileNavigator} />
     </BottomTab.Navigator>
 );

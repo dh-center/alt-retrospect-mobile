@@ -3,26 +3,12 @@ import {SafeAreaView} from 'react-native';
 import {Layout, Spinner, useStyleSheet} from '@ui-kitten/components';
 import {SearchBar} from '../../components/inputs/SearchBar';
 import Map from '../../components/Map';
-import {mapScreenStyles, sharedStyles} from '../../styles/styleProvider';
+import {sharedStyles} from '../../styles/styleProvider';
 import {connect} from 'react-redux';
 import {fetchLocation, fetchNearLocations} from '../../actions/locations';
 
-export const MapScreen = props => {
+export const RouteNavigationScreen = props => {
     const shared = useStyleSheet(sharedStyles);
-    const styles = useStyleSheet(mapScreenStyles);
-
-    if (
-        props.locationsInvalid &&
-        !props.isFetching &&
-        !props.currentLocationFetching
-    ) {
-        console.log(props.currentLocation);
-        props.fetchNearLocations(
-            props.currentLocation.latitude,
-            props.currentLocation.longitude,
-            1500,
-        );
-    }
 
     if (props.isFetching) {
         return (
@@ -33,10 +19,7 @@ export const MapScreen = props => {
     } else {
         return (
             <SafeAreaView style={shared.flexArea}>
-                <Layout style={styles.headerLayout}>
-                    <SearchBar />
-                </Layout>
-                <Map locations={props.nearLocations} routeMode={false}/>
+                <Map locations={props.currentRoute['location_instances']} routeMode={true} />
             </SafeAreaView>
         );
     }
@@ -52,9 +35,9 @@ const mapDispatchToProps = dispatch => {
 
 const mapStateToProps = state => {
     return {
-        isFetching: state.nearLocations.isFetching,
-        locationsInvalid: state.nearLocations.didInvalidate,
-        nearLocations: state.nearLocations.items,
+        isFetching: state.currentRoute.isFetching,
+        routeInvalid: state.currentRoute.didInvalidate,
+        currentRoute: state.currentRoute.data,
         currentLocation: state.currentLocation.data,
         currentLocationFetching: state.currentLocation.isFetching,
     };
@@ -63,4 +46,4 @@ const mapStateToProps = state => {
 export default connect(
     mapStateToProps,
     mapDispatchToProps,
-)(MapScreen);
+)(RouteNavigationScreen);

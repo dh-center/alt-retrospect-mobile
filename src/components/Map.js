@@ -20,16 +20,9 @@ const LONGITUDE_DELTA = 0.012;
 
 const Map = props => {
     const shared = useStyleSheet(sharedStyles);
-    if (props.hasOwnProperty('route')) {
-        props.routeMode = props.route.params.routeMode;
-    } else {
-        props.routeMode = false;
-    }
-    if (props.routeMode) {
-        props.waypoints = props.locations.map(location => {
-            return {latitude: location.lat, longitude: location.lon};
-        });
-    }
+
+    // TODO: replace with actual implementation when API is ready
+    const [waypoints, setWaypoints] = useState([{latitude: 59.57, longitude: 30.19}]);
 
     async function hasLocationPermission() {
         if (
@@ -159,35 +152,34 @@ const Map = props => {
                         }}>
                         <LocationIcon />
                     </Marker>
-                    {props.locations.map(location => (
-                        <Marker
-                            key={location.id}
-                            coordinate={{
-                                latitude: location.lat,
-                                longitude: location.lon,
-                            }}
-                            description={location.description}>
-                            <Callout tooltip>
-                                <LocationCallout
-                                    title={location.instances[0].name}
-                                />
-                            </Callout>
-                        </Marker>
-                    ))}
                     {props.routeMode ? (
                         <MapViewDirections
                             origin={props.currentLocation}
                             apikey={Config.GM_DIRECTIONS_API_KEY}
-                            destination={
-                                props.waypoints[props.waypoints.length - 1]
-                            }
-                            waypoints={props.waypoints}
+                            destination={waypoints[waypoints.length - 1]}
+                            waypoints={waypoints}
                             mode="WALKING"
                             strokeWidth={8}
                             strokeColor="#4A75D5"
                             resetOnChange={false}
                         />
-                    ) : null}
+                    ) : (
+                        props.locations.map(location => (
+                            <Marker
+                                key={location.id}
+                                coordinate={{
+                                    latitude: location.lat,
+                                    longitude: location.lon,
+                                }}
+                                description={location.description}>
+                                <Callout tooltip>
+                                    <LocationCallout
+                                        title={location.instances[0].name}
+                                    />
+                                </Callout>
+                            </Marker>
+                        ))
+                    )}
                 </MapView>
             </View>
         );

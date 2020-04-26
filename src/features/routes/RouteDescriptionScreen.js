@@ -15,7 +15,7 @@ import {ArrowLeftIcon} from '../../components/icons/ArrowLeftIcon';
 import {StarIcon} from '../../components/icons/StarIcon';
 import {LocationsList} from '../../components/lists/LocationsList';
 
-const RouteScreen = props => {
+const RouteDescriptionScreen = props => {
     const styles = useStyleSheet(routeScreenStyles);
     const shared = useStyleSheet(sharedStyles);
 
@@ -83,7 +83,7 @@ const RouteScreen = props => {
                             appearance="filled"
                             status="info"
                             onPress={() =>
-                                props.navigation.navigate('Map', {
+                                props.navigation.navigate('RouteNavigation', {
                                     routeId: props.currentRoute.id,
                                 })
                             }
@@ -115,4 +115,4 @@ const mapStateToProps = state => {
 export default connect(
     mapStateToProps,
     mapDispatchToProps,
-)(RouteScreen);
+)(RouteDescriptionScreen);
