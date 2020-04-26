@@ -20,9 +20,16 @@ const LONGITUDE_DELTA = 0.012;
 
 const Map = props => {
     const shared = useStyleSheet(sharedStyles);
-    const waypoints = props.locations.map(location => {
-        return {latitude: location.lat, longitude: location.lon};
-    });
+    if (props.hasOwnProperty('route')) {
+        props.routeMode = props.route.params.routeMode;
+    } else {
+        props.routeMode = false;
+    }
+    if (props.routeMode) {
+        props.waypoints = props.locations.map(location => {
+            return {latitude: location.lat, longitude: location.lon};
+        });
+    }
 
     async function hasLocationPermission() {
         if (
@@ -133,8 +140,7 @@ const Map = props => {
                 <Spinner />
             </Layout>
         );
-    }
-    else {
+    } else {
         return (
             <View style={shared.flexArea}>
                 <MapView
@@ -151,7 +157,7 @@ const Map = props => {
                             latitude: props.currentLocation.latitude,
                             longitude: props.currentLocation.longitude,
                         }}>
-                        <LocationIcon/>
+                        <LocationIcon />
                     </Marker>
                     {props.locations.map(location => (
                         <Marker
@@ -168,12 +174,14 @@ const Map = props => {
                             </Callout>
                         </Marker>
                     ))}
-                    {props.displayRoute ? (
+                    {props.routeMode ? (
                         <MapViewDirections
                             origin={props.currentLocation}
                             apikey={Config.GM_DIRECTIONS_API_KEY}
-                            destination={waypoints[waypoints.length - 1]}
-                            waypoints={waypoints}
+                            destination={
+                                props.waypoints[props.waypoints.length - 1]
+                            }
+                            waypoints={props.waypoints}
                             mode="WALKING"
                             strokeWidth={8}
                             strokeColor="#4A75D5"
