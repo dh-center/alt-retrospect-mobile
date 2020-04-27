@@ -159,3 +159,33 @@ export const calloutStyles = StyleService.create({
         left: 90,
     },
 });
+
+export const searchScreenStyles = StyleService.create({
+    headerLayout: {
+        padding: 15,
+        marginTop: '15%',
+        height: '10%',
+        justifyContent: 'space-between',
+        flexDirection: 'row',
+        alignItems: 'flex-end',
+    },
+    flexArea: {
+        flex: 1,
+    },
+    roundedLayout: {
+        borderRadius: 40,
+        padding: 15,
+        marginBottom: -40,
+        height: '100%',
+        flex: 1,
+    },
+    statusBar: {
+        backgroundColor: 'color-info-400',
+    },
+    scrollPadded: {
+        paddingBottom: 40,
+    },
+    searchBar: {
+        width: '100%',
+    },
+});

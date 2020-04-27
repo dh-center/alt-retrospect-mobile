@@ -1,6 +1,6 @@
 import React from 'react';
 import {StatusBar, ScrollView} from 'react-native';
-import {Layout, Spinner, Text, useStyleSheet} from '@ui-kitten/components';
+import {Button, Layout, Spinner, Text, useStyleSheet} from '@ui-kitten/components';
 import {TagsList} from '../../components/lists/TagsList';
 import RoutesList from '../../components/lists/RoutesList';
 import {routesScreenStyles, sharedStyles} from '../../styles/styleProvider';
@@ -8,6 +8,7 @@ import {str} from '../../i18n';
 import {fetchAllRoutes} from '../../actions/routes';
 import {connect} from 'react-redux';
 import {fetchPopularTags} from '../../actions/tags';
+import {SearchIcon} from '../../components/icons/SearchIcon';
 
 const RoutesScreen = props => {
     const styles = useStyleSheet(routesScreenStyles);
@@ -38,6 +39,17 @@ const RoutesScreen = props => {
                     <Text style={styles.pageTitle} category="h2">
                         {str('titles.routes')}
                     </Text>
+                    <Button
+                        appearance="ghost"
+                        variant="white"
+                        status="control"
+                        size="large"
+                        style={styles.controlButton}
+                        icon={SearchIcon}
+                        onPress={() => {
+                            props.navigation.navigate('Search');
+                        }}
+                    />
                 </Layout>
                 <Layout style={styles.roundedLayout} level="1">
                     <ScrollView contentContainerStyle={styles.scrollPadded}>
