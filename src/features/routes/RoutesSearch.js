@@ -3,21 +3,13 @@ import {ScrollView, StatusBar} from 'react-native';
 import {Layout, Spinner, useStyleSheet} from '@ui-kitten/components';
 import RoutesList from '../../components/lists/RoutesList';
 import {searchScreenStyles, sharedStyles} from '../../styles/styleProvider';
-import {fetchAllRoutes} from '../../actions/routes';
+import {fetchSearchRoutes} from '../../actions/routes';
 import {connect} from 'react-redux';
 import {SearchBar} from '../../components/inputs/SearchBar';
 
 const RoutesSearch = props => {
     const styles = useStyleSheet(searchScreenStyles);
     const shared = useStyleSheet(sharedStyles);
-
-    if (props.routesInvalid && !props.isFetching) {
-        props.fetchRoutes();
-    }
-
-    if (props.tagsInvalid) {
-        props.fetchTags();
-    }
 
     if (props.isFetching) {
         return (
@@ -33,7 +25,10 @@ const RoutesSearch = props => {
                     barStyle="light-content"
                 />
                 <Layout style={styles.headerLayout} level="3">
-                    <SearchBar style={styles.searchBar} />
+                    <SearchBar
+                        style={styles.searchBar}
+                        onChangeText={text => props.fetchRoutes(text)}
+                    />
                 </Layout>
                 <Layout style={styles.roundedLayout} level="1">
                     <ScrollView contentContainerStyle={styles.scrollPadded}>
@@ -50,15 +45,15 @@ const RoutesSearch = props => {
 
 const mapDispatchToProps = dispatch => {
     return {
-        fetchRoutes: () => dispatch(fetchAllRoutes()),
+        fetchRoutes: query => dispatch(fetchSearchRoutes(query)),
     };
 };
 
 const mapStateToProps = state => {
     return {
-        isFetching: state.routes.isFetching || state.popularTags.isFetching,
-        routesInvalid: state.routes.didInvalidate,
-        routes: state.routes.items,
+        isFetching: state.routesSearch.isFetching,
+        routesInvalid: state.routesSearch.didInvalidate,
+        routes: state.routesSearch.items,
     };
 };
 

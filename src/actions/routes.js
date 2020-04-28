@@ -1,4 +1,4 @@
-import {getRoutes} from '../api/routes';
+import {getRoutes, getSearchRoutes} from '../api/routes';
 import {getRoute} from '../api/routes';
 
 export const REQUEST_ALL_ROUTES = 'REQUEST_ALL_ROUTES';
@@ -70,5 +70,32 @@ export const RESET_ROUTE = 'RESET_ROUTE';
 export function resetRoute() {
     return {
         type: RESET_ROUTE,
+    };
+}
+
+export const REQUEST_SEARCH_ROUTES = 'REQUEST_SEARCH_ROUTES';
+
+function requestSearchRoutes() {
+    return {
+        type: REQUEST_SEARCH_ROUTES,
+    };
+}
+
+export const RECEIVE_SEARCH_ROUTES = 'RECEIVE_SEARCH_ROUTES';
+
+function receiveSearchRoutes(routes) {
+    return {
+        type: RECEIVE_SEARCH_ROUTES,
+        routes,
+    };
+}
+
+export function fetchSearchRoutes(query) {
+    return function(dispatch) {
+        dispatch(requestSearchRoutes());
+
+        return getSearchRoutes(query).then(json => {
+            dispatch(receiveSearchRoutes(json.routes));
+        });
     };
 }

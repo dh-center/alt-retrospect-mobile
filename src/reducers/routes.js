@@ -4,7 +4,7 @@ import {
     REQUEST_ROUTE,
     RECEIVE_ROUTE,
     RESET_ROUTE,
-    SET_ROUTE,
+    SET_ROUTE, REQUEST_SEARCH_ROUTES, RECEIVE_SEARCH_ROUTES,
 } from '../actions/routes';
 
 export function routes(
@@ -72,6 +72,31 @@ export function currentRoute(
                 didInvalidate: false,
                 data: action.route,
             };
+        default:
+            return state;
+    }
+}
+
+export function routesSearch(
+    state = {
+        isFetching: false,
+        didInvalidate: true,
+        items: [],
+    },
+    action,
+) {
+    switch (action.type) {
+        case REQUEST_SEARCH_ROUTES:
+            return Object.assign({}, state, {
+                isFetching: true,
+            });
+        case RECEIVE_SEARCH_ROUTES:
+            return Object.assign({}, state, {
+                didInvalidate: false,
+                isFetching: false,
+                items: action.routes,
+            });
+
         default:
             return state;
     }
