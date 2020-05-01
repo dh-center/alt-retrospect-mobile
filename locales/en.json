@@ -20,7 +20,8 @@
     "allRoutes": "All routes",
     "route": "Route",
     "min": "min",
-    "explore": "Explore"
+    "explore": "Explore",
+    "noRoutes": "No routes satisfying you query found"
   },
   "profile": {
     "savedRoutes": "Saved routes",
