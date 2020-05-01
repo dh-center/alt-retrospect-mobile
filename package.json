@@ -36,6 +36,7 @@
     "react-native-svg": "^12.0.3",
     "react-redux": "^7.2.0",
     "redux": "^4.0.5",
+    "redux-orm": "^0.16.1",
     "redux-thunk": "^2.3.0"
   },
   "devDependencies": {
