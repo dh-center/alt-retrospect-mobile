@@ -21,4 +21,6 @@ Route.fields = {
     duration: attr(),
     tags: many('Tag'),
     instances: many('Instance'),
+    isPopular: attr(),
+    isSaved: attr(),
 };

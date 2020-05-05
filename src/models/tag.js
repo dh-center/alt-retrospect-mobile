@@ -13,4 +13,5 @@ Tag.modelName = 'Tag';
 Tag.fields = {
     id: attr(),
     name: attr(),
+    isPopular: attr(),
 };

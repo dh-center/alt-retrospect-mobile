@@ -49,7 +49,26 @@ export function fetchLocation(id) {
         dispatch(requestLocation(id));
 
         return getLocation(id).then(json => {
-            dispatch(receiveLocation(json.partner));
+            dispatch(createLocation(json.partner));
+            // dispatch(receiveLocation(json.partner));
         });
+    };
+}
+
+export const CREATE_LOCATION = 'CREATE_LOCATION';
+
+function createLocation(location) {
+    return {
+        type: CREATE_LOCATION,
+        payload: location,
+    };
+}
+
+export const UPDATE_LOCATION = 'UPDATE_LOCATION';
+
+function updateLocation(location) {
+    return {
+        type: UPDATE_LOCATION,
+        payload: location,
     };
 }
