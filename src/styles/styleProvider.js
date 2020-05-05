@@ -162,11 +162,11 @@ export const calloutStyles = StyleService.create({
 
 export const searchScreenStyles = StyleService.create({
     headerLayout: {
-        padding: 15,
+        paddingBottom: 15,
         marginTop: '15%',
-        height: '10%',
-        justifyContent: 'space-between',
+        height: '15%',
         flexDirection: 'row',
+        justifyContent: 'space-between',
         alignItems: 'flex-end',
     },
     flexArea: {
@@ -187,5 +187,14 @@ export const searchScreenStyles = StyleService.create({
     },
     searchBar: {
         width: '100%',
+    },
+    pageTitle: {
+        color: '#fff',
+    },
+    searchButton: {
+        paddingBottom: 0,
+    },
+    backButton: {
+        paddingBottom: 0,
     },
 });

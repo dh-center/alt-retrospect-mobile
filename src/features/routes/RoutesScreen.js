@@ -1,6 +1,12 @@
 import React from 'react';
 import {StatusBar, ScrollView} from 'react-native';
-import {Button, Layout, Spinner, Text, useStyleSheet} from '@ui-kitten/components';
+import {
+    Button,
+    Layout,
+    Spinner,
+    Text,
+    useStyleSheet,
+} from '@ui-kitten/components';
 import {TagsList} from '../../components/lists/TagsList';
 import RoutesList from '../../components/lists/RoutesList';
 import {routesScreenStyles, sharedStyles} from '../../styles/styleProvider';
@@ -47,7 +53,9 @@ const RoutesScreen = props => {
                         style={styles.controlButton}
                         icon={SearchIcon}
                         onPress={() => {
-                            props.navigation.navigate('Search');
+                            props.navigation.navigate('Search', {
+                                searchBarOpen: true,
+                            });
                         }}
                     />
                 </Layout>
