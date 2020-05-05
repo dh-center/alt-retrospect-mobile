@@ -1,4 +1,4 @@
-import {getLocation, getNearLocations} from '../api/locations';
+import {getLocation, getNearLocations, getSearchLocations} from '../api/locations';
 
 export const REQUEST_NEAR_LOCATIONS = 'REQUEST_NEAR_LOCATIONS';
 
@@ -70,5 +70,32 @@ function updateLocation(location) {
     return {
         type: UPDATE_LOCATION,
         payload: location,
+    };
+}
+
+export const REQUEST_SEARCH_LOCATIONS = 'REQUEST_SEARCH_LOCATIONS';
+
+function requestSearchLocations() {
+    return {
+        type: REQUEST_SEARCH_LOCATIONS,
+    };
+}
+
+export const RECEIVE_SEARCH_LOCATIONS = 'RECEIVE_SEARCH_LOCATIONS';
+
+function receiveSearchLocations(locations) {
+    return {
+        type: RECEIVE_SEARCH_LOCATIONS,
+        locations,
+    };
+}
+
+export function fetchSearchLocations(query) {
+    return function(dispatch) {
+        dispatch(requestSearchLocations());
+
+        return getSearchLocations(query).then(json => {
+            dispatch(receiveSearchLocations(json.locations));
+        });
     };
 }

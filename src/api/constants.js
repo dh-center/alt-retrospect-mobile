@@ -15,6 +15,7 @@ export const GET_SEARCH_ROUTES_URI = API_URL + '/api/routes/searchByQuery';
 
 export const GET_LOCATION_URI = API_URL + '/api/partner/getById';
 export const GET_NEAR_LOCATIONS_URI = API_URL + '/api/partner/getLocations';
+export const GET_SEARCH_LOCATIONS_URI = API_URL + '/api/locations/search';
 
 export const GET_SAVED_ROUTES_URI = API_URL + '/api/routes/getUserRoutes';
 export const GET_USER_INFO_URI = API_URL + '/auth/users/me/';
