@@ -1,19 +1,20 @@
 import React, {useState} from 'react';
-import {SafeAreaView, Text} from 'react-native';
+import {SafeAreaView, Text, View} from 'react-native';
 import {Layout, Spinner, useStyleSheet} from '@ui-kitten/components';
 import {SearchBar} from '../../components/inputs/SearchBar';
 import Map from '../../components/Map';
 import {mapScreenStyles, sharedStyles} from '../../styles/styleProvider';
 import {connect} from 'react-redux';
-import {
-    fetchLocation,
-    fetchNearLocations,
-    fetchSearchLocations,
-} from '../../actions/locations';
+import {fetchLocation, fetchNearLocations} from '../../actions/locations';
+import {getSearchLocations} from '../../api/locations';
+import {LocationsSearchResults} from '../../components/lists/LocationsSearchResult';
 
 export const MapScreen = props => {
     const shared = useStyleSheet(sharedStyles);
     const styles = useStyleSheet(mapScreenStyles);
+
+    const [searchResults, setSearchResults] = useState(undefined);
+    const [isFetching, setIsFetching] = useState(false);
 
     if (
         props.nearInvalid &&
@@ -27,6 +28,17 @@ export const MapScreen = props => {
         );
     }
 
+    async function fetchSearchResults(query) {
+        if (query !== '') {
+            setIsFetching(true);
+            const searchLocations = await getSearchLocations(query);
+            setSearchResults(searchLocations.locations);
+            setIsFetching(false);
+        } else {
+            setSearchResults(undefined);
+        }
+    }
+
     if (props.nearFetching) {
         return (
             <Layout style={shared.centerContent}>
@@ -38,15 +50,17 @@ export const MapScreen = props => {
             <SafeAreaView style={shared.flexArea}>
                 <Layout style={styles.headerLayout}>
                     <SearchBar
-                        onChangeText={text => props.fetchSearchLocations(text)}
-                        onBlur={props.searchLocations}
+                        onChangeText={text => fetchSearchResults(text)}
                     />
                 </Layout>
-                {props.searchLocations
-                    ? props.searchLocations.map(location => {
-                          return <Text>{location.address}</Text>;
-                      })
-                    : null}
+                {searchResults ? (
+                    <LocationsSearchResults
+                        data={searchResults}
+                        navigation={props.navigation}
+                    />
+                ) : (
+                    <View>{isFetching ? <Spinner /> : null}</View>
+                )}
                 <Map locations={props.nearLocations} routeMode={false} />
             </SafeAreaView>
         );
@@ -58,7 +72,6 @@ const mapDispatchToProps = dispatch => {
         fetchNearLocations: (lat, lon, radius) =>
             dispatch(fetchNearLocations(lat, lon, radius)),
         fetchLocation: () => dispatch(fetchLocation()),
-        fetchSearchLocations: query => dispatch(fetchSearchLocations(query)),
     };
 };
 
@@ -67,9 +80,6 @@ const mapStateToProps = state => {
         nearFetching: state.nearLocations.isFetching,
         nearInvalid: state.nearLocations.didInvalidate,
         nearLocations: state.nearLocations.items,
-        searchFetching: state.locationsSearch.isFetching,
-        searchInvalid: state.locationsSearch.didInvalidate,
-        searchLocations: state.locationsSearch.items,
         currentLocation: state.currentLocation.data,
         currentLocationFetching: state.currentLocation.isFetching,
     };

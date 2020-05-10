@@ -28,27 +28,3 @@ export function nearLocations(
             return state;
     }
 }
-
-export function locationsSearch(
-    state = {
-        isFetching: false,
-        didInvalidate: true,
-        items: [],
-    },
-    action,
-) {
-    switch (action.type) {
-        case REQUEST_SEARCH_LOCATIONS:
-            return Object.assign({}, state, {
-                isFetching: true,
-            });
-        case RECEIVE_SEARCH_LOCATIONS:
-            return Object.assign({}, state, {
-                didInvalidate: false,
-                isFetching: false,
-                items: action.locations,
-            });
-        default:
-            return state;
-    }
-}
