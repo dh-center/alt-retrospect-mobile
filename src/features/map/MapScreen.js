@@ -1,13 +1,12 @@
 import React, {useState} from 'react';
 import {SafeAreaView, Text, View} from 'react-native';
-import {Layout, Spinner, useStyleSheet} from '@ui-kitten/components';
+import {Layout, ListItem, Spinner, useStyleSheet} from '@ui-kitten/components';
 import {SearchBar} from '../../components/inputs/SearchBar';
 import Map from '../../components/Map';
 import {mapScreenStyles, sharedStyles} from '../../styles/styleProvider';
 import {connect} from 'react-redux';
 import {fetchLocation, fetchNearLocations} from '../../actions/locations';
 import {getSearchLocations} from '../../api/locations';
-import {LocationsSearchResults} from '../../components/lists/LocationsSearchResult';
 
 export const MapScreen = props => {
     const shared = useStyleSheet(sharedStyles);
@@ -22,8 +21,8 @@ export const MapScreen = props => {
         !props.currentLocationFetching
     ) {
         props.fetchNearLocations(
-            props.currentLocation.latitude,
-            props.currentLocation.longitude,
+            props.currentLocation.lat,
+            props.currentLocation.lon,
             1500,
         );
     }
@@ -53,14 +52,19 @@ export const MapScreen = props => {
                         onChangeText={text => fetchSearchResults(text)}
                     />
                 </Layout>
-                {searchResults ? (
-                    <LocationsSearchResults
-                        data={searchResults}
-                        navigation={props.navigation}
-                    />
-                ) : (
-                    <View>{isFetching ? <Spinner /> : null}</View>
-                )}
+                {searchResults &&
+                    searchResults.map(item => (
+                        <ListItem
+                            key={item.id}
+                            title={item.address}
+                            onPress={() =>
+                                props.navigation.navigate('Location', {
+                                    location: item,
+                                })
+                            }
+                        />
+                    ))}
+                {isFetching && <Spinner />}
                 <Map locations={props.nearLocations} routeMode={false} />
             </SafeAreaView>
         );

@@ -15,8 +15,8 @@ export function currentLocation(
             return Object.assign({}, state, {
                 isFetching: false,
                 data: {
-                    latitude: action.latitude,
-                    longitude: action.longitude,
+                    lat: action.latitude,
+                    lon: action.longitude,
                 },
             });
         case REQUEST_CURRENT_LOCATION:

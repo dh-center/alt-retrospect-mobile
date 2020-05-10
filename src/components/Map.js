@@ -21,6 +21,8 @@ const LONGITUDE_DELTA = 0.012;
 const Map = props => {
     const shared = useStyleSheet(sharedStyles);
 
+    const initialLocation = props.initialLocation || props.currentLocation;
+
     // TODO: replace with actual implementation when API is ready
     const [waypoints, setWaypoints] = useState([
         {latitude: 59.57, longitude: 30.19},
@@ -141,8 +143,8 @@ const Map = props => {
             <View style={shared.flexArea}>
                 <MapView
                     initialRegion={{
-                        latitude: props.currentLocation.latitude,
-                        longitude: props.currentLocation.longitude,
+                        latitude: initialLocation.lat,
+                        longitude: initialLocation.lon,
                         latitudeDelta: LATITUDE_DELTA,
                         longitudeDelta: LONGITUDE_DELTA,
                     }}
@@ -150,8 +152,8 @@ const Map = props => {
                     style={shared.flexArea}>
                     <Marker
                         coordinate={{
-                            latitude: props.currentLocation.latitude,
-                            longitude: props.currentLocation.longitude,
+                            latitude: props.currentLocation.lat,
+                            longitude: props.currentLocation.lon,
                         }}>
                         <LocationIcon />
                     </Marker>
