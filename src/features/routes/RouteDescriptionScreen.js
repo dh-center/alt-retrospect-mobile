@@ -2,6 +2,7 @@ import React from 'react';
 import {ImageBackground, ScrollView, View} from 'react-native';
 import {
     Button,
+    Icon,
     Layout,
     Spinner,
     Text,
@@ -11,9 +12,8 @@ import {fetchRoute, resetRoute} from '../../actions/routes';
 import {connect} from 'react-redux';
 import {routeScreenStyles, sharedStyles} from '../../styles/styleProvider';
 import {str} from '../../i18n';
-import {ArrowLeftIcon} from '../../components/icons/ArrowLeftIcon';
-import {StarIcon} from '../../components/icons/StarIcon';
 import {LocationsList} from '../../components/lists/LocationsList';
+import {ControlButton} from '../../components/buttons/ControlButton';
 
 const RouteDescriptionScreen = props => {
     const styles = useStyleSheet(routeScreenStyles);
@@ -39,23 +39,19 @@ const RouteDescriptionScreen = props => {
                     }}>
                     <View style={styles.headerLayout}>
                         <View style={styles.row}>
-                            <Button
-                                appearance="ghost"
-                                status="control"
-                                icon={ArrowLeftIcon}
-                                style={styles.backButton}
-                                size="giant"
+                            <ControlButton
+                                renderIcon={style => (
+                                    <Icon {...style} name="arrow-ios-back" />
+                                )}
                                 onPress={() => {
                                     props.resetRoute();
                                     props.navigation.goBack();
                                 }}
                             />
-                            <Button
-                                appearance="ghost"
-                                status="control"
-                                icon={StarIcon}
-                                style={styles.backButton}
-                                size="giant"
+                            <ControlButton
+                                renderIcon={style => (
+                                    <Icon {...style} name="star-outline" />
+                                )}
                             />
                         </View>
                         <Text style={styles.pageTitle} category="h3">

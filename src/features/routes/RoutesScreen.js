@@ -1,12 +1,6 @@
 import React from 'react';
-import {StatusBar, ScrollView} from 'react-native';
-import {
-    Button,
-    Layout,
-    Spinner,
-    Text,
-    useStyleSheet,
-} from '@ui-kitten/components';
+import {ScrollView, StatusBar} from 'react-native';
+import {Icon, Layout, Spinner, Text, useStyleSheet} from '@ui-kitten/components';
 import {TagsList} from '../../components/lists/TagsList';
 import RoutesList from '../../components/lists/RoutesList';
 import {routesScreenStyles, sharedStyles} from '../../styles/styleProvider';
@@ -14,7 +8,7 @@ import {str} from '../../i18n';
 import {fetchAllRoutes} from '../../actions/routes';
 import {connect} from 'react-redux';
 import {fetchPopularTags} from '../../actions/tags';
-import {SearchIcon} from '../../components/icons/SearchIcon';
+import {ControlButton} from '../../components/buttons/ControlButton';
 
 const RoutesScreen = props => {
     const styles = useStyleSheet(routesScreenStyles);
@@ -45,13 +39,9 @@ const RoutesScreen = props => {
                     <Text style={styles.pageTitle} category="h2">
                         {str('titles.routes')}
                     </Text>
-                    <Button
-                        appearance="ghost"
-                        variant="white"
-                        status="control"
-                        size="large"
+                    <ControlButton
                         style={styles.controlButton}
-                        icon={SearchIcon}
+                        renderIcon={style => <Icon {...style} name="search" />}
                         onPress={() => {
                             props.navigation.navigate('Search', {
                                 searchBarOpen: true,

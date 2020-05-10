@@ -1,9 +1,9 @@
 import React from 'react';
 import {Image} from 'react-native';
-import {ListItem, Button} from '@ui-kitten/components';
-import {ChevronRight} from '../icons/ChevronRight';
+import {Icon, ListItem} from '@ui-kitten/components';
 import {setRoute} from '../../actions/routes';
 import {connect} from 'react-redux';
+import {BasicButton} from '../buttons/BasicButton';
 
 const RoutesList = props => {
     const renderRouteImage = (style, uri) => (
@@ -18,11 +18,9 @@ const RoutesList = props => {
         )
     );
     const renderChevron = style => (
-        <Button
-            appearance="ghost"
-            status="basic"
-            style={style}
-            icon={ChevronRight}
+        <BasicButton
+            renderIcon={style => <Icon {...style} name="chevron-right" />}
+            onPress={() => props.navigation.navigate('Search')}
         />
     );
 

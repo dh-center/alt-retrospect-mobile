@@ -1,20 +1,13 @@
 import React, {useState} from 'react';
 import {ScrollView, StatusBar} from 'react-native';
-import {
-    Button,
-    Layout,
-    Spinner,
-    Text,
-    useStyleSheet,
-} from '@ui-kitten/components';
+import {Icon, Layout, Spinner, Text, useStyleSheet} from '@ui-kitten/components';
 import RoutesList from '../../components/lists/RoutesList';
 import {searchScreenStyles, sharedStyles} from '../../styles/styleProvider';
 import {fetchSearchRoutes} from '../../actions/routes';
 import {connect} from 'react-redux';
 import {SearchBar} from '../../components/inputs/SearchBar';
 import {str} from '../../i18n';
-import {ArrowLeftIcon} from '../../components/icons/ArrowLeftIcon';
-import {SearchIcon} from '../../components/icons/SearchIcon';
+import {ControlButton} from '../../components/buttons/ControlButton';
 
 const RoutesSearch = props => {
     const styles = useStyleSheet(searchScreenStyles);
@@ -46,12 +39,11 @@ const RoutesSearch = props => {
                 </Layout>
             ) : (
                 <Layout style={styles.headerLayout} level="3">
-                    <Button
-                        appearance="ghost"
-                        status="control"
-                        icon={ArrowLeftIcon}
+                    <ControlButton
                         style={styles.backButton}
-                        size="giant"
+                        renderIcon={style => (
+                            <Icon {...style} name="arrow-ios-back" />
+                        )}
                         onPress={() => {
                             props.navigation.goBack();
                         }}
@@ -59,13 +51,9 @@ const RoutesSearch = props => {
                     <Text style={styles.pageTitle} category="h2">
                         {str('routes.searchRoutes')}
                     </Text>
-                    <Button
-                        appearance="ghost"
-                        variant="white"
-                        status="control"
+                    <ControlButton
                         style={styles.searchButton}
-                        size="giant"
-                        icon={SearchIcon}
+                        renderIcon={style => <Icon {...style} name="search" />}
                         onPress={() => {
                             setSearchBarOpen(true);
                         }}

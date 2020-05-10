@@ -1,7 +1,6 @@
 import React from 'react';
 import {Text, View} from 'react-native';
-import {Button, useStyleSheet} from '@ui-kitten/components';
-import {ArrowRightIcon} from './icons/ArrowRightIcon';
+import {Button, Icon, useStyleSheet} from '@ui-kitten/components';
 import {calloutStyles} from '../styles/styleProvider';
 
 export const LocationCallout = props => {
@@ -17,7 +16,9 @@ export const LocationCallout = props => {
                     <Button
                         appearance="ghost"
                         status="basic"
-                        icon={ArrowRightIcon}
+                        icon={style => (
+                            <Icon {...style} name="arrow-ios-forward" />
+                        )}
                     />
                 </View>
             </View>

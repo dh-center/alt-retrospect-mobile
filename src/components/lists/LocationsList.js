@@ -1,16 +1,13 @@
 import React from 'react';
-import {Button, Icon, ListItem} from '@ui-kitten/components';
-import {ChevronRight} from '../icons/ChevronRight';
+import {Icon, ListItem} from '@ui-kitten/components';
+import {BasicButton} from '../buttons/BasicButton';
 
 export const LocationsList = props => {
     const renderLocationIcon = style => <Icon {...style} name="radio-button-on-outline" />;
 
     const renderChevron = style => (
-        <Button
-            appearance="ghost"
-            status="basic"
-            style={style}
-            icon={ChevronRight}
+        <BasicButton
+            renderIcon={style => <Icon {...style} name="chevron-right" />}
         />
     );
 
