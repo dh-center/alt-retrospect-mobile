@@ -4,7 +4,9 @@ import {
     REQUEST_ROUTE,
     RECEIVE_ROUTE,
     RESET_ROUTE,
-    SET_ROUTE, REQUEST_SEARCH_ROUTES, RECEIVE_SEARCH_ROUTES,
+    SET_ROUTE,
+    REQUEST_SEARCH_ROUTES,
+    RECEIVE_SEARCH_ROUTES,
 } from '../actions/routes';
 
 export function routes(

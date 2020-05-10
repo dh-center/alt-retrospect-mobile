@@ -3,7 +3,9 @@ import {Icon, ListItem} from '@ui-kitten/components';
 import {BasicButton} from '../buttons/BasicButton';
 
 export const LocationsList = props => {
-    const renderLocationIcon = style => <Icon {...style} name="radio-button-on-outline" />;
+    const renderLocationIcon = style => (
+        <Icon {...style} name="radio-button-on-outline" />
+    );
 
     const renderChevron = style => (
         <BasicButton

@@ -32,7 +32,7 @@ export function savedRoutes(
                 }),
             });
         case RESET_SAVED_ROUTES:
-            Object.assign({}, state, {
+            return Object.assign({}, state, {
                 didInvalidate: true,
                 isFetching: false,
                 items: [],

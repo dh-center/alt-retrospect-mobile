@@ -1,4 +1,4 @@
-import {getLocation, getNearLocations, getSearchLocations} from '../api/locations';
+import {getLocation, getNearLocations} from '../api/locations';
 
 export const REQUEST_NEAR_LOCATIONS = 'REQUEST_NEAR_LOCATIONS';
 

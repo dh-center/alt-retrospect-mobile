@@ -19,7 +19,10 @@ export const RouteNavigationScreen = props => {
     } else {
         return (
             <SafeAreaView style={shared.flexArea}>
-                <Map locations={props.currentRoute['location_instances']} routeMode={true} />
+                <Map
+                    locations={props.currentRoute.location_instances}
+                    routeMode={true}
+                />
             </SafeAreaView>
         );
     }

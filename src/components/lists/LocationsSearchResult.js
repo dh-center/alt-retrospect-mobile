@@ -1,5 +1,5 @@
 import React from 'react';
-import {Icon, ListItem} from '@ui-kitten/components';
+import {ListItem} from '@ui-kitten/components';
 
 export const LocationsSearchResults = props => {
     const renderItem = item => (

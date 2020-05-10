@@ -1,6 +1,12 @@
 import React, {useState} from 'react';
 import {ScrollView, StatusBar} from 'react-native';
-import {Icon, Layout, Spinner, Text, useStyleSheet} from '@ui-kitten/components';
+import {
+    Icon,
+    Layout,
+    Spinner,
+    Text,
+    useStyleSheet,
+} from '@ui-kitten/components';
 import RoutesList from '../../components/lists/RoutesList';
 import {searchScreenStyles, sharedStyles} from '../../styles/styleProvider';
 import {fetchSearchRoutes} from '../../actions/routes';

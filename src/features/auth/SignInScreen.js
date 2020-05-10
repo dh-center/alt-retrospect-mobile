@@ -19,7 +19,7 @@ export const SignInScreen = ({navigation}) => {
 
     async function performSignIn(username, password) {
         await store.dispatch(fetchAuthToken(username, password));
-        console.log(store.getState())
+        console.log(store.getState());
         let authToken = store.getState().auth.authToken;
 
         if (authToken) {

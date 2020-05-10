@@ -22,7 +22,9 @@ const Map = props => {
     const shared = useStyleSheet(sharedStyles);
 
     // TODO: replace with actual implementation when API is ready
-    const [waypoints, setWaypoints] = useState([{latitude: 59.57, longitude: 30.19}]);
+    const [waypoints, setWaypoints] = useState([
+        {latitude: 59.57, longitude: 30.19},
+    ]);
 
     async function hasLocationPermission() {
         if (
@@ -125,6 +127,7 @@ const Map = props => {
     useEffect(() => {
         props.requestCurrentLocation();
         getLocation().then(console.log(props.currentLocation));
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
 
     if (props.currentLocationFetching) {

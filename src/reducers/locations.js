@@ -1,8 +1,6 @@
 import {
     RECEIVE_NEAR_LOCATIONS,
-    RECEIVE_SEARCH_LOCATIONS,
     REQUEST_NEAR_LOCATIONS,
-    REQUEST_SEARCH_LOCATIONS,
 } from '../actions/locations';
 
 export function nearLocations(
