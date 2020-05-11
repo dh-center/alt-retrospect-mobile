@@ -13,7 +13,8 @@
     "routes": "Маршруты"
   },
   "map": {
-    "search": "Поиск"
+    "search": "Поиск",
+    "getRoute": "Путь",
   },
   "routes": {
     "popularTags": "Популярные теги",

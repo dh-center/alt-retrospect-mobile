@@ -13,7 +13,8 @@
     "routes": "Routes"
   },
   "map": {
-    "search": "Search"
+    "search": "Search",
+    "getRoute": "Route",
   },
   "routes": {
     "popularTags": "Popular tags",

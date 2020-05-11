@@ -1,8 +1,11 @@
+import {currentLocale} from '../i18n';
+
 const API_URL = 'http://learnsql.ru:8000';
 
 export const COMMON_HEADERS = {
     Accept: 'application/json',
     'Content-Type': 'application/json',
+    Language: currentLocale,
 };
 
 export const SIGN_UP_URI = API_URL + '/auth/users';

@@ -11,7 +11,7 @@ I18n.translations = {
     ru,
 };
 
-const currentLocale = I18n.currentLocale();
+export const currentLocale = I18n.currentLocale();
 
 export const isRTL =
     currentLocale.indexOf('he') === 0 || currentLocale.indexOf('ar') === 0;
