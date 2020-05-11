@@ -1,10 +1,13 @@
-import React, {useState} from 'react';
-import {SafeAreaView, ScrollView} from 'react-native';
+import React from 'react';
+import {SafeAreaView, ScrollView, View} from 'react-native';
 import {Layout, useStyleSheet, Text, Button, Icon} from '@ui-kitten/components';
 import Map from '../../components/Map';
 import {sharedStyles} from '../../styles/styleProvider';
+import {styles} from './styles';
+import {str} from '../../i18n';
 
 export const LocationOnMap = props => {
+    const stylesheet = useStyleSheet(styles);
     const shared = useStyleSheet(sharedStyles);
 
     const location = props.route.params.location;
@@ -16,23 +19,19 @@ export const LocationOnMap = props => {
                 routeMode={false}
                 initialLocation={location}
             />
-            <Layout
-                style={{
-                    borderRadius: 40,
-                    padding: 15,
-                    marginBottom: -40,
-                    height: '50%',
-                    marginTop: -40,
-                }}
-                level="1">
-                <Text category="h6">{location.instances[0].name}</Text>
-                <Button
-                    status="info"
-                    icon={style => (
-                        <Icon {...style} name="navigation-2-outline" />
-                    )}
-                    children="Get route"
-                />
+            <Layout style={stylesheet.description} level="1">
+                <View style={stylesheet.topRow}>
+                    <Text category="h6" style={stylesheet.title}>
+                        {location.instances[0].name}
+                    </Text>
+                    <Button
+                        status="info"
+                        icon={style => (
+                            <Icon {...style} name="navigation-2-outline" />
+                        )}
+                        children={str('map.getRoute')}
+                    />
+                </View>
                 <ScrollView>
                     <Text>{location.instances[0].description}</Text>
                 </ScrollView>
