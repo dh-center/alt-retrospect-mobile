@@ -16,7 +16,6 @@
 		1D5657BB59F7D57EC6683A51 /* libPods-AltRetrospect-tvOS.a in Frameworks */ = {isa = PBXBuildFile; fileRef = DF421BCF3DA82D33E641D1A9 /* libPods-AltRetrospect-tvOS.a */; };
 		2D02E4BC1E0B4A80006451C7 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB01A68108700A75B9A /* AppDelegate.m */; };
 		2D02E4BD1E0B4A84006451C7 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 13B07FB51A68108700A75B9A /* Images.xcassets */; };
-		2D02E4BF1E0B4AB3006451C7 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB71A68108700A75B9A /* main.m */; };
 		2DCD954D1E0B4F2C00145EB5 /* AltRetrospectTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 00E356F21AD99517003FC87E /* AltRetrospectTests.m */; };
 		A3BA73FF81A9A8069E6C1374 /* libPods-AltRetrospect-AltRetrospectTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = DCF0C9B6FE4ED6AB27C4B0FD /* libPods-AltRetrospect-AltRetrospectTests.a */; };
 		DF0A3600A74DCEB803ECDE9C /* libPods-AltRetrospect-tvOSTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 582FBACA55C6F608EAA560E9 /* libPods-AltRetrospect-tvOSTests.a */; };
@@ -577,7 +576,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				2D02E4BF1E0B4AB3006451C7 /* main.m in Sources */,
 				2D02E4BC1E0B4A80006451C7 /* AppDelegate.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

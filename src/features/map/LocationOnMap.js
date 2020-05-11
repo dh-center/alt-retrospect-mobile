@@ -30,6 +30,11 @@ export const LocationOnMap = props => {
                             <Icon {...style} name="navigation-2-outline" />
                         )}
                         children={str('map.getRoute')}
+                        onPress={() =>
+                            props.navigation.navigate('RouteToLocation', {
+                                location: location,
+                            })
+                        }
                     />
                 </View>
                 <ScrollView>

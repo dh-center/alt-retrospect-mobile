@@ -50,6 +50,7 @@ export const MapScreen = props => {
                 <Layout style={styles.headerLayout}>
                     <SearchBar
                         onChangeText={text => fetchSearchResults(text)}
+                        onBlur={() => setSearchResults(undefined)}
                     />
                 </Layout>
                 {searchResults &&

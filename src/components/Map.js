@@ -24,9 +24,14 @@ const Map = props => {
     const initialLocation = props.initialLocation || props.currentLocation;
 
     // TODO: replace with actual implementation when API is ready
-    const [waypoints, setWaypoints] = useState([
-        {latitude: 59.57, longitude: 30.19},
-    ]);
+    const [waypoints, setWaypoints] = useState(
+        props.locations.map(location => {
+            return {
+                latitude: location.lat || location.coordinates.lat,
+                longitude: location.lon || location.coordinates.lon,
+            };
+        }),
+    );
 
     async function hasLocationPermission() {
         if (
@@ -157,9 +162,12 @@ const Map = props => {
                         }}>
                         <LocationIcon />
                     </Marker>
-                    {props.routeMode ? (
+                    {props.routeMode && props.currentLocation ? (
                         <MapViewDirections
-                            origin={props.currentLocation}
+                            origin={{
+                                latitude: props.currentLocation.lat,
+                                longitude: props.currentLocation.lon,
+                            }}
                             apikey={Config.GM_DIRECTIONS_API_KEY}
                             destination={waypoints[waypoints.length - 1]}
                             waypoints={waypoints}
