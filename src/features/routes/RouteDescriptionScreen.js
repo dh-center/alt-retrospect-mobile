@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useState} from 'react';
 import {ImageBackground, ScrollView, View} from 'react-native';
 import {
     Button,
@@ -18,6 +18,16 @@ import {ControlButton} from '../../components/buttons/ControlButton';
 const RouteDescriptionScreen = props => {
     const styles = useStyleSheet(routeScreenStyles);
     const shared = useStyleSheet(sharedStyles);
+
+    const [isSaved, setIsSaved] = useState(false);
+
+    function handleSavePress() {
+        if (props.isAuthorised) {
+            setIsSaved(!isSaved);
+        } else {
+            props.navigation.navigate('Profile');
+        }
+    }
 
     if (props.didInvalidate) {
         props.fetchRoute(props.currentRoute.id);
@@ -50,8 +60,12 @@ const RouteDescriptionScreen = props => {
                             />
                             <ControlButton
                                 renderIcon={style => (
-                                    <Icon {...style} name="star-outline" />
+                                    <Icon
+                                        {...style}
+                                        name={isSaved ? 'star' : 'star-outline'}
+                                    />
                                 )}
+                                onPress={handleSavePress}
                             />
                         </View>
                         <Text style={styles.pageTitle} category="h3">
@@ -105,6 +119,7 @@ const mapStateToProps = state => {
         isFetching: state.currentRoute.isFetching,
         didInvalidate: state.currentRoute.didInvalidate,
         currentRoute: state.currentRoute.data,
+        isAuthorised: !!state.auth.authToken,
     };
 };
 
