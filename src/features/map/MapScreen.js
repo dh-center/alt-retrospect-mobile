@@ -5,7 +5,7 @@ import {SearchBar} from '../../components/inputs/SearchBar';
 import Map from '../../components/Map';
 import {mapScreenStyles, sharedStyles} from '../../styles/styleProvider';
 import {connect, useSelector} from 'react-redux';
-import {fetchLocation, fetchNearLocations} from '../../actions/locations';
+import {fetchLocation} from '../../actions/locations';
 import {getNearLocations, getSearchLocations} from '../../api/locations';
 import {locations} from '../../selectors/locations';
 
@@ -16,7 +16,9 @@ export const MapScreen = props => {
     const [searchResults, setSearchResults] = useState(undefined);
     const [isFetching, setIsFetching] = useState(false);
 
-    const nearLocations = useSelector(state => locations(state));
+    const nearLocations = useSelector(state => locations(state)).filter(
+        location => location.isNear === true,
+    );
 
     if (
         nearLocations.length === 0 &&
