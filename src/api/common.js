@@ -7,6 +7,7 @@ export function fetchPOST(url, body, needAuth: false) {
     if (needAuth) {
         headers = addToken(headers);
     }
+    console.log(url, body, headers);
     return axios
         .post(url, body, {headers: headers})
         .then(response => {

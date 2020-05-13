@@ -22,3 +22,7 @@ export const GET_SEARCH_LOCATIONS_URI = API_URL + '/api/locations/search';
 
 export const GET_SAVED_ROUTES_URI = API_URL + '/api/routes/getUserRoutes';
 export const GET_USER_INFO_URI = API_URL + '/auth/users/me/';
+
+export const ADD_TO_SAVED_ROUTES = API_URL + '/api/routes/addToUserRoutes';
+export const REMOVE_FROM_SAVED_ROUTES =
+    API_URL + '/api/routes/removeFromUserRoutes';

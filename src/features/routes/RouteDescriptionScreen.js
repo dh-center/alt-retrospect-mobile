@@ -14,6 +14,7 @@ import {routeScreenStyles, sharedStyles} from '../../styles/styleProvider';
 import {str} from '../../i18n';
 import {LocationsList} from '../../components/lists/LocationsList';
 import {ControlButton} from '../../components/buttons/ControlButton';
+import {addToSaved, removeFromSaved} from '../../api/routes';
 
 const RouteDescriptionScreen = props => {
     const styles = useStyleSheet(routeScreenStyles);
@@ -21,8 +22,13 @@ const RouteDescriptionScreen = props => {
 
     const [isSaved, setIsSaved] = useState(false);
 
-    function handleSavePress() {
+    async function handleSavePress() {
         if (props.isAuthorised) {
+            if (isSaved) {
+                await removeFromSaved(props.currentRoute.id);
+            } else {
+                await addToSaved(props.currentRoute.id);
+            }
             setIsSaved(!isSaved);
         } else {
             props.navigation.navigate('Profile');
