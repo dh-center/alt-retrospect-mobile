@@ -5,9 +5,14 @@ import {SearchBar} from '../../components/inputs/SearchBar';
 import Map from '../../components/Map';
 import {mapScreenStyles, sharedStyles} from '../../styles/styleProvider';
 import {connect, useSelector} from 'react-redux';
-import {fetchLocation} from '../../actions/locations';
+import {
+    createLocation,
+    fetchLocation,
+    updateLocation,
+} from '../../actions/locations';
 import {getNearLocations, getSearchLocations} from '../../api/locations';
 import {locations} from '../../selectors/locations';
+import {store} from '../../store';
 
 export const MapScreen = props => {
     const shared = useStyleSheet(sharedStyles);
@@ -16,7 +21,8 @@ export const MapScreen = props => {
     const [searchResults, setSearchResults] = useState(undefined);
     const [isFetching, setIsFetching] = useState(false);
 
-    const nearLocations = useSelector(state => locations(state)).filter(
+    const existingLocations = useSelector(state => locations(state));
+    const nearLocations = existingLocations.filter(
         location => location.isNear === true,
     );
 
@@ -28,7 +34,20 @@ export const MapScreen = props => {
             props.currentLocation.lat,
             props.currentLocation.lon,
             1500,
-        );
+        ).then(result => {
+            for (const location of result.locations) {
+                location.isNear = true;
+                updateOrCreate(location);
+            }
+        });
+    }
+
+    function updateOrCreate(location) {
+        if (location.id in existingLocations.map(l => l.id)) {
+            store.dispatch(updateLocation(location));
+        } else {
+            store.dispatch(createLocation(location));
+        }
     }
 
     async function fetchSearchResults(query) {

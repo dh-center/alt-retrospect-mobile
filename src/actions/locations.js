@@ -39,7 +39,7 @@ export function createLocation(location) {
 
 export const UPDATE_LOCATION = 'UPDATE_LOCATION';
 
-function updateLocation(location) {
+export function updateLocation(location) {
     return {
         type: UPDATE_LOCATION,
         payload: location,
