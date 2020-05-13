@@ -9,7 +9,7 @@ export async function getLocation(id) {
     return await fetchGET(GET_LOCATION_URI, {id});
 }
 
-export async function getNearLocations(lat, lon, radius) {
+export async function fetchNearLocations(lat, lon, radius) {
     return await fetchGET(GET_NEAR_LOCATIONS_URI, {lat, lon, radius});
 }
 

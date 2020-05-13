@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useState, useEffect} from 'react';
 import {SafeAreaView} from 'react-native';
 import {Layout, ListItem, Spinner, useStyleSheet} from '@ui-kitten/components';
 import {SearchBar} from '../../components/inputs/SearchBar';
@@ -10,7 +10,7 @@ import {
     fetchLocation,
     updateLocation,
 } from '../../actions/locations';
-import {getNearLocations, getSearchLocations} from '../../api/locations';
+import {fetchNearLocations, getSearchLocations} from '../../api/locations';
 import {locations} from '../../selectors/locations';
 import {store} from '../../store';
 
@@ -26,20 +26,22 @@ export const MapScreen = props => {
         location => location.isNear === true,
     );
 
-    if (
-        nearLocations.length === 0 &&
-        Object.keys(props.currentLocation).length !== 0
-    ) {
-        getNearLocations(
-            props.currentLocation.lat,
-            props.currentLocation.lon,
-            1500,
-        ).then(result => {
-            for (const location of result.locations) {
-                location.isNear = true;
-                updateOrCreate(location);
-            }
-        });
+    function getNearLocations() {
+        if (
+            nearLocations.length === 0 &&
+            Object.keys(props.currentLocation).length !== 0
+        ) {
+            fetchNearLocations(
+                props.currentLocation.lat,
+                props.currentLocation.lon,
+                1500,
+            ).then(result => {
+                for (const location of result.locations) {
+                    location.isNear = true;
+                    updateOrCreate(location);
+                }
+            });
+        }
     }
 
     function updateOrCreate(location) {
@@ -50,49 +52,44 @@ export const MapScreen = props => {
         }
     }
 
-    async function fetchSearchResults(query) {
+    function fetchSearchResults(query) {
         if (query !== '') {
             setIsFetching(true);
-            const searchLocations = await getSearchLocations(query);
-            setSearchResults(searchLocations.locations);
-            setIsFetching(false);
+            getSearchLocations(query).then(result => {
+                setSearchResults(result.locations);
+                setIsFetching(false);
+            });
         } else {
             setSearchResults(undefined);
         }
     }
 
-    if (!nearLocations) {
-        return (
-            <Layout style={shared.centerContent}>
-                <Spinner />
+    useEffect(getNearLocations);
+
+    return (
+        <SafeAreaView style={shared.flexArea}>
+            <Layout style={styles.headerLayout}>
+                <SearchBar
+                    onChangeText={text => fetchSearchResults(text)}
+                    onBlur={() => setSearchResults(undefined)}
+                />
             </Layout>
-        );
-    } else {
-        return (
-            <SafeAreaView style={shared.flexArea}>
-                <Layout style={styles.headerLayout}>
-                    <SearchBar
-                        onChangeText={text => fetchSearchResults(text)}
-                        onBlur={() => setSearchResults(undefined)}
+            {searchResults &&
+                searchResults.map(item => (
+                    <ListItem
+                        key={item.id}
+                        title={item.address}
+                        onPress={() =>
+                            props.navigation.navigate('Location', {
+                                location: item,
+                            })
+                        }
                     />
-                </Layout>
-                {searchResults &&
-                    searchResults.map(item => (
-                        <ListItem
-                            key={item.id}
-                            title={item.address}
-                            onPress={() =>
-                                props.navigation.navigate('Location', {
-                                    location: item,
-                                })
-                            }
-                        />
-                    ))}
-                {isFetching && <Spinner />}
-                <Map locations={nearLocations} routeMode={false} />
-            </SafeAreaView>
-        );
-    }
+                ))}
+            {isFetching && <Spinner />}
+            <Map locations={nearLocations} routeMode={false} />
+        </SafeAreaView>
+    );
 };
 
 const mapDispatchToProps = dispatch => {
