@@ -1,31 +1,4 @@
-import {getLocation, getNearLocations} from '../api/locations';
-
-export const REQUEST_NEAR_LOCATIONS = 'REQUEST_NEAR_LOCATIONS';
-
-function requestNearLocations() {
-    return {
-        type: REQUEST_NEAR_LOCATIONS,
-    };
-}
-
-export const RECEIVE_NEAR_LOCATIONS = 'RECEIVE_NEAR_LOCATIONS';
-
-function receiveNearLocations(locations) {
-    return {
-        type: RECEIVE_NEAR_LOCATIONS,
-        locations,
-    };
-}
-
-export function fetchNearLocations(lat, lon, radius) {
-    return function(dispatch) {
-        dispatch(requestNearLocations());
-
-        return getNearLocations(lat, lon, radius).then(json => {
-            dispatch(receiveNearLocations(json.locations));
-        });
-    };
-}
+import {getLocation} from '../api/locations';
 
 export const REQUEST_LOCATION = 'REQUEST_LOCATION';
 
@@ -57,7 +30,7 @@ export function fetchLocation(id) {
 
 export const CREATE_LOCATION = 'CREATE_LOCATION';
 
-function createLocation(location) {
+export function createLocation(location) {
     return {
         type: CREATE_LOCATION,
         payload: location,

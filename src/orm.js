@@ -5,7 +5,7 @@ import {Tag} from './models/tag';
 import {Route} from './models/route';
 
 const orm = new ORM({
-    stateSelector: state => state.orm,
+    stateSelector: state => state.data,
 });
 orm.register(Location, Instance, Tag, Route);
 

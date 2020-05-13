@@ -20,5 +20,7 @@ Location.fields = {
     lon: attr(),
     icon_url: attr(),
     address: attr(),
-    instances: many('Instance', 'locations'),
+    instances: many('Instance', 'instance_locations'),
+    isNear: attr(),
+    isSaved: attr(),
 };

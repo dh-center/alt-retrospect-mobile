@@ -1,12 +1,13 @@
 import React, {useState} from 'react';
-import {SafeAreaView, Text, View} from 'react-native';
+import {SafeAreaView} from 'react-native';
 import {Layout, ListItem, Spinner, useStyleSheet} from '@ui-kitten/components';
 import {SearchBar} from '../../components/inputs/SearchBar';
 import Map from '../../components/Map';
 import {mapScreenStyles, sharedStyles} from '../../styles/styleProvider';
-import {connect} from 'react-redux';
+import {connect, useSelector} from 'react-redux';
 import {fetchLocation, fetchNearLocations} from '../../actions/locations';
-import {getSearchLocations} from '../../api/locations';
+import {getNearLocations, getSearchLocations} from '../../api/locations';
+import {locations} from '../../selectors/locations';
 
 export const MapScreen = props => {
     const shared = useStyleSheet(sharedStyles);
@@ -15,12 +16,13 @@ export const MapScreen = props => {
     const [searchResults, setSearchResults] = useState(undefined);
     const [isFetching, setIsFetching] = useState(false);
 
+    const nearLocations = useSelector(state => locations(state));
+
     if (
-        props.nearInvalid &&
-        !props.nearFetching &&
-        !props.currentLocationFetching
+        nearLocations.length === 0 &&
+        Object.keys(props.currentLocation).length !== 0
     ) {
-        props.fetchNearLocations(
+        getNearLocations(
             props.currentLocation.lat,
             props.currentLocation.lon,
             1500,
@@ -38,7 +40,7 @@ export const MapScreen = props => {
         }
     }
 
-    if (props.nearFetching) {
+    if (!nearLocations) {
         return (
             <Layout style={shared.centerContent}>
                 <Spinner />
@@ -66,7 +68,7 @@ export const MapScreen = props => {
                         />
                     ))}
                 {isFetching && <Spinner />}
-                <Map locations={props.nearLocations} routeMode={false} />
+                <Map locations={nearLocations} routeMode={false} />
             </SafeAreaView>
         );
     }
@@ -74,17 +76,12 @@ export const MapScreen = props => {
 
 const mapDispatchToProps = dispatch => {
     return {
-        fetchNearLocations: (lat, lon, radius) =>
-            dispatch(fetchNearLocations(lat, lon, radius)),
         fetchLocation: () => dispatch(fetchLocation()),
     };
 };
 
 const mapStateToProps = state => {
     return {
-        nearFetching: state.nearLocations.isFetching,
-        nearInvalid: state.nearLocations.didInvalidate,
-        nearLocations: state.nearLocations.items,
         currentLocation: state.currentLocation.data,
         currentLocationFetching: state.currentLocation.isFetching,
     };
