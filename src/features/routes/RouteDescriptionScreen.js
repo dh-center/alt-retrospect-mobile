@@ -29,6 +29,11 @@ const RouteDescriptionScreen = props => {
         }
     }
 
+    function handleBackPress() {
+        props.resetRoute();
+        props.navigation.goBack();
+    }
+
     if (props.didInvalidate) {
         props.fetchRoute(props.currentRoute.id);
     }
@@ -53,10 +58,7 @@ const RouteDescriptionScreen = props => {
                                 renderIcon={style => (
                                     <Icon {...style} name="arrow-ios-back" />
                                 )}
-                                onPress={() => {
-                                    props.resetRoute();
-                                    props.navigation.goBack();
-                                }}
+                                onPress={handleBackPress}
                             />
                             <ControlButton
                                 renderIcon={style => (
