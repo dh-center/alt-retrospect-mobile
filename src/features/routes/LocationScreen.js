@@ -13,6 +13,7 @@ const LocationScreen = props => {
     const locationId = props.route.params.locationId;
     const allLocations = useSelector(state => locations(state));
     const thisLocation = allLocations.find(item => item.id === locationId);
+    console.log(allLocations);
 
     return (
         <Layout style={styles.flexArea} level="3">
@@ -30,19 +31,27 @@ const LocationScreen = props => {
                         props.navigation.goBack();
                     }}
                 />
-                <Text style={styles.pageTitle} category="h2">
-                    {thisLocation.name}
-                </Text>
+                {thisLocation && (
+                    <Text style={styles.pageTitle} category="h2">
+                        {thisLocation.name}
+                    </Text>
+                )}
             </Layout>
             <Layout style={styles.roundedLayout} level="1">
                 <ScrollView contentContainerStyle={styles.scrollPadded}>
-                    <Text category="p1">{thisLocation.description}</Text>
-                    <Image
-                        source={{
-                            uri: thisLocation.image_url,
-                        }}
-                        style={{width: '100%', height: '100%', borderRadius: 5}}
-                    />
+                    {thisLocation && [
+                        <Text category="p1">{thisLocation.description}</Text>,
+                        <Image
+                            source={{
+                                uri: thisLocation.image_url,
+                            }}
+                            style={{
+                                width: 200,
+                                height: 200,
+                                borderRadius: 5,
+                            }}
+                        />,
+                    ]}
                 </ScrollView>
             </Layout>
         </Layout>

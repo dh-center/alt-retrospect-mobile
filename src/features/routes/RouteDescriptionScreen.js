@@ -25,7 +25,10 @@ const RouteDescriptionScreen = props => {
         if (thisRoute.location_instances === undefined) {
             fetchRoute(routeId).then(result => {
                 props.updateRoute(result.route);
+                createOrUpdateLocations();
             });
+        } else {
+            createOrUpdateLocations();
         }
     }
 
@@ -60,7 +63,6 @@ const RouteDescriptionScreen = props => {
 
     const [isSaved, setIsSaved] = useState(false);
     useEffect(getRouteDetails, []);
-    useEffect(createOrUpdateLocations, []);
 
     return (
         <Layout style={styles.flexArea} level="3">
