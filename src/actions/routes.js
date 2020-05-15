@@ -1,4 +1,4 @@
-import {getRoutes, getSearchRoutes} from '../api/routes';
+import {fetchRoutes, getSearchRoutes} from '../api/routes';
 import {getRoute} from '../api/routes';
 
 export const REQUEST_ALL_ROUTES = 'REQUEST_ALL_ROUTES';
@@ -22,7 +22,7 @@ export function fetchAllRoutes() {
     return function(dispatch) {
         dispatch(requestAllRoutes());
 
-        return getRoutes().then(json => {
+        return fetchRoutes().then(json => {
             dispatch(receiveAllRoutes(json.routes));
         });
     };
@@ -97,5 +97,23 @@ export function fetchSearchRoutes(query) {
         return getSearchRoutes(query).then(json => {
             dispatch(receiveSearchRoutes(json.routes));
         });
+    };
+}
+
+export const CREATE_ROUTE = 'CREATE_ROUTE';
+
+export function createRoute(route) {
+    return {
+        type: CREATE_ROUTE,
+        payload: route,
+    };
+}
+
+export const UPDATE_ROUTE = 'UPDATE_ROUTE';
+
+export function updateRoute(route) {
+    return {
+        type: UPDATE_ROUTE,
+        payload: route,
     };
 }

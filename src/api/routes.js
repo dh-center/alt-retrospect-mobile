@@ -7,7 +7,7 @@ import {
 } from './constants';
 import {fetchGET, fetchPOST} from './common';
 
-export function getRoutes() {
+export function fetchRoutes() {
     return fetchGET(GET_ALL_ROUTES_URI);
 }
 

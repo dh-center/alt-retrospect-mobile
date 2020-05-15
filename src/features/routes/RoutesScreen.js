@@ -11,12 +11,14 @@ import {TagsList} from '../../components/lists/TagsList';
 import RoutesList from '../../components/lists/RoutesList';
 import {routesScreenStyles, sharedStyles} from '../../styles/styleProvider';
 import {str} from '../../i18n';
-import {fetchAllRoutes} from '../../actions/routes';
+import {createRoute, updateRoute} from '../../actions/routes';
 import {connect, useSelector} from 'react-redux';
 import {createTag, updateTag} from '../../actions/tags';
 import {ControlButton} from '../../components/buttons/ControlButton';
 import {tags} from '../../selectors/tags';
+import {routes} from '../../selectors/routes';
 import {getTags} from '../../api/tags';
+import {fetchRoutes} from '../../api/routes';
 
 const RoutesScreen = props => {
     const styles = useStyleSheet(routesScreenStyles);
@@ -30,13 +32,13 @@ const RoutesScreen = props => {
             getTags().then(result => {
                 for (const tag of result.tags) {
                     tag.isPopular = true;
-                    updateOrCreate(tag);
+                    updateOrCreateTag(tag);
                 }
             });
         }
     }
 
-    function updateOrCreate(tag) {
+    function updateOrCreateTag(tag) {
         if (tag.id in popularTags.map(l => l.id)) {
             props.updateTag(tag);
         } else {
@@ -44,11 +46,29 @@ const RoutesScreen = props => {
         }
     }
 
-    if (props.routesInvalid && !props.isFetching) {
-        props.fetchRoutes();
+    const allRoutes = useSelector(state => routes(state));
+
+    function getRoutes() {
+        if (allRoutes.length === 0) {
+            fetchRoutes().then(result => {
+                for (const route of result.routes) {
+                    route.isPopular = true;
+                    updateOrCreateRoute(route);
+                }
+            });
+        }
     }
 
-    useEffect(getPopularTags);
+    function updateOrCreateRoute(route) {
+        if (route.id in popularTags.map(l => l.id)) {
+            props.updateRoute(route);
+        } else {
+            props.createRoute(route);
+        }
+    }
+
+    useEffect(getPopularTags, []);
+    useEffect(getRoutes, []);
 
     if (props.isFetching) {
         return (
@@ -90,7 +110,7 @@ const RoutesScreen = props => {
                             {str('routes.allRoutes')}
                         </Text>
                         <RoutesList
-                            data={props.routes}
+                            data={allRoutes}
                             navigation={props.navigation}
                         />
                     </ScrollView>
@@ -104,21 +124,12 @@ const mapDispatchToProps = dispatch => {
     return {
         createTag: tag => dispatch(createTag(tag)),
         updateTag: tag => dispatch(updateTag(tag)),
-        fetchRoutes: () => dispatch(fetchAllRoutes()),
-    };
-};
-
-const mapStateToProps = state => {
-    return {
-        isFetching: state.routes.isFetching || state.popularTags.isFetching,
-        routesInvalid: state.routes.didInvalidate,
-        tagsInvalid: state.popularTags.didInvalidate,
-        routes: state.routes.items,
-        tags: state.popularTags.items,
+        createRoute: route => dispatch(createRoute(route)),
+        updateRoute: route => dispatch(updateRoute(route)),
     };
 };
 
 export default connect(
-    mapStateToProps,
+    null,
     mapDispatchToProps,
 )(RoutesScreen);
