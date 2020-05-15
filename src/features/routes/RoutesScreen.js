@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import {ScrollView, StatusBar} from 'react-native';
 import {
     Icon,
@@ -12,21 +12,43 @@ import RoutesList from '../../components/lists/RoutesList';
 import {routesScreenStyles, sharedStyles} from '../../styles/styleProvider';
 import {str} from '../../i18n';
 import {fetchAllRoutes} from '../../actions/routes';
-import {connect} from 'react-redux';
-import {fetchPopularTags} from '../../actions/tags';
+import {connect, useSelector} from 'react-redux';
+import {createTag, updateTag} from '../../actions/tags';
 import {ControlButton} from '../../components/buttons/ControlButton';
+import {tags} from '../../selectors/tags';
+import {getTags} from '../../api/tags';
 
 const RoutesScreen = props => {
     const styles = useStyleSheet(routesScreenStyles);
     const shared = useStyleSheet(sharedStyles);
 
+    const existingTags = useSelector(state => tags(state));
+    const popularTags = existingTags.filter(tag => tag.isPopular === true);
+
+    function getPopularTags() {
+        if (popularTags.length === 0) {
+            getTags().then(result => {
+                for (const tag of result.tags) {
+                    tag.isPopular = true;
+                    updateOrCreate(tag);
+                }
+            });
+        }
+    }
+
+    function updateOrCreate(tag) {
+        if (tag.id in popularTags.map(l => l.id)) {
+            props.updateTag(tag);
+        } else {
+            props.createTag(tag);
+        }
+    }
+
     if (props.routesInvalid && !props.isFetching) {
         props.fetchRoutes();
     }
 
-    if (props.tagsInvalid) {
-        props.fetchTags();
-    }
+    useEffect(getPopularTags);
 
     if (props.isFetching) {
         return (
@@ -61,7 +83,7 @@ const RoutesScreen = props => {
                             {str('routes.popularTags')}
                         </Text>
                         <TagsList
-                            data={props.tags}
+                            data={popularTags}
                             navigation={props.navigation}
                         />
                         <Text category="h4" style={styles.sectionTitle}>
@@ -80,8 +102,9 @@ const RoutesScreen = props => {
 
 const mapDispatchToProps = dispatch => {
     return {
+        createTag: tag => dispatch(createTag(tag)),
+        updateTag: tag => dispatch(updateTag(tag)),
         fetchRoutes: () => dispatch(fetchAllRoutes()),
-        fetchTags: () => dispatch(fetchPopularTags()),
     };
 };
 

@@ -1,7 +1,6 @@
 import {combineReducers} from 'redux';
 import {auth} from './auth';
 import {currentRoute, routes, routesSearch} from './routes';
-import {popularTags} from './tags';
 import {currentLocation} from './currentLocation';
 import {savedRoutes, userInfo} from './profile';
 import {createReducer} from 'redux-orm';
@@ -13,7 +12,6 @@ const rootReducer = combineReducers({
     auth,
     routes,
     currentRoute,
-    popularTags,
     currentLocation,
     savedRoutes,
     userInfo,
