@@ -5,14 +5,9 @@ import {SearchBar} from '../../components/inputs/SearchBar';
 import Map from '../../components/Map';
 import {mapScreenStyles, sharedStyles} from '../../styles/styleProvider';
 import {connect, useSelector} from 'react-redux';
-import {
-    createLocation,
-    fetchLocation,
-    updateLocation,
-} from '../../actions/locations';
+import {createLocation, updateLocation} from '../../actions/locations';
 import {fetchNearLocations, getSearchLocations} from '../../api/locations';
 import {locations} from '../../selectors/locations';
-import {store} from '../../store';
 
 export const MapScreen = props => {
     const shared = useStyleSheet(sharedStyles);
@@ -46,9 +41,9 @@ export const MapScreen = props => {
 
     function updateOrCreate(location) {
         if (location.id in existingLocations.map(l => l.id)) {
-            store.dispatch(updateLocation(location));
+            props.updateLocation(location);
         } else {
-            store.dispatch(createLocation(location));
+            props.createLocation(location);
         }
     }
 
@@ -94,7 +89,8 @@ export const MapScreen = props => {
 
 const mapDispatchToProps = dispatch => {
     return {
-        fetchLocation: () => dispatch(fetchLocation()),
+        createLocation: location => dispatch(createLocation(location)),
+        updateLocation: location => dispatch(updateLocation(location)),
     };
 };
 
