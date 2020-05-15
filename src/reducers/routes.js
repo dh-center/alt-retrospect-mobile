@@ -1,43 +1,11 @@
 import {
-    REQUEST_ALL_ROUTES,
-    RECEIVE_ALL_ROUTES,
-    REQUEST_ROUTE,
     RECEIVE_ROUTE,
+    RECEIVE_SEARCH_ROUTES,
+    REQUEST_ROUTE,
+    REQUEST_SEARCH_ROUTES,
     RESET_ROUTE,
     SET_ROUTE,
-    REQUEST_SEARCH_ROUTES,
-    RECEIVE_SEARCH_ROUTES,
 } from '../actions/routes';
-
-export function routes(
-    state = {
-        isFetching: false,
-        didInvalidate: true,
-        items: [],
-    },
-    action,
-) {
-    switch (action.type) {
-        case REQUEST_ALL_ROUTES:
-            return Object.assign({}, state, {
-                isFetching: true,
-            });
-        case RECEIVE_ALL_ROUTES:
-            return Object.assign({}, state, {
-                didInvalidate: false,
-                isFetching: false,
-                items: action.routes.map(item => {
-                    return {
-                        ...item,
-                        isFetching: false,
-                    };
-                }),
-            });
-
-        default:
-            return state;
-    }
-}
 
 export function currentRoute(
     state = {

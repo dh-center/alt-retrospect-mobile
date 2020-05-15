@@ -3,8 +3,7 @@ import {SafeAreaView} from 'react-native';
 
 import {EmailInput} from '../../components/inputs/EmailInput';
 import {PasswordInput} from '../../components/inputs/PasswordInput';
-import {Layout, Text, Button, useStyleSheet} from '@ui-kitten/components';
-import {userSignIn} from '../../api/auth';
+import {Button, Layout, Text, useStyleSheet} from '@ui-kitten/components';
 import {authScreenStyles, sharedStyles} from '../../styles/styleProvider';
 import {str} from '../../i18n';
 import AsyncStorage from '@react-native-community/async-storage';
@@ -19,7 +18,6 @@ export const SignInScreen = ({navigation}) => {
 
     async function performSignIn(username, password) {
         await store.dispatch(fetchAuthToken(username, password));
-        console.log(store.getState());
         let authToken = store.getState().auth.authToken;
 
         if (authToken) {
