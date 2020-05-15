@@ -11,7 +11,7 @@ export function fetchRoutes() {
     return fetchGET(GET_ALL_ROUTES_URI);
 }
 
-export function getRoute(id) {
+export function fetchRoute(id) {
     return fetchGET(GET_ROUTE_URI, {id});
 }
 

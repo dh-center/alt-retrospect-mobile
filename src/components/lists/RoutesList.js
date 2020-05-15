@@ -1,8 +1,6 @@
 import React from 'react';
 import {Image} from 'react-native';
 import {Icon, ListItem} from '@ui-kitten/components';
-import {setRoute} from '../../actions/routes';
-import {connect} from 'react-redux';
 import {BasicButton} from '../buttons/BasicButton';
 
 const RoutesList = props => {
@@ -31,21 +29,11 @@ const RoutesList = props => {
             icon={style => renderRouteImage(style, item.image_url)}
             accessory={renderChevron}
             onPress={() => {
-                props.setRoute(item.id);
-                props.navigation.navigate('Route');
+                props.navigation.navigate('Route', {routeId: item.id});
             }}
         />
     );
     return props.data.map(renderItem);
 };
 
-const mapDispatchToProps = dispatch => {
-    return {
-        setRoute: routeId => dispatch(setRoute(routeId)),
-    };
-};
-
-export default connect(
-    null,
-    mapDispatchToProps,
-)(RoutesList);
+export default RoutesList;

@@ -1,33 +1,36 @@
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import {ImageBackground, ScrollView, View} from 'react-native';
-import {
-    Button,
-    Icon,
-    Layout,
-    Spinner,
-    Text,
-    useStyleSheet,
-} from '@ui-kitten/components';
-import {fetchRoute, resetRoute} from '../../actions/routes';
-import {connect} from 'react-redux';
-import {routeScreenStyles, sharedStyles} from '../../styles/styleProvider';
+import {Button, Icon, Layout, Text, useStyleSheet} from '@ui-kitten/components';
+import {updateRoute} from '../../actions/routes';
+import {connect, useSelector} from 'react-redux';
+import {routeScreenStyles} from '../../styles/styleProvider';
 import {str} from '../../i18n';
 import {LocationsList} from '../../components/lists/LocationsList';
 import {ControlButton} from '../../components/buttons/ControlButton';
-import {addToSaved, removeFromSaved} from '../../api/routes';
+import {addToSaved, fetchRoute, removeFromSaved} from '../../api/routes';
+import {routes} from '../../selectors/routes';
 
 const RouteDescriptionScreen = props => {
     const styles = useStyleSheet(routeScreenStyles);
-    const shared = useStyleSheet(sharedStyles);
 
-    const [isSaved, setIsSaved] = useState(false);
+    const routeId = props.route.params.routeId;
+    const allRoutes = useSelector(state => routes(state));
+    const currentRoute = allRoutes.find(item => item.id === routeId);
+
+    function getRoute() {
+        if (currentRoute.location_instances === undefined) {
+            fetchRoute(routeId).then(result => {
+                props.updateRoute(result.route);
+            });
+        }
+    }
 
     async function handleSavePress() {
         if (props.isAuthorised) {
             if (isSaved) {
-                await removeFromSaved(props.currentRoute.id);
+                await removeFromSaved(currentRoute.id);
             } else {
-                await addToSaved(props.currentRoute.id);
+                await addToSaved(currentRoute.id);
             }
             setIsSaved(!isSaved);
         } else {
@@ -36,97 +39,85 @@ const RouteDescriptionScreen = props => {
     }
 
     function handleBackPress() {
-        props.resetRoute();
         props.navigation.goBack();
     }
 
-    if (props.didInvalidate) {
-        props.fetchRoute(props.currentRoute.id);
-    }
+    const [isSaved, setIsSaved] = useState(false);
+    useEffect(getRoute, []);
 
-    if (props.isFetching) {
-        return (
-            <Layout style={shared.centerContent}>
-                <Spinner />
-            </Layout>
-        );
-    } else {
-        return (
-            <Layout style={styles.flexArea} level="3">
-                <ImageBackground
-                    style={styles.background}
-                    source={{
-                        uri: props.currentRoute.image_url,
-                    }}>
-                    <View style={styles.headerLayout}>
-                        <View style={styles.row}>
-                            <ControlButton
-                                renderIcon={style => (
-                                    <Icon {...style} name="arrow-ios-back" />
-                                )}
-                                onPress={handleBackPress}
-                            />
-                            <ControlButton
-                                renderIcon={style => (
-                                    <Icon
-                                        {...style}
-                                        name={isSaved ? 'star' : 'star-outline'}
-                                    />
-                                )}
-                                onPress={handleSavePress}
-                            />
-                        </View>
-                        <Text style={styles.pageTitle} category="h3">
-                            {props.currentRoute.name}
+    return (
+        <Layout style={styles.flexArea} level="3">
+            <ImageBackground
+                style={styles.background}
+                source={{
+                    uri: currentRoute.image_url,
+                }}>
+                <View style={styles.headerLayout}>
+                    <View style={styles.row}>
+                        <ControlButton
+                            renderIcon={style => (
+                                <Icon {...style} name="arrow-ios-back" />
+                            )}
+                            onPress={handleBackPress}
+                        />
+                        <ControlButton
+                            renderIcon={style => (
+                                <Icon
+                                    {...style}
+                                    name={isSaved ? 'star' : 'star-outline'}
+                                />
+                            )}
+                            onPress={handleSavePress}
+                        />
+                    </View>
+                    <Text style={styles.pageTitle} category="h3">
+                        {currentRoute.name}
+                    </Text>
+                </View>
+            </ImageBackground>
+            <Layout style={styles.roundedLayout} level="1">
+                <ScrollView contentContainerStyle={styles.scrollPadded}>
+                    <Text>{currentRoute.description}</Text>
+                    <View style={styles.row}>
+                        <Text category="h4" style={styles.sectionTitle}>
+                            {str('routes.route')}
+                        </Text>
+                        <Text style={styles.durationText}>
+                            {currentRoute.duration} {str('routes.min')}
                         </Text>
                     </View>
-                </ImageBackground>
-                <Layout style={styles.roundedLayout} level="1">
-                    <ScrollView contentContainerStyle={styles.scrollPadded}>
-                        <Text>{props.currentRoute.description}</Text>
-                        <View style={styles.row}>
-                            <Text category="h4" style={styles.sectionTitle}>
-                                {str('routes.route')}
-                            </Text>
-                            <Text style={styles.durationText}>
-                                {props.currentRoute.duration}{' '}
-                                {str('routes.min')}
-                            </Text>
-                        </View>
+                    {currentRoute.location_instances && (
                         <LocationsList
-                            data={props.currentRoute.location_instances}
+                            data={currentRoute.location_instances}
                             navigation={props.navigation}
                         />
-                        <Button
-                            appearance="filled"
-                            status="info"
-                            onPress={() =>
-                                props.navigation.navigate('RouteNavigation', {
-                                    routeId: props.currentRoute.id,
-                                })
-                            }
-                            style={{marginTop: 25}}>
-                            {str('routes.explore')}
-                        </Button>
-                    </ScrollView>
-                </Layout>
+                    )}
+
+                    <Button
+                        appearance="filled"
+                        status="info"
+                        onPress={() =>
+                            props.navigation.navigate('RouteNavigation', {
+                                routeId: currentRoute.id,
+                            })
+                        }
+                        style={{marginTop: 25}}>
+                        {str('routes.explore')}
+                    </Button>
+                </ScrollView>
             </Layout>
-        );
-    }
+        </Layout>
+    );
 };
 
 const mapDispatchToProps = dispatch => {
     return {
-        fetchRoute: routeId => dispatch(fetchRoute(routeId)),
-        resetRoute: routeId => dispatch(resetRoute(routeId)),
+        updateRoute: route => dispatch(updateRoute(route)),
     };
 };
 
 const mapStateToProps = state => {
     return {
-        isFetching: state.currentRoute.isFetching,
-        didInvalidate: state.currentRoute.didInvalidate,
-        currentRoute: state.currentRoute.data,
         isAuthorised: !!state.auth.authToken,
     };
 };
