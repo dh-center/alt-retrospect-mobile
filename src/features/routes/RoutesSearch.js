@@ -9,11 +9,10 @@ import {
 } from '@ui-kitten/components';
 import RoutesList from '../../components/lists/RoutesList';
 import {searchScreenStyles, sharedStyles} from '../../styles/styleProvider';
-import {fetchSearchRoutes} from '../../actions/routes';
-import {connect} from 'react-redux';
 import {SearchBar} from '../../components/inputs/SearchBar';
 import {str} from '../../i18n';
 import {ControlButton} from '../../components/buttons/ControlButton';
+import {getSearchRoutes} from '../../api/routes';
 
 const RoutesSearch = props => {
     const styles = useStyleSheet(searchScreenStyles);
@@ -22,6 +21,20 @@ const RoutesSearch = props => {
     const [searchBarOpen, setSearchBarOpen] = useState(
         props.route.params.searchBarOpen,
     );
+    const [searchResults, setSearchResults] = useState([]);
+    const [isFetching, setIsFetching] = useState(false);
+
+    function fetchSearchResults(query) {
+        if (query !== '') {
+            setIsFetching(true);
+            getSearchRoutes(query).then(result => {
+                setSearchResults(result.routes);
+                setIsFetching(false);
+            });
+        } else {
+            setSearchResults([]);
+        }
+    }
 
     return (
         <Layout style={styles.flexArea} level="3">
@@ -34,9 +47,7 @@ const RoutesSearch = props => {
                 <Layout style={styles.headerLayout} level="3">
                     <SearchBar
                         style={styles.searchBar}
-                        onChangeText={text =>
-                            text !== '' ? props.fetchRoutes(text) : () => null
-                        }
+                        onChangeText={text => fetchSearchResults(text)}
                         onBlur={() => {
                             setSearchBarOpen(false);
                         }}
@@ -67,13 +78,13 @@ const RoutesSearch = props => {
                 </Layout>
             )}
             <Layout style={styles.roundedLayout} level="1">
-                {props.isFetching ? (
+                {isFetching ? (
                     <Layout style={shared.centerContent}>
                         <Spinner />
                     </Layout>
                 ) : (
                     <ScrollView contentContainerStyle={styles.scrollPadded}>
-                        {props.routes.length === 0 ? (
+                        {searchResults.length === 0 ? (
                             <Layout style={shared.centerContent}>
                                 <Text appearance="hint">
                                     {str('routes.noRoutes')}
@@ -81,7 +92,7 @@ const RoutesSearch = props => {
                             </Layout>
                         ) : (
                             <RoutesList
-                                data={props.routes}
+                                data={searchResults}
                                 navigation={props.navigation}
                             />
                         )}
@@ -92,21 +103,4 @@ const RoutesSearch = props => {
     );
 };
 
-const mapDispatchToProps = dispatch => {
-    return {
-        fetchRoutes: query => dispatch(fetchSearchRoutes(query)),
-    };
-};
-
-const mapStateToProps = state => {
-    return {
-        isFetching: state.routesSearch.isFetching,
-        routesInvalid: state.routesSearch.didInvalidate,
-        routes: state.routesSearch.items,
-    };
-};
-
-export default connect(
-    mapStateToProps,
-    mapDispatchToProps,
-)(RoutesSearch);
+export default RoutesSearch;
