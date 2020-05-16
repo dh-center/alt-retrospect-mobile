@@ -73,7 +73,11 @@ export const MapScreen = props => {
                 searchResults.map(item => (
                     <ListItem
                         key={item.id}
-                        title={item.address}
+                        title={
+                            item.instances.length !== 0
+                                ? item.instances[0].name
+                                : item.address
+                        }
                         onPress={() =>
                             props.navigation.navigate('Location', {
                                 location: item,
@@ -81,7 +85,11 @@ export const MapScreen = props => {
                         }
                     />
                 ))}
-            {isFetching && <Spinner />}
+            {isFetching && (
+                <Layout style={shared.centerContent}>
+                    <Spinner />
+                </Layout>
+            )}
             <Map locations={nearLocations} routeMode={false} />
         </SafeAreaView>
     );
