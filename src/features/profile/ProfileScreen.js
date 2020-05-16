@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import {ScrollView, StatusBar} from 'react-native';
 import {
     Button,
@@ -11,27 +11,46 @@ import {
 import {str} from '../../i18n';
 import {routesScreenStyles, sharedStyles} from '../../styles/styleProvider';
 import RoutesList from '../../components/lists/RoutesList';
-import {connect} from 'react-redux';
-import {
-    fetchSavedRoutes,
-    fetchUserInfo,
-    resetSavedRoutes,
-    resetUserInfo,
-} from '../../actions/profile';
+import {connect, useSelector} from 'react-redux';
+import {fetchUserInfo, resetUserInfo} from '../../actions/profile';
 import {ProfileInfoList} from '../../components/lists/ProfileInfoList';
 import {resetAuthToken} from '../../actions/auth';
+import {routes} from '../../selectors/routes';
+import {fetchSavedRoutes} from '../../api/profile';
+import {createRoute, updateRoute} from '../../actions/routes';
 
 const ProfileScreen = props => {
     const styles = useStyleSheet(routesScreenStyles);
     const shared = useStyleSheet(sharedStyles);
 
-    if (props.routesInvalid && !props.isFetching) {
-        props.fetchRoutes();
+    const allRoutes = useSelector(state => routes(state));
+    const savedRoutes = allRoutes.filter(item => item.isSaved === true);
+    console.log(savedRoutes);
+
+    function getSavedRoutes() {
+        if (savedRoutes.length === 0) {
+            fetchSavedRoutes().then(result => {
+                for (const route of result.routes) {
+                    route.isSaved = true;
+                    updateOrCreateRoute(route);
+                }
+            });
+        }
+    }
+
+    function updateOrCreateRoute(route) {
+        if (route.id in allRoutes.map(l => l.id)) {
+            props.updateRoute(route);
+        } else {
+            props.createRoute(route);
+        }
     }
 
     if (props.userInfoInvalid && !props.isFetching) {
         props.fetchUserInfo();
     }
+
+    useEffect(getSavedRoutes, []);
 
     if (props.isFetching) {
         return (
@@ -79,9 +98,9 @@ const ProfileScreen = props => {
                         <Text category="h4" style={styles.sectionTitle}>
                             {str('profile.savedRoutes')}
                         </Text>
-                        {props.routes.length !== 0 ? (
+                        {savedRoutes.length !== 0 ? (
                             <RoutesList
-                                data={props.routes}
+                                data={savedRoutes}
                                 navigation={props.navigation}
                             />
                         ) : (
@@ -96,21 +115,19 @@ const ProfileScreen = props => {
 
 const mapDispatchToProps = dispatch => {
     return {
-        fetchRoutes: () => dispatch(fetchSavedRoutes()),
         fetchUserInfo: () => dispatch(fetchUserInfo()),
         logOut: () => {
             dispatch(resetAuthToken());
-            dispatch(resetSavedRoutes());
             dispatch(resetUserInfo());
         },
+        createRoute: route => dispatch(createRoute(route)),
+        updateRoute: route => dispatch(updateRoute(route)),
     };
 };
 
 const mapStateToProps = state => {
     return {
-        isFetching: state.savedRoutes.isFetching || state.userInfo.isFetching,
-        routesInvalid: state.savedRoutes.didInvalidate,
-        routes: state.savedRoutes.items,
+        isFetching: state.userInfo.isFetching,
         userInfoInvalid: state.userInfo.didInvalidate,
         username: state.userInfo.username,
     };

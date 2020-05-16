@@ -60,7 +60,7 @@ const RoutesScreen = props => {
     }
 
     function updateOrCreateRoute(route) {
-        if (route.id in popularTags.map(l => l.id)) {
+        if (route.id in allRoutes.map(l => l.id)) {
             props.updateRoute(route);
         } else {
             props.createRoute(route);
