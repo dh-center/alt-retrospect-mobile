@@ -49,18 +49,16 @@ const RoutesScreen = props => {
     const allRoutes = useSelector(state => routes(state));
 
     function getRoutes() {
-        if (allRoutes.length === 0) {
-            fetchRoutes().then(result => {
-                for (const route of result.routes) {
-                    route.isPopular = true;
-                    updateOrCreateRoute(route);
-                }
-            });
-        }
+        fetchRoutes().then(result => {
+            for (const route of result.routes) {
+                route.isPopular = true;
+                updateOrCreateRoute(route);
+            }
+        });
     }
 
     function updateOrCreateRoute(route) {
-        if (route.id in allRoutes.map(l => l.id)) {
+        if (allRoutes.find(item => item.id === route.id)) {
             props.updateRoute(route);
         } else {
             props.createRoute(route);

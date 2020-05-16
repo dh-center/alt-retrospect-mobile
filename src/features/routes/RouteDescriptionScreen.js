@@ -46,12 +46,15 @@ const RouteDescriptionScreen = props => {
 
     async function handleSavePress() {
         if (props.isAuthorised) {
-            if (isSaved) {
+            if (thisRoute.isSaved) {
                 await removeFromSaved(thisRoute.id);
+                thisRoute.isSaved = false;
+                updateRoute(thisRoute);
             } else {
                 await addToSaved(thisRoute.id);
+                thisRoute.isSaved = true;
+                updateRoute(thisRoute);
             }
-            setIsSaved(!isSaved);
         } else {
             props.navigation.navigate('Profile');
         }
@@ -61,7 +64,6 @@ const RouteDescriptionScreen = props => {
         props.navigation.goBack();
     }
 
-    const [isSaved, setIsSaved] = useState(false);
     useEffect(getRouteDetails, []);
 
     return (
@@ -83,7 +85,11 @@ const RouteDescriptionScreen = props => {
                             renderIcon={style => (
                                 <Icon
                                     {...style}
-                                    name={isSaved ? 'star' : 'star-outline'}
+                                    name={
+                                        thisRoute.isSaved
+                                            ? 'star'
+                                            : 'star-outline'
+                                    }
                                 />
                             )}
                             onPress={handleSavePress}

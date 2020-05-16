@@ -25,21 +25,18 @@ const ProfileScreen = props => {
 
     const allRoutes = useSelector(state => routes(state));
     const savedRoutes = allRoutes.filter(item => item.isSaved === true);
-    console.log(savedRoutes);
 
     function getSavedRoutes() {
-        if (savedRoutes.length === 0) {
-            fetchSavedRoutes().then(result => {
-                for (const route of result.routes) {
-                    route.isSaved = true;
-                    updateOrCreateRoute(route);
-                }
-            });
-        }
+        fetchSavedRoutes().then(result => {
+            for (const route of result.routes) {
+                route.isSaved = true;
+                updateOrCreateRoute(route);
+            }
+        });
     }
 
     function updateOrCreateRoute(route) {
-        if (route.id in allRoutes.map(l => l.id)) {
+        if (allRoutes.find(item => item.id === route.id)) {
             props.updateRoute(route);
         } else {
             props.createRoute(route);
