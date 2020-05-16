@@ -33,6 +33,10 @@ jobs:
         run: |
           npm install
       - name: Build Android Release
+        env:
+          IOS_GM_API_KEY: ${{ secrets.IOS_GM_API_KEY }}
+          ANDROID_GM_API_KEY: ${{ secrets.ANDROID_GM_API_KEY }}
+          GM_DIRECTIONS_API_KEY: ${{ secrets.GM_DIRECTIONS_API_KEY }}
         run: |
           cd android && ./gradlew assembleRelease
       - name: Upload Artifact
