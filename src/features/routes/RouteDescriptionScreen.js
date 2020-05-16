@@ -16,8 +16,11 @@ const RouteDescriptionScreen = props => {
     const styles = useStyleSheet(routeScreenStyles);
 
     const routeId = props.route.params.routeId;
-    const allRoutes = useSelector(state => routes(state));
-    const thisRoute = allRoutes.find(item => item.id === routeId);
+    const thisRoute = useSelector(state => routes(state)).find(
+        item => item.id === routeId,
+    );
+
+    const [isSaved, setIsSaved] = useState(thisRoute.isSaved);
 
     const allLocations = useSelector(state => locations(state));
 
@@ -50,10 +53,12 @@ const RouteDescriptionScreen = props => {
                 await removeFromSaved(thisRoute.id);
                 thisRoute.isSaved = false;
                 updateRoute(thisRoute);
+                setIsSaved(false);
             } else {
                 await addToSaved(thisRoute.id);
                 thisRoute.isSaved = true;
                 updateRoute(thisRoute);
+                setIsSaved(true);
             }
         } else {
             props.navigation.navigate('Profile');
@@ -85,11 +90,7 @@ const RouteDescriptionScreen = props => {
                             renderIcon={style => (
                                 <Icon
                                     {...style}
-                                    name={
-                                        thisRoute.isSaved
-                                            ? 'star'
-                                            : 'star-outline'
-                                    }
+                                    name={isSaved ? 'star' : 'star-outline'}
                                 />
                             )}
                             onPress={handleSavePress}

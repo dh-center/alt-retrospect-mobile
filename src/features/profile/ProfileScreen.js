@@ -43,11 +43,8 @@ const ProfileScreen = props => {
         }
     }
 
-    if (props.userInfoInvalid && !props.isFetching) {
-        props.fetchUserInfo();
-    }
-
     useEffect(getSavedRoutes, []);
+    useEffect(props.fetchUserInfo, []);
 
     if (props.isFetching) {
         return (
