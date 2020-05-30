@@ -114,7 +114,7 @@ const Map = props => {
             },
             {
                 enableHighAccuracy: true,
-                distanceFilter: 0,
+                distanceFilter: 50,
                 interval: 5000,
                 fastestInterval: 2000,
             },
@@ -157,44 +157,34 @@ const Map = props => {
                         }}>
                         <LocationIcon />
                     </Marker>
-                    {props.routeMode && props.currentLocation && props.locations
-                        ? [
-                              <MapViewDirections
-                                  origin={{
-                                      latitude: props.currentLocation.lat,
-                                      longitude: props.currentLocation.lon,
-                                  }}
-                                  apikey={Config.GM_DIRECTIONS_API_KEY}
-                                  destination={waypoints[waypoints.length - 1]}
-                                  waypoints={waypoints}
-                                  mode="WALKING"
-                                  strokeWidth={8}
-                                  strokeColor="#4A75D5"
-                                  resetOnChange={false}
-                              />,
-                              props.locations.map(location => (
-                                  <Marker
-                                      key={location.id}
-                                      coordinate={{
-                                          latitude: location.coordinates.lat,
-                                          longitude: location.coordinates.lon,
-                                      }}
-                                      description={location.description}>
-                                      <Callout tooltip>
-                                          <LocationCallout
-                                              title={location.address}
-                                          />
-                                      </Callout>
-                                  </Marker>
-                              )),
-                          ]
-                        : props.locations.map(location => (
+                    {props.routeMode && props.currentLocation ? (
+                        <MapViewDirections
+                            origin={{
+                                latitude: props.currentLocation.lat,
+                                longitude: props.currentLocation.lon,
+                            }}
+                            apikey={Config.GM_DIRECTIONS_API_KEY}
+                            destination={waypoints[waypoints.length - 1]}
+                            waypoints={waypoints}
+                            mode="WALKING"
+                            strokeWidth={8}
+                            strokeColor="#4A75D5"
+                            resetOnChange={false}
+                        />
+                    ) : null}
+                    {props.locations
+                        ? props.locations.map(location => (
                               <Marker
                                   key={location.id}
                                   coordinate={{
-                                      latitude: location.lat,
-                                      longitude: location.lon,
+                                      latitude:
+                                          location.lat ||
+                                          location.coordinates.lat,
+                                      longitude:
+                                          location.lon ||
+                                          location.coordinates.lon,
                                   }}
+                                  tracksViewChanges={false}
                                   description={location.description}>
                                   <Callout tooltip>
                                       <LocationCallout
@@ -202,7 +192,8 @@ const Map = props => {
                                       />
                                   </Callout>
                               </Marker>
-                          ))}
+                          ))
+                        : null}
                 </MapView>
             </View>
         );
