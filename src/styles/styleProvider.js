@@ -205,7 +205,7 @@ export const navigationScreenStyles = StyleService.create({
         padding: 15,
         marginTop: -40,
         marginBottom: -40,
-        maxHeight: 150,
+        maxHeight: 'auto',
         flex: 1,
     },
 });
