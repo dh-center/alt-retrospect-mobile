@@ -23,14 +23,12 @@ const Map = props => {
 
     const initialLocation = props.initialLocation || props.currentLocation;
 
-    const [waypoints] = useState(
-        props.locations.map(location => {
-            return {
-                latitude: location.lat || location.coordinates.lat,
-                longitude: location.lon || location.coordinates.lon,
-            };
-        }),
-    );
+    const waypoints = props.locations.map(location => {
+        return {
+            latitude: location.lat || location.coordinates.lat,
+            longitude: location.lon || location.coordinates.lon,
+        };
+    });
 
     async function hasLocationPermission() {
         if (
