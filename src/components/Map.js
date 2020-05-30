@@ -121,17 +121,15 @@ const Map = props => {
         );
     }
 
-    async function removeLocationUpdates() {
-        if (this.watchId !== null) {
-            Geolocation.clearWatch(this.watchId);
-            this.setState({updatesEnabled: false});
-        }
+    async function removeLocationUpdates(watchId) {
+        Geolocation.clearWatch(watchId);
     }
 
     useEffect(() => {
         props.requestCurrentLocation();
         getLocation().then(console.log(props.currentLocation));
-        // eslint-disable-next-line react-hooks/exhaustive-deps
+        const watchId = getLocationUpdates();
+        return () => removeLocationUpdates(watchId);
     }, []);
 
     if (props.currentLocationFetching) {
