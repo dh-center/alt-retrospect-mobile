@@ -4,6 +4,7 @@ import {
     GET_ROUTE_URI,
     ADD_TO_SAVED_ROUTES,
     REMOVE_FROM_SAVED_ROUTES,
+    GET_ROUTES_BY_TAG,
 } from './constants';
 import {fetchGET, fetchPOST} from './common';
 
@@ -25,4 +26,8 @@ export function addToSaved(routeId) {
 
 export function removeFromSaved(routeId) {
     return fetchPOST(REMOVE_FROM_SAVED_ROUTES, {id: routeId.toString()}, true);
+}
+
+export function getRoutesByTag(tagId) {
+    return fetchPOST(GET_ROUTES_BY_TAG, {tag_ids: tagId.toString()});
 }

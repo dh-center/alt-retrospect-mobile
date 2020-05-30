@@ -198,3 +198,33 @@ export const searchScreenStyles = StyleService.create({
         paddingBottom: 0,
     },
 });
+
+export const tagScreenStyles = StyleService.create({
+    headerLayout: {
+        paddingBottom: 15,
+        marginTop: '15%',
+        height: '15%',
+        flexDirection: 'row',
+        alignItems: 'flex-end',
+    },
+    backButton: {
+        paddingBottom: 0,
+    },
+    pageTitle: {
+        color: '#fff',
+        maxWidth: '80%',
+    },
+    roundedLayout: {
+        borderRadius: 40,
+        padding: 15,
+        marginBottom: -40,
+        height: '100%',
+        flex: 1,
+    },
+    scrollPadded: {
+        paddingBottom: 40,
+    },
+    flexArea: {
+        flex: 1,
+    },
+});
