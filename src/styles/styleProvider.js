@@ -198,3 +198,14 @@ export const searchScreenStyles = StyleService.create({
         paddingBottom: 0,
     },
 });
+
+export const navigationScreenStyles = StyleService.create({
+    roundedLayout: {
+        borderRadius: 40,
+        padding: 15,
+        marginTop: -40,
+        marginBottom: -40,
+        maxHeight: 150,
+        flex: 1,
+    },
+});

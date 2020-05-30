@@ -23,8 +23,7 @@ const Map = props => {
 
     const initialLocation = props.initialLocation || props.currentLocation;
 
-    // TODO: replace with actual implementation when API is ready
-    const [waypoints, setWaypoints] = useState(
+    const [waypoints] = useState(
         props.locations.map(location => {
             return {
                 latitude: location.lat || location.coordinates.lat,
@@ -162,35 +161,52 @@ const Map = props => {
                         }}>
                         <LocationIcon />
                     </Marker>
-                    {props.routeMode && props.currentLocation ? (
-                        <MapViewDirections
-                            origin={{
-                                latitude: props.currentLocation.lat,
-                                longitude: props.currentLocation.lon,
-                            }}
-                            apikey={Config.GM_DIRECTIONS_API_KEY}
-                            destination={waypoints[waypoints.length - 1]}
-                            waypoints={waypoints}
-                            mode="WALKING"
-                            strokeWidth={8}
-                            strokeColor="#4A75D5"
-                            resetOnChange={false}
-                        />
-                    ) : (
-                        props.locations.map(location => (
-                            <Marker
-                                key={location.id}
-                                coordinate={{
-                                    latitude: location.lat,
-                                    longitude: location.lon,
-                                }}
-                                description={location.description}>
-                                <Callout tooltip>
-                                    <LocationCallout title={location.address} />
-                                </Callout>
-                            </Marker>
-                        ))
-                    )}
+                    {props.routeMode && props.currentLocation && props.locations
+                        ? [
+                              <MapViewDirections
+                                  origin={{
+                                      latitude: props.currentLocation.lat,
+                                      longitude: props.currentLocation.lon,
+                                  }}
+                                  apikey={Config.GM_DIRECTIONS_API_KEY}
+                                  destination={waypoints[waypoints.length - 1]}
+                                  waypoints={waypoints}
+                                  mode="WALKING"
+                                  strokeWidth={8}
+                                  strokeColor="#4A75D5"
+                                  resetOnChange={false}
+                              />,
+                              props.locations.map(location => (
+                                  <Marker
+                                      key={location.id}
+                                      coordinate={{
+                                          latitude: location.coordinates.lat,
+                                          longitude: location.coordinates.lon,
+                                      }}
+                                      description={location.description}>
+                                      <Callout tooltip>
+                                          <LocationCallout
+                                              title={location.address}
+                                          />
+                                      </Callout>
+                                  </Marker>
+                              )),
+                          ]
+                        : props.locations.map(location => (
+                              <Marker
+                                  key={location.id}
+                                  coordinate={{
+                                      latitude: location.lat,
+                                      longitude: location.lon,
+                                  }}
+                                  description={location.description}>
+                                  <Callout tooltip>
+                                      <LocationCallout
+                                          title={location.address}
+                                      />
+                                  </Callout>
+                              </Marker>
+                          ))}
                 </MapView>
             </View>
         );
