@@ -23,15 +23,12 @@ const Map = props => {
 
     const initialLocation = props.initialLocation || props.currentLocation;
 
-    // TODO: replace with actual implementation when API is ready
-    const [waypoints, setWaypoints] = useState(
-        props.locations.map(location => {
-            return {
-                latitude: location.lat || location.coordinates.lat,
-                longitude: location.lon || location.coordinates.lon,
-            };
-        }),
-    );
+    const waypoints = props.locations.map(location => {
+        return {
+            latitude: location.lat || location.coordinates.lat,
+            longitude: location.lon || location.coordinates.lon,
+        };
+    });
 
     async function hasLocationPermission() {
         if (
@@ -117,24 +114,22 @@ const Map = props => {
             },
             {
                 enableHighAccuracy: true,
-                distanceFilter: 0,
+                distanceFilter: 50,
                 interval: 5000,
                 fastestInterval: 2000,
             },
         );
     }
 
-    async function removeLocationUpdates() {
-        if (this.watchId !== null) {
-            Geolocation.clearWatch(this.watchId);
-            this.setState({updatesEnabled: false});
-        }
+    async function removeLocationUpdates(watchId) {
+        Geolocation.clearWatch(watchId);
     }
 
     useEffect(() => {
         props.requestCurrentLocation();
         getLocation().then(console.log(props.currentLocation));
-        // eslint-disable-next-line react-hooks/exhaustive-deps
+        const watchId = getLocationUpdates();
+        return () => removeLocationUpdates(watchId);
     }, []);
 
     if (props.currentLocationFetching) {
@@ -176,21 +171,29 @@ const Map = props => {
                             strokeColor="#4A75D5"
                             resetOnChange={false}
                         />
-                    ) : (
-                        props.locations.map(location => (
-                            <Marker
-                                key={location.id}
-                                coordinate={{
-                                    latitude: location.lat,
-                                    longitude: location.lon,
-                                }}
-                                description={location.description}>
-                                <Callout tooltip>
-                                    <LocationCallout title={location.address} />
-                                </Callout>
-                            </Marker>
-                        ))
-                    )}
+                    ) : null}
+                    {props.locations
+                        ? props.locations.map(location => (
+                              <Marker
+                                  key={location.id}
+                                  coordinate={{
+                                      latitude:
+                                          location.lat ||
+                                          location.coordinates.lat,
+                                      longitude:
+                                          location.lon ||
+                                          location.coordinates.lon,
+                                  }}
+                                  tracksViewChanges={false}
+                                  description={location.description}>
+                                  <Callout tooltip>
+                                      <LocationCallout
+                                          title={location.address}
+                                      />
+                                  </Callout>
+                              </Marker>
+                          ))
+                        : null}
                 </MapView>
             </View>
         );

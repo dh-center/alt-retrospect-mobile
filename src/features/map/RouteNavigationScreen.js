@@ -1,36 +1,28 @@
 import React from 'react';
 import {SafeAreaView} from 'react-native';
-import {Layout, Spinner, useStyleSheet} from '@ui-kitten/components';
+import {Layout, useStyleSheet, Text} from '@ui-kitten/components';
 import Map from '../../components/Map';
-import {sharedStyles} from '../../styles/styleProvider';
-import {connect} from 'react-redux';
+import {navigationScreenStyles, sharedStyles} from '../../styles/styleProvider';
+import {useSelector} from 'react-redux';
+import {routes} from '../../selectors/routes';
 
 export const RouteNavigationScreen = props => {
     const shared = useStyleSheet(sharedStyles);
+    const styles = useStyleSheet(navigationScreenStyles);
 
-    if (props.isFetching) {
-        return (
-            <Layout style={shared.centerContent}>
-                <Spinner />
+    const routeId = props.route.params.routeId;
+    const thisRoute = useSelector(state => routes(state)).find(
+        item => item.id === routeId,
+    );
+
+    return (
+        <SafeAreaView style={shared.flexArea}>
+            <Map locations={thisRoute.location_instances} routeMode={true} />
+            <Layout style={styles.roundedLayout} level="1">
+                <Text category="h5">{thisRoute.name}</Text>
             </Layout>
-        );
-    } else {
-        return (
-            <SafeAreaView style={shared.flexArea}>
-                <Map
-                    locations={props.currentRoute.location_instances}
-                    routeMode={true}
-                />
-            </SafeAreaView>
-        );
-    }
+        </SafeAreaView>
+    );
 };
 
-const mapStateToProps = state => {
-    return {
-        isFetching: state.currentRoute.isFetching,
-        currentRoute: state.currentRoute.data,
-    };
-};
-
-export default connect(mapStateToProps)(RouteNavigationScreen);
+export default RouteNavigationScreen;
