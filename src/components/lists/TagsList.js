@@ -1,10 +1,15 @@
 import React from 'react';
-import {Icon, ListItem, useStyleSheet} from '@ui-kitten/components';
-import {tagStyles} from '../../styles/styleProvider';
+import {
+    Icon,
+    ListItem,
+    StyleService,
+    useStyleSheet,
+} from '@ui-kitten/components';
 import {BasicButton} from '../buttons/BasicButton';
+import {Alignment, Spacing} from '../../styles';
 
 export const TagsList = props => {
-    const styles = useStyleSheet(tagStyles);
+    const styles = useStyleSheet(stylesheet);
 
     const renderTagIcon = style => (
         <Icon {...style} name="radio-button-on-outline" />
@@ -31,3 +36,10 @@ export const TagsList = props => {
 
     return props.data.map(renderItem);
 };
+
+const stylesheet = StyleService.create({
+    tagBody: {
+        ...Alignment.mediumRounded,
+        ...Spacing.mt15,
+    },
+});

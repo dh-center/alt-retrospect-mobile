@@ -3,13 +3,12 @@ import {ScrollView, StatusBar} from 'react-native';
 import {
     Icon,
     Layout,
-    Spinner,
+    StyleService,
     Text,
     useStyleSheet,
 } from '@ui-kitten/components';
 import {TagsList} from '../../components/lists/TagsList';
 import RoutesList from '../../components/lists/RoutesList';
-import {routesScreenStyles, sharedStyles} from '../../styles/styleProvider';
 import {str} from '../../i18n';
 import {createRoute, updateRoute} from '../../actions/routes';
 import {connect, useSelector} from 'react-redux';
@@ -19,10 +18,10 @@ import {tags} from '../../selectors/tags';
 import {routes} from '../../selectors/routes';
 import {getTags} from '../../api/tags';
 import {fetchRoutes} from '../../api/routes';
+import {Alignment, Colors, Spacing} from '../../styles';
 
 const RoutesScreen = props => {
-    const styles = useStyleSheet(routesScreenStyles);
-    const shared = useStyleSheet(sharedStyles);
+    const styles = useStyleSheet(stylesheet);
 
     const existingTags = useSelector(state => tags(state));
     const popularTags = existingTags.filter(tag => tag.isPopular === true);
@@ -68,54 +67,46 @@ const RoutesScreen = props => {
     useEffect(getPopularTags, []);
     useEffect(getRoutes, []);
 
-    if (props.isFetching) {
-        return (
-            <Layout style={shared.centerContent}>
-                <Spinner />
-            </Layout>
-        );
-    } else {
-        return (
-            <Layout style={styles.flexArea} level="3">
-                <StatusBar
-                    backgroundColor={styles.statusBar.backgroundColor}
-                    barStyle="light-content"
+    return (
+        <Layout style={styles.flexArea} level="3">
+            <StatusBar
+                backgroundColor={styles.statusBar.backgroundColor}
+                barStyle="light-content"
+            />
+            <Layout style={styles.headerLayout} level="3">
+                <Text style={styles.pageTitle} category="h2">
+                    {str('titles.routes')}
+                </Text>
+                <ControlButton
+                    style={styles.controlButton}
+                    renderIcon={style => <Icon {...style} name="search" />}
+                    onPress={() => {
+                        props.navigation.navigate('Search', {
+                            searchBarOpen: true,
+                        });
+                    }}
                 />
-                <Layout style={styles.headerLayout} level="3">
-                    <Text style={styles.pageTitle} category="h2">
-                        {str('titles.routes')}
-                    </Text>
-                    <ControlButton
-                        style={styles.controlButton}
-                        renderIcon={style => <Icon {...style} name="search" />}
-                        onPress={() => {
-                            props.navigation.navigate('Search', {
-                                searchBarOpen: true,
-                            });
-                        }}
-                    />
-                </Layout>
-                <Layout style={styles.roundedLayout} level="1">
-                    <ScrollView contentContainerStyle={styles.scrollPadded}>
-                        <Text category="h4" style={styles.sectionTitle}>
-                            {str('routes.popularTags')}
-                        </Text>
-                        <TagsList
-                            data={popularTags}
-                            navigation={props.navigation}
-                        />
-                        <Text category="h4" style={styles.sectionTitle}>
-                            {str('routes.allRoutes')}
-                        </Text>
-                        <RoutesList
-                            data={allRoutes}
-                            navigation={props.navigation}
-                        />
-                    </ScrollView>
-                </Layout>
             </Layout>
-        );
-    }
+            <Layout style={styles.roundedLayout} level="1">
+                <ScrollView contentContainerStyle={styles.scrollPadded}>
+                    <Text category="h4" style={styles.sectionTitle}>
+                        {str('routes.popularTags')}
+                    </Text>
+                    <TagsList
+                        data={popularTags}
+                        navigation={props.navigation}
+                    />
+                    <Text category="h4" style={styles.sectionTitle}>
+                        {str('routes.allRoutes')}
+                    </Text>
+                    <RoutesList
+                        data={allRoutes}
+                        navigation={props.navigation}
+                    />
+                </ScrollView>
+            </Layout>
+        </Layout>
+    );
 };
 
 const mapDispatchToProps = dispatch => {
@@ -131,3 +122,30 @@ export default connect(
     null,
     mapDispatchToProps,
 )(RoutesScreen);
+
+const stylesheet = StyleService.create({
+    pageTitle: Colors.white,
+    sectionTitle: Spacing.pt15,
+    statusBar: Colors.blueBg,
+    headerLayout: {
+        ...Spacing.basePadding,
+        ...Alignment.row,
+        ...Alignment.smallHeader,
+    },
+    roundedLayout: {
+        ...Spacing.basePadding,
+        ...Spacing.mb40neg,
+        ...Alignment.bigRounded,
+        ...Alignment.flexArea,
+        ...Alignment.fullHeight,
+    },
+    controlButton: {
+        ...Spacing.pb0,
+    },
+    scrollPadded: {
+        ...Spacing.pb40,
+    },
+    flexArea: {
+        ...Alignment.flexArea,
+    },
+});

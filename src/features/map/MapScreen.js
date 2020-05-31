@@ -1,17 +1,22 @@
-import React, {useState, useEffect} from 'react';
+import React, {useEffect, useState} from 'react';
 import {SafeAreaView} from 'react-native';
-import {Layout, ListItem, Spinner, useStyleSheet} from '@ui-kitten/components';
+import {
+    Layout,
+    ListItem,
+    Spinner,
+    StyleService,
+    useStyleSheet,
+} from '@ui-kitten/components';
 import {SearchBar} from '../../components/inputs/SearchBar';
 import Map from '../../components/Map';
-import {mapScreenStyles, sharedStyles} from '../../styles/styleProvider';
 import {connect, useSelector} from 'react-redux';
 import {createLocation, updateLocation} from '../../actions/locations';
 import {fetchNearLocations, getSearchLocations} from '../../api/locations';
 import {locations} from '../../selectors/locations';
+import {Alignment, Colors, Spacing} from '../../styles';
 
 export const MapScreen = props => {
-    const shared = useStyleSheet(sharedStyles);
-    const styles = useStyleSheet(mapScreenStyles);
+    const styles = useStyleSheet(stylesheet);
 
     const [searchResults, setSearchResults] = useState(undefined);
     const [isFetching, setIsFetching] = useState(false);
@@ -62,7 +67,7 @@ export const MapScreen = props => {
     useEffect(getNearLocations);
 
     return (
-        <SafeAreaView style={shared.flexArea}>
+        <SafeAreaView style={styles.flexArea}>
             <Layout style={styles.headerLayout}>
                 <SearchBar
                     onChangeText={text => fetchSearchResults(text)}
@@ -86,7 +91,7 @@ export const MapScreen = props => {
                     />
                 ))}
             {isFetching && (
-                <Layout style={shared.centerContent}>
+                <Layout style={styles.centerContent}>
                     <Spinner />
                 </Layout>
             )}
@@ -113,3 +118,12 @@ export default connect(
     mapStateToProps,
     mapDispatchToProps,
 )(MapScreen);
+
+const stylesheet = StyleService.create({
+    centerContent: Alignment.center,
+    flexArea: Alignment.flexArea,
+    headerLayout: {
+        ...Spacing.basePadding,
+        ...Colors.transparentBg,
+    },
+});
