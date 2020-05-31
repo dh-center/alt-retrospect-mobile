@@ -4,19 +4,19 @@ import {
     Icon,
     Layout,
     Spinner,
+    StyleService,
     Text,
     useStyleSheet,
 } from '@ui-kitten/components';
 import RoutesList from '../../components/lists/RoutesList';
-import {searchScreenStyles, sharedStyles} from '../../styles/styleProvider';
 import {SearchBar} from '../../components/inputs/SearchBar';
 import {str} from '../../i18n';
 import {ControlButton} from '../../components/buttons/ControlButton';
 import {getSearchRoutes} from '../../api/routes';
+import {Alignment, Colors, Spacing} from '../../styles';
 
 const RoutesSearch = props => {
-    const styles = useStyleSheet(searchScreenStyles);
-    const shared = useStyleSheet(sharedStyles);
+    const styles = useStyleSheet(stylesheet);
 
     const [searchBarOpen, setSearchBarOpen] = useState(
         props.route.params.searchBarOpen,
@@ -39,7 +39,7 @@ const RoutesSearch = props => {
     return (
         <Layout style={styles.flexArea} level="3">
             <StatusBar
-                backgroundColor={styles.statusBar.backgroundColor}
+                backgroundColor={styles.statusBar}
                 barStyle="light-content"
             />
 
@@ -79,13 +79,13 @@ const RoutesSearch = props => {
             )}
             <Layout style={styles.roundedLayout} level="1">
                 {isFetching ? (
-                    <Layout style={shared.centerContent}>
+                    <Layout style={styles.centerContent}>
                         <Spinner />
                     </Layout>
                 ) : (
                     <ScrollView contentContainerStyle={styles.scrollPadded}>
                         {searchResults.length === 0 ? (
-                            <Layout style={shared.centerContent}>
+                            <Layout style={styles.centerContent}>
                                 <Text appearance="hint">
                                     {str('routes.noRoutes')}
                                 </Text>
@@ -104,3 +104,34 @@ const RoutesSearch = props => {
 };
 
 export default RoutesSearch;
+
+const stylesheet = StyleService.create({
+    pageTitle: Colors.white,
+    headerLayout: {
+        ...Spacing.basePadding,
+        ...Alignment.row,
+        ...Alignment.smallHeader,
+    },
+    roundedLayout: {
+        ...Spacing.basePadding,
+        ...Spacing.mb40neg,
+        ...Alignment.roundedBig,
+        ...Alignment.flexArea,
+        ...Alignment.fullHeight,
+    },
+    scrollPadded: {
+        ...Spacing.pb40,
+    },
+    flexArea: {
+        ...Alignment.flexArea,
+    },
+    statusBar: {
+        ...Colors.blueBackground,
+    },
+    backButton: {
+        ...Spacing.pb0,
+    },
+    searchBar: {
+        ...Alignment.fullWidth,
+    },
+});

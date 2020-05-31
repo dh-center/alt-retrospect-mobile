@@ -37,6 +37,10 @@ export const fullHeight = {
     height: '100%',
 };
 
+export const fullWidth = {
+    width: '100%',
+};
+
 export const mediumHeight = {
     maxHeight: 150,
 };
