@@ -17,3 +17,7 @@ export const pt15 = {
 export const mb40neg = {
     marginBottom: -40,
 };
+
+export const mt40neg = {
+    marginTop: -40,
+};

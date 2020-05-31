@@ -24,6 +24,10 @@ export const fullHeight = {
     height: '100%',
 };
 
+export const mediumHeight = {
+    maxHeight: 150,
+};
+
 export const mediumImage = {
     width: 200,
     height: 200,

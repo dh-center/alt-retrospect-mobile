@@ -30,37 +30,6 @@ export const authScreenStyles = StyleService.create({
     },
 });
 
-export const routesScreenStyles = StyleService.create({
-    headerLayout: {
-        padding: 15,
-        marginTop: '15%',
-        height: '15%',
-        justifyContent: 'space-between',
-        flexDirection: 'row',
-        alignItems: 'flex-end',
-    },
-    roundedLayout: {
-        borderRadius: 40,
-        padding: 15,
-        marginBottom: -40,
-        height: '100%',
-        flex: 1,
-    },
-    sectionTitle: {
-        paddingTop: 15,
-        backgroundColor: '#fff',
-    },
-    searchIcon: {
-        color: '#fff',
-    },
-    scrollPadded: {
-        paddingBottom: 40,
-    },
-    controlButton: {
-        paddingBottom: 0,
-    },
-});
-
 export const routeScreenStyles = StyleService.create({
     headerLayout: {
         paddingTop: Platform.OS === 'ios' ? 40 : 0,
