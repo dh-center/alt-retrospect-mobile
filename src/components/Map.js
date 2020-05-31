@@ -1,12 +1,16 @@
-import React, {useEffect, useState} from 'react';
+import React, {useEffect} from 'react';
 import {PermissionsAndroid, Platform, ToastAndroid, View} from 'react-native';
 import MapView, {Callout, Marker, PROVIDER_GOOGLE} from 'react-native-maps';
 import MapViewDirections from 'react-native-maps-directions';
 import Config from 'react-native-config';
 
 import LocationIcon from './icons/LocationIcon';
-import {Layout, Spinner, useStyleSheet} from '@ui-kitten/components';
-import {sharedStyles} from '../styles/styleProvider';
+import {
+    Layout,
+    Spinner,
+    StyleService,
+    useStyleSheet,
+} from '@ui-kitten/components';
 import {LocationCallout} from './LocationCallout';
 import Geolocation from 'react-native-geolocation-service';
 import {
@@ -14,12 +18,13 @@ import {
     requestCurrentLocation,
 } from '../actions/currentLocation';
 import {connect} from 'react-redux';
+import {Alignment} from '../styles';
 
 const LATITUDE_DELTA = 0.015;
 const LONGITUDE_DELTA = 0.012;
 
 const Map = props => {
-    const shared = useStyleSheet(sharedStyles);
+    const styles = useStyleSheet(stylesheet);
 
     const initialLocation = props.initialLocation || props.currentLocation;
 
@@ -135,13 +140,13 @@ const Map = props => {
 
     if (props.currentLocationFetching) {
         return (
-            <Layout style={shared.centerContent}>
+            <Layout style={styles.centerContent}>
                 <Spinner />
             </Layout>
         );
     } else {
         return (
-            <View style={shared.flexArea}>
+            <View style={styles.flexArea}>
                 <MapView
                     initialRegion={{
                         latitude: initialLocation.lat,
@@ -150,7 +155,7 @@ const Map = props => {
                         longitudeDelta: LONGITUDE_DELTA,
                     }}
                     provider={PROVIDER_GOOGLE}
-                    style={shared.flexArea}>
+                    style={styles.flexArea}>
                     <Marker
                         coordinate={{
                             latitude: props.currentLocation.lat,
@@ -220,3 +225,11 @@ export default connect(
     mapStateToProps,
     mapDispatchToProps,
 )(Map);
+
+const stylesheet = StyleService.create({
+    centerContent: {
+        ...Alignment.center,
+        ...Alignment.flexArea,
+    },
+    flexArea: Alignment.flexArea,
+});
