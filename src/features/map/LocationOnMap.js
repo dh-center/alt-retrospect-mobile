@@ -62,7 +62,7 @@ const stylesheet = StyleService.create({
         ...Spacing.mt40neg,
     },
     topRow: {
-        ...Alignment.row,
+        ...Alignment.rowSpacedBetween,
         ...Alignment.fullWidth,
         ...Alignment.itemsCenter,
         ...Spacing.pb15,

@@ -32,7 +32,7 @@ export const LocationCallout = props => {
 const calloutStyles = StyleService.create({
     containerView: {
         ...Spacing.basePadding,
-        ...Alignment.row,
+        ...Alignment.rowSpacedBetween,
         ...Alignment.mediumRounded,
         ...Colors.whiteBg,
         width: 200,
