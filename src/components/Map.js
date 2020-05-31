@@ -130,6 +130,7 @@ const Map = props => {
         getLocation().then(console.log(props.currentLocation));
         const watchId = getLocationUpdates();
         return () => removeLocationUpdates(watchId);
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
 
     if (props.currentLocationFetching) {
