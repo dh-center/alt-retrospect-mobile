@@ -1,9 +1,15 @@
 import React, {useEffect, useState} from 'react';
 import {ImageBackground, ScrollView, View} from 'react-native';
-import {Button, Icon, Layout, Text, useStyleSheet} from '@ui-kitten/components';
+import {
+    Button,
+    Icon,
+    Layout,
+    StyleService,
+    Text,
+    useStyleSheet,
+} from '@ui-kitten/components';
 import {updateRoute} from '../../actions/routes';
 import {connect, useSelector} from 'react-redux';
-import {routeScreenStyles} from '../../styles/styleProvider';
 import {str} from '../../i18n';
 import {LocationsList} from '../../components/lists/LocationsList';
 import {ControlButton} from '../../components/buttons/ControlButton';
@@ -11,9 +17,10 @@ import {addToSaved, fetchRoute, removeFromSaved} from '../../api/routes';
 import {routes} from '../../selectors/routes';
 import {locations} from '../../selectors/locations';
 import {createLocation, updateLocation} from '../../actions/locations';
+import {Alignment, Colors, Spacing} from '../../styles';
 
 const RouteDescriptionScreen = props => {
-    const styles = useStyleSheet(routeScreenStyles);
+    const styles = useStyleSheet(stylesheet);
 
     const routeId = props.route.params.routeId;
     const thisRoute = useSelector(state => routes(state)).find(
@@ -108,7 +115,7 @@ const RouteDescriptionScreen = props => {
                         <Text category="h4" style={styles.sectionTitle}>
                             {str('routes.route')}
                         </Text>
-                        <Text style={styles.durationText}>
+                        <Text>
                             {thisRoute.duration} {str('routes.min')}
                         </Text>
                     </View>
@@ -127,7 +134,7 @@ const RouteDescriptionScreen = props => {
                                 routeId: thisRoute.id,
                             })
                         }
-                        style={{marginTop: 25}}>
+                        style={styles.button}>
                         {str('routes.explore')}
                     </Button>
                 </ScrollView>
@@ -154,3 +161,35 @@ export default connect(
     mapStateToProps,
     mapDispatchToProps,
 )(RouteDescriptionScreen);
+
+const stylesheet = StyleService.create({
+    pageTitle: Colors.white,
+    sectionTitle: Spacing.pt15,
+    headerLayout: {
+        ...Spacing.basePadding,
+        ...Alignment.column,
+        ...Alignment.bigHeader,
+        ...Colors.semiTransparentBg,
+        ...Spacing.pb40,
+        ...Spacing.pt40platform,
+    },
+    row: Alignment.row,
+    roundedLayout: {
+        ...Spacing.basePadding,
+        ...Spacing.mb40neg,
+        ...Alignment.roundedBig,
+        ...Alignment.flexArea,
+        ...Alignment.fullHeight,
+    },
+    scrollPadded: {
+        ...Spacing.pb40,
+    },
+    flexArea: {
+        ...Alignment.flexArea,
+    },
+    button: Spacing.mt15,
+    background: {
+        ...Alignment.bigHeader,
+        ...Spacing.mb40neg,
+    },
+});

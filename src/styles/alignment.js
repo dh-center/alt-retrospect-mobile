@@ -13,6 +13,10 @@ export const smallHeader = {
     height: 150,
 };
 
+export const bigHeader = {
+    height: 300,
+};
+
 export const roundedBig = {
     borderRadius: 40,
 };

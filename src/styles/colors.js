@@ -13,3 +13,7 @@ export const whiteBackground = {
 export const transparentBackground = {
     backgroundColor: 'transparent',
 };
+
+export const semiTransparentBg = {
+    backgroundColor: 'color-info-transparent-600',
+};
