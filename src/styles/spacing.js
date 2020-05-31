@@ -8,6 +8,10 @@ export const pb0 = {
     paddingBottom: 0,
 };
 
+export const pb15 = {
+    paddingBottom: 15,
+};
+
 export const pb40 = {
     paddingBottom: 40,
 };

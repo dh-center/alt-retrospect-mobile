@@ -37,6 +37,10 @@ export const fullHeight = {
     height: '100%',
 };
 
+export const halfHeight = {
+    height: '50%',
+};
+
 export const fullWidth = {
     width: '100%',
 };
@@ -50,8 +54,12 @@ export const mediumImage = {
     height: 200,
 };
 
+export const itemsCenter = {
+    alignItems: 'center',
+};
+
 export const center = {
     alignContent: 'center',
-    alignItems: 'center',
     justifyContent: 'center',
+    ...itemsCenter,
 };
