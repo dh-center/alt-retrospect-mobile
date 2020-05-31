@@ -90,7 +90,7 @@ const stylesheet = StyleService.create({
     },
     headerLayout: {
         ...Spacing.basePadding,
-        ...Colors.whiteBackground,
+        ...Colors.whiteBg,
         ...Alignment.smallHeader,
         ...Alignment.column,
     },

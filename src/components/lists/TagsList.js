@@ -37,7 +37,7 @@ export const TagsList = props => {
 
 const stylesheet = StyleService.create({
     tagBody: {
-        ...Alignment.roundedMedium,
+        ...Alignment.mediumRounded,
         ...Spacing.mt15,
     },
 });

@@ -124,6 +124,6 @@ const stylesheet = StyleService.create({
     flexArea: Alignment.flexArea,
     headerLayout: {
         ...Spacing.basePadding,
-        ...Colors.transparentBackground,
+        ...Colors.transparentBg,
     },
 });

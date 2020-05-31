@@ -17,15 +17,15 @@ export const bigHeader = {
     height: 300,
 };
 
-export const roundedBig = {
+export const bigRounded = {
     borderRadius: 40,
 };
 
-export const roundedMedium = {
+export const mediumRounded = {
     borderRadius: 15,
 };
 
-export const roundedSmall = {
+export const smallRounded = {
     borderRadius: 5,
 };
 

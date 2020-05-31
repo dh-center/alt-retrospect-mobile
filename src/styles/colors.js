@@ -1,4 +1,4 @@
-export const blueBackground = {
+export const blueBg = {
     backgroundColor: 'color-info-400',
 };
 
@@ -6,11 +6,11 @@ export const white = {
     color: 'white',
 };
 
-export const whiteBackground = {
+export const whiteBg = {
     backgroundColor: 'white',
 };
 
-export const transparentBackground = {
+export const transparentBg = {
     backgroundColor: 'transparent',
 };
 

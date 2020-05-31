@@ -33,8 +33,8 @@ const calloutStyles = StyleService.create({
     containerView: {
         ...Spacing.basePadding,
         ...Alignment.row,
-        ...Alignment.roundedMedium,
-        ...Colors.whiteBackground,
+        ...Alignment.mediumRounded,
+        ...Colors.whiteBg,
         width: 200,
     },
     contentView: {

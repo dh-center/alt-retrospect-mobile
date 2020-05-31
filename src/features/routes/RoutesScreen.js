@@ -126,7 +126,7 @@ export default connect(
 const stylesheet = StyleService.create({
     pageTitle: Colors.white,
     sectionTitle: Spacing.pt15,
-    statusBar: Colors.blueBackground,
+    statusBar: Colors.blueBg,
     headerLayout: {
         ...Spacing.basePadding,
         ...Alignment.row,
@@ -135,7 +135,7 @@ const stylesheet = StyleService.create({
     roundedLayout: {
         ...Spacing.basePadding,
         ...Spacing.mb40neg,
-        ...Alignment.roundedBig,
+        ...Alignment.bigRounded,
         ...Alignment.flexArea,
         ...Alignment.fullHeight,
     },

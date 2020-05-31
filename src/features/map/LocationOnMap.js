@@ -55,7 +55,7 @@ export default LocationOnMap;
 const stylesheet = StyleService.create({
     flexArea: Alignment.flexArea,
     description: {
-        ...Alignment.roundedBig,
+        ...Alignment.bigRounded,
         ...Alignment.halfHeight,
         ...Spacing.basePadding,
         ...Spacing.mb40neg,

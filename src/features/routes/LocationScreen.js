@@ -76,7 +76,7 @@ const stylesheet = StyleService.create({
     roundedLayout: {
         ...Spacing.basePadding,
         ...Spacing.mb40neg,
-        ...Alignment.roundedBig,
+        ...Alignment.bigRounded,
         ...Alignment.flexArea,
         ...Alignment.fullHeight,
     },
@@ -88,6 +88,6 @@ const stylesheet = StyleService.create({
     },
     image: {
         ...Alignment.mediumImage,
-        ...Alignment.roundedSmall,
+        ...Alignment.smallRounded,
     },
 });

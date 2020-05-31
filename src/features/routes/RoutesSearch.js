@@ -115,7 +115,7 @@ const stylesheet = StyleService.create({
     roundedLayout: {
         ...Spacing.basePadding,
         ...Spacing.mb40neg,
-        ...Alignment.roundedBig,
+        ...Alignment.bigRounded,
         ...Alignment.flexArea,
         ...Alignment.fullHeight,
     },
@@ -126,7 +126,7 @@ const stylesheet = StyleService.create({
         ...Alignment.flexArea,
     },
     statusBar: {
-        ...Colors.blueBackground,
+        ...Colors.blueBg,
     },
     backButton: {
         ...Spacing.pb0,

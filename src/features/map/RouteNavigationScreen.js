@@ -28,7 +28,7 @@ export default RouteNavigationScreen;
 
 const stylesheet = StyleService.create({
     routeDescription: {
-        ...Alignment.roundedBig,
+        ...Alignment.bigRounded,
         ...Alignment.flexArea,
         ...Alignment.mediumHeight,
         ...Spacing.basePadding,
