@@ -9,3 +9,7 @@ export const white = {
 export const whiteBackground = {
     backgroundColor: 'white',
 };
+
+export const transparentBackground = {
+    backgroundColor: 'transparent',
+};

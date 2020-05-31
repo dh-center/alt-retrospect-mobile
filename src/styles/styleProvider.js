@@ -64,20 +64,6 @@ export const routeScreenStyles = StyleService.create({
     },
 });
 
-export const mapScreenStyles = StyleService.create({
-    headerLayout: {
-        padding: 10,
-        backgroundColor: 'transparent',
-    },
-});
-
-export const tagStyles = StyleService.create({
-    tagBody: {
-        borderRadius: 15,
-        marginTop: 10,
-    },
-});
-
 export const calloutStyles = StyleService.create({
     containerView: {
         backgroundColor: '#fff',

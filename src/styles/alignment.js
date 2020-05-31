@@ -17,6 +17,10 @@ export const roundedBig = {
     borderRadius: 40,
 };
 
+export const roundedMedium = {
+    borderRadius: 15,
+};
+
 export const roundedSmall = {
     borderRadius: 5,
 };
