@@ -4,19 +4,19 @@ import {
     Icon,
     Layout,
     Spinner,
+    StyleService,
     Text,
     useStyleSheet,
 } from '@ui-kitten/components';
 import RoutesList from '../../components/lists/RoutesList';
-import {sharedStyles, tagScreenStyles} from '../../styles/styleProvider';
 import {createRoute, updateRoute} from '../../actions/routes';
 import {connect} from 'react-redux';
 import {ControlButton} from '../../components/buttons/ControlButton';
 import {getRoutesByTag} from '../../api/routes';
+import {Alignment, Colors, Spacing} from '../../styles';
 
 const TagScreen = props => {
-    const styles = useStyleSheet(tagScreenStyles);
-    const shared = useStyleSheet(sharedStyles);
+    const styles = useStyleSheet(stylesheet);
 
     const tag = props.route.params.tag;
 
@@ -34,7 +34,7 @@ const TagScreen = props => {
     useEffect(fetchSearchResults, []);
     if (isFetching) {
         return (
-            <Layout style={shared.centerContent}>
+            <Layout style={styles.centerContent}>
                 <Spinner />
             </Layout>
         );
@@ -56,7 +56,7 @@ const TagScreen = props => {
                     </Text>
                 </Layout>
                 <Layout style={styles.roundedLayout} level="1">
-                    <ScrollView contentContainerStyle={styles.scrollPadded}>
+                    <ScrollView>
                         <RoutesList
                             data={searchResults}
                             navigation={props.navigation}
@@ -79,3 +79,22 @@ export default connect(
     null,
     mapDispatchToProps,
 )(TagScreen);
+
+const stylesheet = StyleService.create({
+    centerContent: Alignment.center,
+    flexArea: Alignment.flexArea,
+    headerLayout: {
+        ...Spacing.basePadding,
+        ...Alignment.row,
+        ...Alignment.smallHeader,
+    },
+    roundedLayout: {
+        ...Spacing.basePadding,
+        ...Spacing.mb40neg,
+        ...Alignment.bigRounded,
+        ...Alignment.flexArea,
+        ...Alignment.fullHeight,
+    },
+    pageTitle: Colors.white,
+    backButton: Spacing.pb0,
+});
