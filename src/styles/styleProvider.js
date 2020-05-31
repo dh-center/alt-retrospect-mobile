@@ -39,12 +39,6 @@ export const routesScreenStyles = StyleService.create({
         flexDirection: 'row',
         alignItems: 'flex-end',
     },
-    pageTitle: {
-        color: '#fff',
-    },
-    flexArea: {
-        flex: 1,
-    },
     roundedLayout: {
         borderRadius: 40,
         padding: 15,
@@ -58,9 +52,6 @@ export const routesScreenStyles = StyleService.create({
     },
     searchIcon: {
         color: '#fff',
-    },
-    statusBar: {
-        backgroundColor: 'color-info-400',
     },
     scrollPadded: {
         paddingBottom: 40,
