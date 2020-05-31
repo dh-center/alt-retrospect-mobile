@@ -5,11 +5,11 @@ import {
     Layout,
     ListItem,
     Spinner,
+    StyleService,
     Text,
     useStyleSheet,
 } from '@ui-kitten/components';
 import {str} from '../../i18n';
-import {routesScreenStyles, sharedStyles} from '../../styles/styleProvider';
 import RoutesList from '../../components/lists/RoutesList';
 import {connect, useSelector} from 'react-redux';
 import {fetchUserInfo, resetUserInfo} from '../../actions/profile';
@@ -18,10 +18,10 @@ import {resetAuthToken} from '../../actions/auth';
 import {routes} from '../../selectors/routes';
 import {fetchSavedRoutes} from '../../api/profile';
 import {createRoute, updateRoute} from '../../actions/routes';
+import {Alignment, Colors, Spacing} from '../../styles';
 
 const ProfileScreen = props => {
-    const styles = useStyleSheet(routesScreenStyles);
-    const shared = useStyleSheet(sharedStyles);
+    const styles = useStyleSheet(stylesheet);
 
     const allRoutes = useSelector(state => routes(state));
     const savedRoutes = allRoutes.filter(item => item.isSaved === true);
@@ -48,7 +48,7 @@ const ProfileScreen = props => {
 
     if (props.isFetching) {
         return (
-            <Layout style={shared.centerContent}>
+            <Layout style={styles.centerContent}>
                 <Spinner />
             </Layout>
         );
@@ -131,3 +131,33 @@ export default connect(
     mapStateToProps,
     mapDispatchToProps,
 )(ProfileScreen);
+
+const stylesheet = StyleService.create({
+    pageTitle: Colors.white,
+    sectionTitle: Spacing.pt15,
+    statusBar: Colors.blueBg,
+    headerLayout: {
+        ...Spacing.basePadding,
+        ...Alignment.row,
+        ...Alignment.smallHeader,
+    },
+    roundedLayout: {
+        ...Spacing.basePadding,
+        ...Spacing.mb40neg,
+        ...Alignment.bigRounded,
+        ...Alignment.flexArea,
+        ...Alignment.fullHeight,
+    },
+    controlButton: {
+        ...Spacing.pb0,
+    },
+    scrollPadded: {
+        ...Spacing.pb40,
+    },
+    flexArea: {
+        ...Alignment.flexArea,
+    },
+    centerContent: {
+        ...Alignment.center,
+    },
+});

@@ -1,27 +1,32 @@
 import React from 'react';
 import {SafeAreaView, ScrollView, View} from 'react-native';
-import {Layout, useStyleSheet, Text, Button, Icon} from '@ui-kitten/components';
+import {
+    Layout,
+    useStyleSheet,
+    Text,
+    Button,
+    Icon,
+    StyleService,
+} from '@ui-kitten/components';
 import Map from '../../components/Map';
-import {sharedStyles} from '../../styles/styleProvider';
-import {styles} from './styles';
 import {str} from '../../i18n';
+import {Alignment, Spacing} from '../../styles';
 
 export const LocationOnMap = props => {
-    const stylesheet = useStyleSheet(styles);
-    const shared = useStyleSheet(sharedStyles);
+    const styles = useStyleSheet(stylesheet);
 
     const location = props.route.params.location;
 
     return (
-        <SafeAreaView style={shared.flexArea}>
+        <SafeAreaView style={styles.flexArea}>
             <Map
                 locations={[location]}
                 routeMode={false}
                 initialLocation={location}
             />
-            <Layout style={stylesheet.description} level="1">
-                <View style={stylesheet.topRow}>
-                    <Text category="h6" style={stylesheet.title}>
+            <Layout style={styles.description} level="1">
+                <View style={styles.topRow}>
+                    <Text category="h6" style={styles.title}>
                         {location.instances[0].name}
                     </Text>
                     <Button
@@ -46,3 +51,23 @@ export const LocationOnMap = props => {
 };
 
 export default LocationOnMap;
+
+const stylesheet = StyleService.create({
+    flexArea: Alignment.flexArea,
+    description: {
+        ...Alignment.bigRounded,
+        ...Alignment.halfHeight,
+        ...Spacing.basePadding,
+        ...Spacing.mb40neg,
+        ...Spacing.mt40neg,
+    },
+    topRow: {
+        ...Alignment.row,
+        ...Alignment.fullWidth,
+        ...Alignment.itemsCenter,
+        ...Spacing.pb15,
+    },
+    title: {
+        maxWidth: '70%',
+    },
+});

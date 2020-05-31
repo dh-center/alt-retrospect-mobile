@@ -1,19 +1,23 @@
 import React from 'react';
 import {SafeAreaView} from 'react-native';
-import {useStyleSheet} from '@ui-kitten/components';
+import {StyleService, useStyleSheet} from '@ui-kitten/components';
 import Map from '../../components/Map';
-import {sharedStyles} from '../../styles/styleProvider';
+import {Alignment} from '../../styles';
 
 export const RouteToLocation = props => {
-    const shared = useStyleSheet(sharedStyles);
+    const styles = useStyleSheet(stylesheet);
 
     const location = props.route.params.location;
 
     return (
-        <SafeAreaView style={shared.flexArea}>
+        <SafeAreaView style={styles.flexArea}>
             <Map locations={[location]} routeMode={true} />
         </SafeAreaView>
     );
 };
 
 export default RouteToLocation;
+
+const stylesheet = StyleService.create({
+    flexArea: Alignment.flexArea,
+});

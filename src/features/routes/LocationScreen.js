@@ -1,26 +1,27 @@
 import React from 'react';
-import {Image, ScrollView, StatusBar} from 'react-native';
-import {Icon, Layout, Text, useStyleSheet} from '@ui-kitten/components';
-import {routesScreenStyles} from '../../styles/styleProvider';
+import {Image, ScrollView} from 'react-native';
+import {
+    Icon,
+    Layout,
+    StyleService,
+    Text,
+    useStyleSheet,
+} from '@ui-kitten/components';
 import {connect, useSelector} from 'react-redux';
 import {ControlButton} from '../../components/buttons/ControlButton';
 import {updateLocation} from '../../actions/locations';
 import {locations} from '../../selectors/locations';
+import {Alignment, Colors, Spacing} from '../../styles';
 
 const LocationScreen = props => {
-    const styles = useStyleSheet(routesScreenStyles);
+    const styles = useStyleSheet(stylesheet);
 
     const locationId = props.route.params.locationId;
     const allLocations = useSelector(state => locations(state));
     const thisLocation = allLocations.find(item => item.id === locationId);
-    console.log(allLocations);
 
     return (
         <Layout style={styles.flexArea} level="3">
-            <StatusBar
-                backgroundColor={styles.statusBar.backgroundColor}
-                barStyle="light-content"
-            />
             <Layout style={styles.headerLayout} level="3">
                 <ControlButton
                     style={styles.backButton}
@@ -45,11 +46,7 @@ const LocationScreen = props => {
                             source={{
                                 uri: thisLocation.image_url,
                             }}
-                            style={{
-                                width: 200,
-                                height: 200,
-                                borderRadius: 5,
-                            }}
+                            style={styles.image}
                         />,
                     ]}
                 </ScrollView>
@@ -68,3 +65,29 @@ export default connect(
     null,
     mapDispatchToProps,
 )(LocationScreen);
+
+const stylesheet = StyleService.create({
+    pageTitle: Colors.white,
+    headerLayout: {
+        ...Spacing.basePadding,
+        ...Alignment.row,
+        ...Alignment.smallHeader,
+    },
+    roundedLayout: {
+        ...Spacing.basePadding,
+        ...Spacing.mb40neg,
+        ...Alignment.bigRounded,
+        ...Alignment.flexArea,
+        ...Alignment.fullHeight,
+    },
+    scrollPadded: {
+        ...Spacing.pb40,
+    },
+    flexArea: {
+        ...Alignment.flexArea,
+    },
+    image: {
+        ...Alignment.mediumImage,
+        ...Alignment.smallRounded,
+    },
+});
