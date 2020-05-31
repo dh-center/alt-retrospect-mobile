@@ -4,6 +4,11 @@ export const row = {
     alignItems: 'flex-end',
 };
 
+export const column = {
+    justifyContent: 'flex-end',
+    flexDirection: 'column',
+};
+
 export const smallHeader = {
     height: 150,
 };

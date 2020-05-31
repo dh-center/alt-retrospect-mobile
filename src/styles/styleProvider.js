@@ -17,19 +17,6 @@ export const sharedStyles = StyleService.create({
     },
 });
 
-export const authScreenStyles = StyleService.create({
-    headerLayout: {
-        padding: 15,
-        backgroundColor: '#fff',
-        height: 150,
-        justifyContent: 'flex-end',
-        flexDirection: 'column',
-    },
-    button: {
-        marginTop: 15,
-    },
-});
-
 export const routeScreenStyles = StyleService.create({
     headerLayout: {
         paddingTop: Platform.OS === 'ios' ? 40 : 0,
@@ -156,16 +143,5 @@ export const searchScreenStyles = StyleService.create({
     },
     backButton: {
         paddingBottom: 0,
-    },
-});
-
-export const navigationScreenStyles = StyleService.create({
-    roundedLayout: {
-        borderRadius: 40,
-        padding: 15,
-        marginTop: -40,
-        marginBottom: -40,
-        maxHeight: 150,
-        flex: 1,
     },
 });

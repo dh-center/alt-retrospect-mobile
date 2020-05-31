@@ -14,6 +14,10 @@ export const pt15 = {
     paddingTop: 15,
 };
 
+export const mt15 = {
+    marginTop: 15,
+};
+
 export const mb40neg = {
     marginBottom: -40,
 };

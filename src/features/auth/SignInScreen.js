@@ -3,16 +3,22 @@ import {SafeAreaView} from 'react-native';
 
 import {EmailInput} from '../../components/inputs/EmailInput';
 import {PasswordInput} from '../../components/inputs/PasswordInput';
-import {Button, Layout, Text, useStyleSheet} from '@ui-kitten/components';
-import {authScreenStyles, sharedStyles} from '../../styles/styleProvider';
+import {
+    Button,
+    Layout,
+    StyleService,
+    Text,
+    useStyleSheet,
+} from '@ui-kitten/components';
 import {str} from '../../i18n';
 import AsyncStorage from '@react-native-community/async-storage';
 import {fetchAuthToken} from '../../actions/auth';
 import {store} from '../../store';
+import {Alignment, Colors, Spacing} from '../../styles';
 
 export const SignInScreen = ({navigation}) => {
-    const styles = useStyleSheet(authScreenStyles);
-    const shared = useStyleSheet(sharedStyles);
+    const styles = useStyleSheet(stylesheet);
+
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
 
@@ -37,13 +43,13 @@ export const SignInScreen = ({navigation}) => {
     }
 
     return (
-        <SafeAreaView style={shared.flexArea}>
+        <SafeAreaView style={styles.flexArea}>
             <Layout style={styles.headerLayout}>
                 <Text style={styles.pageTitle} category="h2">
                     {str('auth.signin')}
                 </Text>
             </Layout>
-            <Layout style={shared.paddedLayout}>
+            <Layout style={styles.paddedLayout}>
                 <EmailInput
                     value={email}
                     onChangeText={text => setEmail(text)}
@@ -71,3 +77,23 @@ export const SignInScreen = ({navigation}) => {
         </SafeAreaView>
     );
 };
+
+const stylesheet = StyleService.create({
+    flexArea: {
+        ...Alignment.flexArea,
+        ...Alignment.fullHeight,
+    },
+    paddedLayout: {
+        ...Spacing.basePadding,
+        ...Alignment.fullHeight,
+    },
+    headerLayout: {
+        ...Spacing.basePadding,
+        ...Colors.whiteBackground,
+        ...Alignment.smallHeader,
+        ...Alignment.column,
+    },
+    button: {
+        ...Spacing.mt15,
+    },
+});

@@ -5,3 +5,7 @@ export const blueBackground = {
 export const white = {
     color: 'white',
 };
+
+export const whiteBackground = {
+    backgroundColor: 'white',
+};
