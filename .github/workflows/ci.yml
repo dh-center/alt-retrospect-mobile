@@ -32,11 +32,13 @@ jobs:
       - name: Install npm dependencies
         run: |
           npm install
+      - name: Make envfile
+        uses: SpicyPizza/create-envfile@v1
+        with:
+          envkey_IOS_GM_API_KEY: ${{ secrets.IOS_GM_API_KEY }}
+          envkey_ANDROID_GM_API_KEY: ${{ secrets.ANDROID_GM_API_KEY }}
+          envkey_GM_DIRECTIONS_API_KEY: ${{ secrets.GM_DIRECTIONS_API_KEY }}
       - name: Build Android Release
-        env:
-          IOS_GM_API_KEY: ${{ secrets.IOS_GM_API_KEY }}
-          ANDROID_GM_API_KEY: ${{ secrets.ANDROID_GM_API_KEY }}
-          GM_DIRECTIONS_API_KEY: ${{ secrets.GM_DIRECTIONS_API_KEY }}
         run: |
           cd android && ./gradlew assembleRelease
       - name: Upload Artifact
@@ -56,6 +58,12 @@ jobs:
       - name: Install pod dependencies
         run: |
           cd ios && pod install
+      - name: Make envfile
+        uses: SpicyPizza/create-envfile@v1
+        with:
+          envkey_IOS_GM_API_KEY: ${{ secrets.IOS_GM_API_KEY }}
+          envkey_ANDROID_GM_API_KEY: ${{ secrets.ANDROID_GM_API_KEY }}
+          envkey_GM_DIRECTIONS_API_KEY: ${{ secrets.GM_DIRECTIONS_API_KEY }}
       - name: Build app
         run: |
           xcodebuild -workspace AltRetrospect.xcworkspace -scheme AltRetrospect archive -archivePath AltRetrospect.xcarchive -allowProvisioningUpdates
