@@ -28,7 +28,9 @@ export const TagsList = props => {
             icon={renderTagIcon}
             accessory={renderChevron}
             style={styles.tagBody}
-            onPress={() => props.navigation.navigate('Search')}
+            onPress={() =>
+                props.navigation.navigate('RoutesByTag', {tag: item})
+            }
         />
     );
 

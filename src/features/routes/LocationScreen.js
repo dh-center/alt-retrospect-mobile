@@ -70,7 +70,7 @@ const stylesheet = StyleService.create({
     pageTitle: Colors.white,
     headerLayout: {
         ...Spacing.basePadding,
-        ...Alignment.row,
+        ...Alignment.rowSpacedBetween,
         ...Alignment.smallHeader,
     },
     roundedLayout: {

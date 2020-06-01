@@ -173,7 +173,7 @@ const stylesheet = StyleService.create({
         ...Spacing.pb40,
         ...Spacing.pt40platform,
     },
-    row: Alignment.row,
+    row: Alignment.rowSpacedBetween,
     roundedLayout: {
         ...Spacing.basePadding,
         ...Spacing.mb40neg,

@@ -129,7 +129,7 @@ const stylesheet = StyleService.create({
     statusBar: Colors.blueBg,
     headerLayout: {
         ...Spacing.basePadding,
-        ...Alignment.row,
+        ...Alignment.rowSpacedBetween,
         ...Alignment.smallHeader,
     },
     roundedLayout: {

@@ -2,6 +2,7 @@ import React from 'react';
 import {createStackNavigator} from '@react-navigation/stack';
 import RoutesScreen from '../features/routes/RoutesScreen';
 import RouteScreen from '../features/routes/RouteDescriptionScreen';
+import TagScreen from '../features/routes/TagScreen';
 import RoutesSearch from '../features/routes/RoutesSearch';
 import LocationScreen from '../features/routes/LocationScreen';
 
@@ -14,6 +15,7 @@ export const RoutesNavigator = props => {
             <Stack.Screen name="Route" component={RouteScreen} />
             <Stack.Screen name="Location" component={LocationScreen} />
             <Stack.Screen name="Search" component={RoutesSearch} />
+            <Stack.Screen name="RoutesByTag" component={TagScreen} />
         </Stack.Navigator>
     );
 };

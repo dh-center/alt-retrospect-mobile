@@ -1,7 +1,11 @@
 export const row = {
-    justifyContent: 'space-between',
     flexDirection: 'row',
     alignItems: 'flex-end',
+};
+
+export const rowSpacedBetween = {
+    ...row,
+    justifyContent: 'space-between',
 };
 
 export const column = {
