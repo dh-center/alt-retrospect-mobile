@@ -1,10 +1,15 @@
 import React from 'react';
 import {Icon, ListItem} from '@ui-kitten/components';
 import {BasicButton} from '../buttons/BasicButton';
+import Svg from 'react-native-svg';
+import {Circle} from 'react-native-svg';
 
 export const LocationsList = props => {
     const renderLocationIcon = style => (
-        <Icon {...style} name="radio-button-on-outline" />
+        <Svg height="30" width="30">
+            <Circle cx="15" cy="15" r="15" fill="#EC0B43" />
+            <Circle cx="15" cy="15" r="6" fill="white" />
+        </Svg>
     );
 
     const renderChevron = style => (

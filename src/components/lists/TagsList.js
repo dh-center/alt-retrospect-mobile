@@ -7,12 +7,16 @@ import {
 } from '@ui-kitten/components';
 import {BasicButton} from '../buttons/BasicButton';
 import {Alignment, Spacing} from '../../styles';
+import Svg, {Circle} from 'react-native-svg';
 
 export const TagsList = props => {
     const styles = useStyleSheet(stylesheet);
 
     const renderTagIcon = style => (
-        <Icon {...style} name="radio-button-on-outline" />
+        <Svg height="30" width="30">
+            <Circle cx="15" cy="15" r="15" fill="#5374CB" />
+            <Circle cx="15" cy="15" r="7" fill="white" />
+        </Svg>
     );
     const renderChevron = style => (
         <BasicButton
