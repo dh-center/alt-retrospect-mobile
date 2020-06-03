@@ -26,8 +26,8 @@ const RoutesList = props => {
         <ListItem
             key={item.id}
             title={item.name}
-            icon={style => renderRouteImage(style, item.image_url)}
-            accessory={renderChevron}
+            accessoryLeft={style => renderRouteImage(style, item.image_url)}
+            accessoryRight={renderChevron}
             onPress={() => {
                 props.navigation.navigate('Route', {routeId: item.id});
             }}

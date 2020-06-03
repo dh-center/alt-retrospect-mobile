@@ -9,8 +9,7 @@ export const BasicButton = props => {
             appearance="ghost"
             status="basic"
             style={style.basic}
-            icon={props.renderIcon}
-            onPress={props.onPress}
+            {...props}
         />
     );
 };

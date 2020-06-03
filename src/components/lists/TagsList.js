@@ -30,8 +30,8 @@ export const TagsList = props => {
         <ListItem
             key={item.id}
             title={`${item.name}`}
-            icon={renderTagIcon}
-            accessory={renderChevron}
+            accessoryLeft={renderTagIcon}
+            accessoryRight={renderChevron}
             style={styles.tagBody}
             onPress={() =>
                 props.navigation.navigate('RoutesByTag', {tag: item})

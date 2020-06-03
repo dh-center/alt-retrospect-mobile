@@ -1,4 +1,5 @@
 import React from 'react';
+import {Text} from 'react-native';
 import {Icon, ListItem} from '@ui-kitten/components';
 import {BasicButton} from '../buttons/BasicButton';
 import Svg from 'react-native-svg';
@@ -22,9 +23,9 @@ export const LocationsList = props => {
     const renderItem = item => (
         <ListItem
             key={item.id}
-            title={item.name}
-            icon={renderLocationIcon}
-            accessory={renderChevron}
+            title={<Text numberOfLines={1}>{item.name}</Text>}
+            accessoryLeft={renderLocationIcon}
+            accessoryRight={renderChevron}
             onPress={() =>
                 props.navigation.navigate('Location', {locationId: item.id})
             }
