@@ -8,13 +8,14 @@ import {
 import {BasicButton} from '../buttons/BasicButton';
 import {Alignment, Spacing} from '../../styles';
 import Svg, {Circle} from 'react-native-svg';
+import theme from '../../styles/theme';
 
 export const TagsList = props => {
     const styles = useStyleSheet(stylesheet);
 
     const renderTagIcon = style => (
         <Svg height="30" width="30">
-            <Circle cx="15" cy="15" r="15" fill="#5374CB" />
+            <Circle cx="15" cy="15" r="15" fill={theme['color-info-400']} />
             <Circle cx="15" cy="15" r="7" fill="white" />
         </Svg>
     );

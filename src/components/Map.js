@@ -19,6 +19,7 @@ import {
 } from '../actions/currentLocation';
 import {connect} from 'react-redux';
 import {Alignment} from '../styles';
+import theme from '../styles/theme';
 
 const LATITUDE_DELTA = 0.015;
 const LONGITUDE_DELTA = 0.012;
@@ -174,7 +175,7 @@ const Map = props => {
                             waypoints={waypoints}
                             mode="WALKING"
                             strokeWidth={8}
-                            strokeColor="#4A75D5"
+                            strokeColor={theme['color-info-400']}
                             resetOnChange={false}
                         />
                     ) : null}
@@ -190,6 +191,7 @@ const Map = props => {
                                           location.lon ||
                                           location.coordinates.lon,
                                   }}
+                                  pinColor={theme['color-primary-400']}
                                   tracksViewChanges={false}
                                   description={location.description}>
                                   <Callout tooltip>
