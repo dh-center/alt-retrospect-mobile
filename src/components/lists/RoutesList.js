@@ -17,7 +17,9 @@ const RoutesList = props => {
     );
     const renderChevron = style => (
         <BasicButton
-            renderIcon={style => <Icon {...style} name="chevron-right" />}
+            accessoryLeft={evaProps => (
+                <Icon {...evaProps} name="chevron-right" />
+            )}
             onPress={() => props.navigation.navigate('Search')}
         />
     );

@@ -13,6 +13,11 @@ export const column = {
     flexDirection: 'column',
 };
 
+export const columnSpacedBetween = {
+    justifyContent: 'space-between',
+    flexDirection: 'column',
+};
+
 export const smallHeader = {
     height: 150,
 };

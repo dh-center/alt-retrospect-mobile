@@ -58,8 +58,8 @@ const RoutesSearch = props => {
                 <Layout style={styles.headerLayout} level="3">
                     <ControlButton
                         style={styles.backButton}
-                        renderIcon={style => (
-                            <Icon {...style} name="arrow-ios-back" />
+                        accessoryLeft={evaProps => (
+                            <Icon {...evaProps} name="arrow-ios-back" />
                         )}
                         onPress={() => {
                             props.navigation.goBack();
@@ -70,7 +70,9 @@ const RoutesSearch = props => {
                     </Text>
                     <ControlButton
                         style={styles.searchButton}
-                        renderIcon={style => <Icon {...style} name="search" />}
+                        accessoryLeft={evaProps => (
+                            <Icon {...evaProps} name="search" />
+                        )}
                         onPress={() => {
                             setSearchBarOpen(true);
                         }}

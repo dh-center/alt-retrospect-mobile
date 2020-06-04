@@ -88,15 +88,15 @@ const RouteDescriptionScreen = props => {
                 <View style={styles.headerLayout}>
                     <View style={styles.row}>
                         <ControlButton
-                            renderIcon={style => (
-                                <Icon {...style} name="arrow-ios-back" />
+                            accessoryLeft={evaProps => (
+                                <Icon {...evaProps} name="arrow-ios-back" />
                             )}
                             onPress={handleBackPress}
                         />
                         <ControlButton
-                            renderIcon={style => (
+                            accessoryLeft={evaProps => (
                                 <Icon
-                                    {...style}
+                                    {...evaProps}
                                     name={isSaved ? 'star' : 'star-outline'}
                                 />
                             )}
@@ -167,7 +167,7 @@ const stylesheet = StyleService.create({
     sectionTitle: Spacing.pt15,
     headerLayout: {
         ...Spacing.basePadding,
-        ...Alignment.column,
+        ...Alignment.columnSpacedBetween,
         ...Alignment.bigHeader,
         ...Colors.semiTransparentBg,
         ...Spacing.pb40,
