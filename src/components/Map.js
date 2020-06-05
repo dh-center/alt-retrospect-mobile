@@ -132,8 +132,10 @@ const Map = props => {
     }
 
     useEffect(() => {
-        props.requestCurrentLocation();
-        getLocation().then(console.log(props.currentLocation));
+        if (!props.currentLocation) {
+            props.requestCurrentLocation();
+            getLocation().then(console.log(props.currentLocation));
+        }
         const watchId = getLocationUpdates();
         return () => removeLocationUpdates(watchId);
         // eslint-disable-next-line react-hooks/exhaustive-deps
