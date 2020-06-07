@@ -129,14 +129,17 @@ const RouteDescriptionScreen = props => {
                     <Button
                         appearance="filled"
                         status="info"
+                        accessoryLeft={evaProps => (
+                            <Icon {...evaProps} name="navigation-2-outline" />
+                        )}
                         onPress={() =>
                             props.navigation.navigate('RouteNavigation', {
                                 routeId: thisRoute.id,
                             })
                         }
-                        style={styles.button}>
-                        {str('routes.explore')}
-                    </Button>
+                        style={styles.button}
+                        children={str('routes.explore')}
+                    />
                 </ScrollView>
             </Layout>
         </Layout>
@@ -187,7 +190,9 @@ const stylesheet = StyleService.create({
     flexArea: {
         ...Alignment.flexArea,
     },
-    button: Spacing.mt15,
+    button: {
+        ...Spacing.mt15,
+    },
     background: {
         ...Alignment.bigHeader,
         ...Spacing.mb40neg,
