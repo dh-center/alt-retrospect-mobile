@@ -3,6 +3,7 @@ import {
     Icon,
     ListItem,
     StyleService,
+    Text,
     useStyleSheet,
 } from '@ui-kitten/components';
 import {BasicButton} from '../buttons/BasicButton';
@@ -31,7 +32,7 @@ export const TagsList = props => {
     const renderItem = item => (
         <ListItem
             key={item.id}
-            title={`${item.name}`}
+            title={<Text>{item.name}</Text>}
             accessoryLeft={renderTagIcon}
             accessoryRight={renderChevron}
             style={styles.tagBody}

@@ -14,19 +14,25 @@ import {str} from '../../i18n';
 import {ControlButton} from '../../components/buttons/ControlButton';
 import {getSearchRoutes} from '../../api/routes';
 import {Alignment, Colors, Spacing} from '../../styles';
+import {useSelector} from 'react-redux';
+import {routes} from '../../selectors/routes';
 
 const RoutesSearch = props => {
     const styles = useStyleSheet(stylesheet);
+
+    let allRoutes = useSelector(state => routes(state));
 
     const [searchBarOpen, setSearchBarOpen] = useState(
         props.route.params.searchBarOpen,
     );
     const [searchResults, setSearchResults] = useState([]);
     const [isFetching, setIsFetching] = useState(false);
+    const [startedSearch, setStartedSearch] = useState(false);
 
     function fetchSearchResults(query) {
         if (query !== '') {
             setIsFetching(true);
+            setStartedSearch(true);
             getSearchRoutes(query).then(result => {
                 setSearchResults(result.routes);
                 setIsFetching(false);
@@ -80,26 +86,34 @@ const RoutesSearch = props => {
                 </Layout>
             )}
             <Layout style={styles.roundedLayout} level="1">
-                {isFetching ? (
-                    <Layout style={styles.centerContent}>
-                        <Spinner />
-                    </Layout>
-                ) : (
-                    <ScrollView contentContainerStyle={styles.scrollPadded}>
-                        {searchResults.length === 0 ? (
-                            <Layout style={styles.centerContent}>
-                                <Text appearance="hint">
-                                    {str('routes.noRoutes')}
-                                </Text>
-                            </Layout>
-                        ) : (
-                            <RoutesList
-                                data={searchResults}
-                                navigation={props.navigation}
-                            />
-                        )}
-                    </ScrollView>
-                )}
+                <ScrollView contentContainerStyle={styles.scrollPadded}>
+                    {!startedSearch ? (
+                        <RoutesList
+                            data={allRoutes}
+                            navigation={props.navigation}
+                        />
+                    ) : null}
+                    {isFetching ? (
+                        <Layout style={styles.centerContent}>
+                            <Spinner />
+                        </Layout>
+                    ) : (
+                        <Layout>
+                            {searchResults.length === 0 && startedSearch ? (
+                                <Layout style={styles.centerContent}>
+                                    <Text appearance="hint">
+                                        {str('routes.noRoutes')}
+                                    </Text>
+                                </Layout>
+                            ) : (
+                                <RoutesList
+                                    data={searchResults}
+                                    navigation={props.navigation}
+                                />
+                            )}
+                        </Layout>
+                    )}
+                </ScrollView>
             </Layout>
         </Layout>
     );
@@ -108,7 +122,10 @@ const RoutesSearch = props => {
 export default RoutesSearch;
 
 const stylesheet = StyleService.create({
-    pageTitle: Colors.white,
+    pageTitle: {
+        ...Colors.white,
+        width: '60%',
+    },
     headerLayout: {
         ...Spacing.basePadding,
         ...Alignment.rowSpacedBetween,
@@ -131,6 +148,9 @@ const stylesheet = StyleService.create({
         ...Colors.blueBg,
     },
     backButton: {
+        ...Spacing.pb0,
+    },
+    searchButton: {
         ...Spacing.pb0,
     },
     searchBar: {

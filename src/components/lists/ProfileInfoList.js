@@ -1,9 +1,12 @@
 import React from 'react';
-import {Divider, List, ListItem} from '@ui-kitten/components';
+import {Divider, List, ListItem, Text} from '@ui-kitten/components';
 
 export const ProfileInfoList = props => {
     const renderItem = ({item, index}) => (
-        <ListItem title={item.title} description={item.description} />
+        <ListItem
+            title={<Text>{item.title}</Text>}
+            description={item.description}
+        />
     );
 
     return (
