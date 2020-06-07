@@ -1,6 +1,6 @@
 import React from 'react';
 import {Image} from 'react-native';
-import {Icon, ListItem} from '@ui-kitten/components';
+import {Icon, ListItem, Text} from '@ui-kitten/components';
 import {BasicButton} from '../buttons/BasicButton';
 
 const RoutesList = props => {
@@ -27,7 +27,7 @@ const RoutesList = props => {
     const renderItem = item => (
         <ListItem
             key={item.id}
-            title={item.name}
+            title={<Text>{item.name}</Text>}
             accessoryLeft={style => renderRouteImage(style, item.image_url)}
             accessoryRight={renderChevron}
             onPress={() => {
