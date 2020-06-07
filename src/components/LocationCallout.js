@@ -16,8 +16,8 @@ export const LocationCallout = props => {
                     <Button
                         appearance="ghost"
                         status="basic"
-                        icon={style => (
-                            <Icon {...style} name="arrow-ios-forward" />
+                        accessoryLeft={evaProps => (
+                            <Icon {...evaProps} name="arrow-ios-forward" />
                         )}
                     />
                 </View>
@@ -35,11 +35,11 @@ const calloutStyles = StyleService.create({
         ...Alignment.rowSpacedBetween,
         ...Alignment.mediumRounded,
         ...Colors.whiteBg,
+        ...Alignment.center,
         width: 200,
     },
     contentView: {
         width: '90%',
-        justifyContent: 'center',
     },
     locationTitle: {
         fontSize: 16,
