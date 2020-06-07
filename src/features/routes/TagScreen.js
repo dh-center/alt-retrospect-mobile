@@ -3,7 +3,6 @@ import {ScrollView} from 'react-native';
 import {
     Icon,
     Layout,
-    Spinner,
     StyleService,
     Text,
     useStyleSheet,
@@ -21,29 +20,20 @@ const TagScreen = props => {
     const tag = props.route.params.tag;
 
     const [searchResults, setSearchResults] = useState([]);
-    const [isFetching, setIsFetching] = useState(false);
 
     function fetchSearchResults() {
-        setIsFetching(true);
         getRoutesByTag(tag.id).then(result => {
             setSearchResults(result.routes);
-            setIsFetching(false);
         });
     }
 
     useEffect(fetchSearchResults, []);
-    if (isFetching) {
-        return (
-            <Layout style={styles.centerContent}>
-                <Spinner />
-            </Layout>
-        );
-    } else {
-        return (
-            <Layout style={styles.flexArea} level="3">
-                <Layout style={styles.headerLayout} level="3">
+
+    return (
+        <Layout style={styles.flexArea} level="3">
+            <Layout style={styles.headerLayout} level="3">
+                <Layout style={styles.headerRow} level="3">
                     <ControlButton
-                        style={styles.backButton}
                         accessoryLeft={evaProps => (
                             <Icon {...evaProps} name="arrow-ios-back" />
                         )}
@@ -55,17 +45,19 @@ const TagScreen = props => {
                         {tag.name}
                     </Text>
                 </Layout>
-                <Layout style={styles.roundedLayout} level="1">
-                    <ScrollView>
+            </Layout>
+            <Layout style={styles.roundedLayout} level="1">
+                <ScrollView>
+                    {searchResults ? (
                         <RoutesList
                             data={searchResults}
                             navigation={props.navigation}
                         />
-                    </ScrollView>
-                </Layout>
+                    ) : null}
+                </ScrollView>
             </Layout>
-        );
-    }
+        </Layout>
+    );
 };
 
 const mapDispatchToProps = dispatch => {
@@ -81,12 +73,16 @@ export default connect(
 )(TagScreen);
 
 const stylesheet = StyleService.create({
-    centerContent: Alignment.center,
     flexArea: Alignment.flexArea,
     headerLayout: {
         ...Spacing.basePadding,
         ...Alignment.row,
         ...Alignment.smallHeader,
+    },
+    headerRow: {
+        ...Alignment.row,
+        ...Alignment.center,
+        ...Alignment.pb0,
     },
     roundedLayout: {
         ...Spacing.basePadding,
@@ -96,5 +92,4 @@ const stylesheet = StyleService.create({
         ...Alignment.fullHeight,
     },
     pageTitle: Colors.white,
-    backButton: Spacing.pb0,
 });
