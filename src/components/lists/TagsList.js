@@ -7,16 +7,23 @@ import {
 } from '@ui-kitten/components';
 import {BasicButton} from '../buttons/BasicButton';
 import {Alignment, Spacing} from '../../styles';
+import Svg, {Circle} from 'react-native-svg';
+import theme from '../../styles/theme';
 
 export const TagsList = props => {
     const styles = useStyleSheet(stylesheet);
 
     const renderTagIcon = style => (
-        <Icon {...style} name="radio-button-on-outline" />
+        <Svg height="30" width="30">
+            <Circle cx="15" cy="15" r="15" fill={theme['color-info-400']} />
+            <Circle cx="15" cy="15" r="7" fill="white" />
+        </Svg>
     );
     const renderChevron = style => (
         <BasicButton
-            renderIcon={style => <Icon {...style} name="chevron-right" />}
+            accessoryLeft={evaProps => (
+                <Icon {...evaProps} name="chevron-right" />
+            )}
             onPress={() => props.navigation.navigate('Search')}
         />
     );
@@ -25,8 +32,8 @@ export const TagsList = props => {
         <ListItem
             key={item.id}
             title={`${item.name}`}
-            icon={renderTagIcon}
-            accessory={renderChevron}
+            accessoryLeft={renderTagIcon}
+            accessoryRight={renderChevron}
             style={styles.tagBody}
             onPress={() =>
                 props.navigation.navigate('RoutesByTag', {tag: item})

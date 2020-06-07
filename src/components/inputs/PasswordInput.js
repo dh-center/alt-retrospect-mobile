@@ -20,7 +20,7 @@ export const PasswordInput = props => {
             {...props}
             label={str('auth.password')}
             placeholder="********"
-            icon={renderIcon}
+            accessoryRight={renderIcon}
             secureTextEntry={secureTextEntry}
             onIconPress={onIconPress}
         />

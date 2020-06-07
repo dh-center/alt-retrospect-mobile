@@ -79,7 +79,9 @@ const RoutesScreen = props => {
                 </Text>
                 <ControlButton
                     style={styles.controlButton}
-                    renderIcon={style => <Icon {...style} name="search" />}
+                    accessoryLeft={evaProps => (
+                        <Icon {...evaProps} name="search" />
+                    )}
                     onPress={() => {
                         props.navigation.navigate('Search', {
                             searchBarOpen: true,

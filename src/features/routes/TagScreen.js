@@ -44,8 +44,8 @@ const TagScreen = props => {
                 <Layout style={styles.headerLayout} level="3">
                     <ControlButton
                         style={styles.backButton}
-                        renderIcon={style => (
-                            <Icon {...style} name="arrow-ios-back" />
+                        accessoryLeft={evaProps => (
+                            <Icon {...evaProps} name="arrow-ios-back" />
                         )}
                         onPress={() => {
                             props.navigation.goBack();
