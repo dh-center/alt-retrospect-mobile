@@ -26,3 +26,5 @@ export const GET_USER_INFO_URI = API_URL + '/auth/users/me/';
 export const ADD_TO_SAVED_ROUTES = API_URL + '/api/routes/addToUserRoutes';
 export const REMOVE_FROM_SAVED_ROUTES =
     API_URL + '/api/routes/removeFromUserRoutes';
+
+export const INCREASE_ROUTE_VIEWS_COUNTER = API_URL + '/api/routes/addView';

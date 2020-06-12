@@ -13,11 +13,22 @@ import {connect, useSelector} from 'react-redux';
 import {str} from '../../i18n';
 import {LocationsList} from '../../components/lists/LocationsList';
 import {ControlButton} from '../../components/buttons/ControlButton';
-import {addToSaved, fetchRoute, removeFromSaved} from '../../api/routes';
+import {
+    addToSaved,
+    fetchRoute,
+    increaseRouteViewsCounter,
+    removeFromSaved,
+} from '../../api/routes';
 import {routes} from '../../selectors/routes';
 import {locations} from '../../selectors/locations';
 import {createLocation, updateLocation} from '../../actions/locations';
 import {Alignment, Colors, Spacing} from '../../styles';
+
+// defines weight of actions that increase route views counter
+const increaseViewsWeights = {
+    view: 1,
+    save: 3,
+};
 
 const RouteDescriptionScreen = props => {
     const styles = useStyleSheet(stylesheet);
@@ -58,15 +69,16 @@ const RouteDescriptionScreen = props => {
         if (props.isAuthorised) {
             if (thisRoute.isSaved) {
                 await removeFromSaved(thisRoute.id);
-                thisRoute.isSaved = false;
-                updateRoute(thisRoute);
-                setIsSaved(false);
             } else {
                 await addToSaved(thisRoute.id);
-                thisRoute.isSaved = true;
-                updateRoute(thisRoute);
-                setIsSaved(true);
+                await increaseRouteViewsCounter(
+                    thisRoute.id,
+                    increaseViewsWeights.save,
+                );
             }
+            thisRoute.isSaved = !thisRoute.isSaved;
+            updateRoute(thisRoute);
+            setIsSaved(thisRoute.isSaved);
         } else {
             props.navigation.navigate('Profile');
         }
@@ -77,6 +89,19 @@ const RouteDescriptionScreen = props => {
     }
 
     useEffect(getRouteDetails, []);
+    useEffect(
+        () => {
+            const increaseCount = async () => {
+                const result = await increaseRouteViewsCounter(
+                    thisRoute.id,
+                    increaseViewsWeights.view,
+                );
+            };
+            increaseCount();
+        },
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+        [],
+    );
 
     return (
         <Layout style={styles.flexArea} level="3">
