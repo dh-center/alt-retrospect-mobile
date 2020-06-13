@@ -47,30 +47,31 @@ jobs:
           name: app-release.apk
           path: android/app/build/outputs/apk/release/
 
-  build-ios:
-    needs: install-and-test
-    runs-on: [self-hosted, macos]
-    steps:
-      - uses: actions/checkout@v2
-      - name: Install npm dependencies
-        run: |
-          npm install
-      - name: Install pod dependencies
-        run: |
-          cd ios && pod install
-      - name: Make envfile
-        uses: SpicyPizza/create-envfile@v1
-        with:
-          envkey_IOS_GM_API_KEY: ${{ secrets.IOS_GM_API_KEY }}
-          envkey_ANDROID_GM_API_KEY: ${{ secrets.ANDROID_GM_API_KEY }}
-          envkey_GM_DIRECTIONS_API_KEY: ${{ secrets.GM_DIRECTIONS_API_KEY }}
-      - name: Build app
-        run: |
-          xcodebuild -workspace AltRetrospect.xcworkspace -scheme AltRetrospect archive -archivePath AltRetrospect.xcarchive -allowProvisioningUpdates
-          xcodebuild -exportArchive -archivePath ./AltRetrospect.xcarchive -exportPath . -exportOptionsPlist AltRetrospect/Info.plist
-          mv AltRetrospect.ipa ../AltRetrospect.ipa
-      - name: Upload Artifact
-        uses: actions/upload-artifact@v1
-        with:
-          name: AltRetrospect.ipa
-          path: ios/build/
+# This won't work until Fastlane is set up
+#  build-ios:
+#    needs: install-and-test
+#    runs-on: [self-hosted, macos]
+#    steps:
+#      - uses: actions/checkout@v2
+#      - name: Install npm dependencies
+#        run: |
+#          npm install
+#      - name: Install pod dependencies
+#        run: |
+#          cd ios && pod install
+#      - name: Make envfile
+#        uses: SpicyPizza/create-envfile@v1
+#        with:
+#          envkey_IOS_GM_API_KEY: ${{ secrets.IOS_GM_API_KEY }}
+#          envkey_ANDROID_GM_API_KEY: ${{ secrets.ANDROID_GM_API_KEY }}
+#          envkey_GM_DIRECTIONS_API_KEY: ${{ secrets.GM_DIRECTIONS_API_KEY }}
+#      - name: Build app
+#        run: |
+#          xcodebuild -workspace AltRetrospect.xcworkspace -scheme AltRetrospect archive -archivePath AltRetrospect.xcarchive -allowProvisioningUpdates
+#          xcodebuild -exportArchive -archivePath ./AltRetrospect.xcarchive -exportPath . -exportOptionsPlist AltRetrospect/Info.plist
+#          mv AltRetrospect.ipa ../AltRetrospect.ipa
+#      - name: Upload Artifact
+#        uses: actions/upload-artifact@v1
+#        with:
+#          name: AltRetrospect.ipa
+#          path: ios/build/
