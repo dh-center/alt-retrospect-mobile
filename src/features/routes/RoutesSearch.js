@@ -1,5 +1,5 @@
 import React, {useState} from 'react';
-import {ScrollView, StatusBar, Platform} from 'react-native';
+import {ScrollView, StatusBar, Platform, View} from 'react-native';
 import DateTimePicker from '@react-native-community/datetimepicker';
 import {
     Icon,
@@ -7,7 +7,7 @@ import {
     Spinner,
     StyleService,
     Text,
-    Input,
+    Button,
     useStyleSheet,
 } from '@ui-kitten/components';
 import RoutesList from '../../components/lists/RoutesList';
@@ -31,7 +31,7 @@ const RoutesSearch = props => {
     const [isFetching, setIsFetching] = useState(false);
     const [startedSearch, setStartedSearch] = useState(false);
 
-    const [show, setShow] = useState(false);
+    const [showTimeInput, setShowTimeInput] = useState(false);
     const [time, setTime] = useState(new Date(2020, 6, 20, 1, 0, 0));
 
     function fetchSearchResults(query) {
@@ -48,8 +48,17 @@ const RoutesSearch = props => {
     }
 
     function setNewTime(event, newTime) {
+        if (Platform.OS === 'android') {
+            setShowTimeInput(false);
+        }
         const currentTime = newTime || time;
         setTime(currentTime);
+    }
+
+    function getReadableTime(timeObject) {
+        const hours = timeObject.getHours();
+        const minutes = timeObject.getMinutes();
+        return `${hours} : ${minutes < 10 ? '0' + minutes : minutes}`;
     }
 
     return (
@@ -61,20 +70,28 @@ const RoutesSearch = props => {
 
             {searchBarOpen ? (
                 <Layout style={styles.headerLayout} level="3">
-                    <SearchBar
-                        style={styles.searchBar}
-                        onChangeText={text => fetchSearchResults(text)}
-                        onBlur={() => {
-                            setSearchBarOpen(false);
-                        }}
-                        open={searchBarOpen}
-                    />
-                    <Input
-                        value={`${time.getHours()}:${time.getMinutes()}`}
-                        onFocus={() => setShow(true)}
-                        onBlur={() => setShow(false)}
-                        onChangeText={text => setTime(text)}
-                    />
+                    <View style={styles.searchBarView}>
+                        <SearchBar
+                            style={styles.searchBar}
+                            onChangeText={text => fetchSearchResults(text)}
+                            onBlur={() => {
+                                setSearchBarOpen(false);
+                            }}
+                            open={searchBarOpen}
+                        />
+                    </View>
+                    <View style={styles.timeInputView}>
+                        <Button
+                            style={styles.timeInput}
+                            accessoryLeft={evaProps => (
+                                <Icon {...evaProps} name="clock-outline" />
+                            )}
+                            children={getReadableTime(time)}
+                            onPress={() => setShowTimeInput(!showTimeInput)}
+                            status="control"
+                            size="small"
+                        />
+                    </View>
                 </Layout>
             ) : (
                 <Layout style={styles.headerLayout} level="3">
@@ -130,7 +147,7 @@ const RoutesSearch = props => {
                         </Layout>
                     )}
                 </ScrollView>
-                {show && (
+                {showTimeInput && (
                     <DateTimePicker
                         testID="dateTimePicker"
                         mode={Platform.OS === 'ios' ? 'countdown' : 'time'}
@@ -182,6 +199,16 @@ const stylesheet = StyleService.create({
         ...Spacing.pb0,
     },
     searchBar: {
-        width: '80%',
+        ...Alignment.fullWidth,
+    },
+    timeInput: {
+        ...Spacing.mb7,
+    },
+    searchBarView: {
+        width: '70%',
+    },
+    timeInputView: {
+        ...Alignment.center,
+        width: '30%',
     },
 });
