@@ -1,5 +1,5 @@
 # alt-retrospect-mobile
-![CI](https://github.com/dh-center/alt-retrospect-mobile/workflows/Install%20and%20test/badge.svg)
+![CI](https://github.com/dh-center/alt-retrospect-mobile/workflows/CI/badge.svg)
 
 ## How to run
 - Create `.env` file in the root directory
