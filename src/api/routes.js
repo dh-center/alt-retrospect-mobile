@@ -5,6 +5,7 @@ import {
     ADD_TO_SAVED_ROUTES,
     REMOVE_FROM_SAVED_ROUTES,
     GET_ROUTES_BY_TAG,
+    INCREASE_ROUTE_VIEWS_COUNTER,
 } from './constants';
 import {fetchGET, fetchPOST} from './common';
 
@@ -30,4 +31,8 @@ export function removeFromSaved(routeId) {
 
 export function getRoutesByTag(tagId) {
     return fetchPOST(GET_ROUTES_BY_TAG, {tag_ids: tagId.toString()});
+}
+
+export function increaseRouteViewsCounter(routeId, count) {
+    return fetchPOST(INCREASE_ROUTE_VIEWS_COUNTER, {id: routeId, count: count});
 }
