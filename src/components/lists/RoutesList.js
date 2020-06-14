@@ -2,6 +2,7 @@ import React from 'react';
 import {Image} from 'react-native';
 import {Icon, ListItem, Text} from '@ui-kitten/components';
 import {BasicButton} from '../buttons/BasicButton';
+import {str} from '../../i18n';
 
 const RoutesList = props => {
     const renderRouteImage = (style, uri) => (
@@ -27,7 +28,12 @@ const RoutesList = props => {
     const renderItem = item => (
         <ListItem
             key={item.id}
-            title={<Text>{item.name}</Text>}
+            title={evaProps => (
+                <Text numberOfLines={2} {...evaProps}>
+                    {item.name}
+                </Text>
+            )}
+            description={`${item.duration} ${str('routes.min')}`}
             accessoryLeft={style => renderRouteImage(style, item.image_url)}
             accessoryRight={renderChevron}
             onPress={() => {
