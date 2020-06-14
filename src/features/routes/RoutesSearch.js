@@ -1,11 +1,13 @@
 import React, {useState} from 'react';
-import {ScrollView, StatusBar} from 'react-native';
+import {ScrollView, StatusBar, Platform} from 'react-native';
+import DateTimePicker from '@react-native-community/datetimepicker';
 import {
     Icon,
     Layout,
     Spinner,
     StyleService,
     Text,
+    Input,
     useStyleSheet,
 } from '@ui-kitten/components';
 import RoutesList from '../../components/lists/RoutesList';
@@ -29,6 +31,9 @@ const RoutesSearch = props => {
     const [isFetching, setIsFetching] = useState(false);
     const [startedSearch, setStartedSearch] = useState(false);
 
+    const [show, setShow] = useState(false);
+    const [time, setTime] = useState(new Date(2020, 6, 20, 1, 0, 0));
+
     function fetchSearchResults(query) {
         if (query !== '') {
             setIsFetching(true);
@@ -40,6 +45,11 @@ const RoutesSearch = props => {
         } else {
             setSearchResults([]);
         }
+    }
+
+    function setNewTime(event, newTime) {
+        const currentTime = newTime || time;
+        setTime(currentTime);
     }
 
     return (
@@ -58,6 +68,12 @@ const RoutesSearch = props => {
                             setSearchBarOpen(false);
                         }}
                         open={searchBarOpen}
+                    />
+                    <Input
+                        value={`${time.getHours()}:${time.getMinutes()}`}
+                        onFocus={() => setShow(true)}
+                        onBlur={() => setShow(false)}
+                        onChangeText={text => setTime(text)}
                     />
                 </Layout>
             ) : (
@@ -114,6 +130,18 @@ const RoutesSearch = props => {
                         </Layout>
                     )}
                 </ScrollView>
+                {show && (
+                    <DateTimePicker
+                        testID="dateTimePicker"
+                        mode={Platform.OS === 'ios' ? 'countdown' : 'time'}
+                        display="default"
+                        value={time}
+                        minuteInterval={15}
+                        onChange={(event, newTime) =>
+                            setNewTime(event, newTime)
+                        }
+                    />
+                )}
             </Layout>
         </Layout>
     );
@@ -154,6 +182,6 @@ const stylesheet = StyleService.create({
         ...Spacing.pb0,
     },
     searchBar: {
-        ...Alignment.fullWidth,
+        width: '80%',
     },
 });
