@@ -14,10 +14,13 @@ import RoutesList from '../../components/lists/RoutesList';
 import {SearchBar} from '../../components/inputs/SearchBar';
 import {str} from '../../i18n';
 import {ControlButton} from '../../components/buttons/ControlButton';
-import {getSearchRoutes} from '../../api/routes';
+import {fetchRoute, getSearchRoutes} from '../../api/routes';
 import {Alignment, Colors, Spacing} from '../../styles';
-import {useSelector} from 'react-redux';
+import {connect, useSelector} from 'react-redux';
 import {routes} from '../../selectors/routes';
+import {fetchDirection} from '../../api/directions';
+import {updateRoute} from '../../actions/routes';
+import {createLocation, updateLocation} from '../../actions/locations';
 
 const RoutesSearch = props => {
     const styles = useStyleSheet(stylesheet);
@@ -38,13 +41,57 @@ const RoutesSearch = props => {
         if (query !== '') {
             setIsFetching(true);
             setStartedSearch(true);
-            getSearchRoutes(query).then(result => {
-                setSearchResults(result.routes);
-                setIsFetching(false);
-            });
+            getSearchRoutes(query)
+                .then(result => {
+                    const limit = time.getHours() * 60 + time.getMinutes();
+                    return limitRoutesByTime(result.routes, limit);
+                })
+                .then(filteredRoutes => {
+                    setSearchResults(filteredRoutes);
+                    setIsFetching(false);
+                });
         } else {
             setSearchResults([]);
         }
+    }
+
+    async function limitRoutesByTime(filteredRoutes, limit) {
+        let resultRoutes = filteredRoutes;
+        for (let route of filteredRoutes) {
+            if (route.duration > limit) {
+                let durations = [];
+                const data = await fetchRoute(route.id);
+                route = data.route;
+                for (let i = 0; i < route.location_instances.length - 1; i++) {
+                    const result = await fetchDirection(
+                        route.location_instances[i],
+                        route.location_instances[i + 1],
+                    );
+                    const durationBetweenPoints =
+                        result.routes[0].legs[0].steps[0].duration;
+                    durations.push(durationBetweenPoints.value);
+                }
+                let totalDuration = durations.reduce((a, b) => a + b, 0);
+                while (totalDuration > limit) {
+                    const toRemove = durations.pop();
+                    totalDuration -= toRemove;
+                }
+                route.location_instances = route.location_instances.slice(
+                    durations.length,
+                );
+                route.duration = totalDuration;
+                props.updateRoute(route);
+                if (
+                    route.location_instances.length <= 1 ||
+                    route.duration <= 0
+                ) {
+                    resultRoutes = resultRoutes.filter(item => {
+                        return item.id !== route.id;
+                    });
+                }
+            }
+        }
+        return resultRoutes;
     }
 
     function setNewTime(event, newTime) {
@@ -164,7 +211,16 @@ const RoutesSearch = props => {
     );
 };
 
-export default RoutesSearch;
+const mapDispatchToProps = dispatch => {
+    return {
+        updateRoute: route => dispatch(updateRoute(route)),
+    };
+};
+
+export default connect(
+    null,
+    mapDispatchToProps,
+)(RoutesSearch);
 
 const stylesheet = StyleService.create({
     pageTitle: {

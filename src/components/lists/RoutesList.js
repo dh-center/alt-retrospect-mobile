@@ -33,7 +33,6 @@ const RoutesList = props => {
                     {item.name}
                 </Text>
             )}
-            description={`${item.duration} ${str('routes.min')}`}
             accessoryLeft={style => renderRouteImage(style, item.image_url)}
             accessoryRight={renderChevron}
             onPress={() => {
