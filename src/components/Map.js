@@ -198,7 +198,12 @@ const Map = props => {
                                   description={location.description}>
                                   <Callout tooltip>
                                       <LocationCallout
-                                          title={location.address}
+                                          title={
+                                              location.name ||
+                                              (location.instances
+                                                  ? location.instances[0].name
+                                                  : location.address)
+                                          }
                                       />
                                   </Callout>
                               </Marker>
