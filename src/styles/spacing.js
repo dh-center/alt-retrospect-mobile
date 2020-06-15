@@ -28,6 +28,10 @@ export const mt15 = {
     marginTop: 15,
 };
 
+export const mb7 = {
+    marginBottom: 7,
+};
+
 export const mb40neg = {
     marginBottom: -40,
 };
