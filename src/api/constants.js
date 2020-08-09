@@ -1,6 +1,6 @@
 import {currentLocale} from '../i18n';
 
-const BASE_API_URL = 'http://learnsql.ru:8000';
+const BASE_API_URL = 'https://dhcenter.itmo.ru:8001';
 export const DIRECTIONS_API_URL =
     'https://maps.googleapis.com/maps/api/directions/json?';
 
